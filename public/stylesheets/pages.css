@@ -1,0 +1,49 @@
+body {
+    padding: 10px;
+}
+
+.item {
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding: 5px;
+    border: 3px solid #000000;
+}
+
+.item:hover {
+    border: 3px solid #005cbf;
+    background-color: #dddddd;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: black;
+    text-decoration: none;
+}
+
+.folder {
+}
+
+.file {
+
+}
+
+.audio {
+
+}
+
+.image {
+
+}
+
+.item img {
+    width: 100%;
+}
+
+.list {
+    width: 100%;
+    max-width: 400px;
+}
+
+.title {
+    font-size: 18px;
+    padding-bottom: 2px;
+}

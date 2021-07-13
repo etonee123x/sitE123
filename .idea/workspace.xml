@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Pug File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1uUdNc4bjccmmxjI0SnD53oYLjz" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.15.3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../insurance-node-express-pug" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\music" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\images" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\music\albums" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\javascripts" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\music\albums" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\media_content\music" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.watch">
+    <configuration name="audioLib.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/public/javascripts/audioLib.js" working-dir="$PROJECT_DIR$/public/javascripts">
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="watch" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.audioLib.js" />
+      <item itemvalue="npm.start" />
+      <item itemvalue="npm.watch" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.audioLib.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="" />
+      <created>1624724062134</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1624724062134</updated>
+      <workItem from="1624724064824" duration="133000" />
+      <workItem from="1624765867577" duration="3115000" />
+      <workItem from="1624770958974" duration="3564000" />
+      <workItem from="1624784283387" duration="2641000" />
+      <workItem from="1624786962754" duration="8399000" />
+      <workItem from="1624903706857" duration="2966000" />
+      <workItem from="1625290337704" duration="18140000" />
+      <workItem from="1625315912013" duration="3703000" />
+      <workItem from="1625320743617" duration="92000" />
+      <workItem from="1625329666259" duration="7187000" />
+      <workItem from="1625483171580" duration="876000" />
+      <workItem from="1625486435424" duration="1049000" />
+      <workItem from="1625552376015" duration="14000" />
+      <workItem from="1626162757614" duration="1060000" />
+      <workItem from="1626167552300" duration="2173000" />
+      <workItem from="1626172226080" duration="9261000" />
+      <workItem from="1626188105669" duration="1227000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1624903743839">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624903743839" />
+    <state x="679" y="329" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1625291964542">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="679" y="329" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1625291964542" />
+    <state x="740" y="227" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1624766071217">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="227" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624766071217" />
+    <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1626189321889">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626189321889" />
+    <state x="740" y="277" key="FileChooserDialogImpl" timestamp="1626180999363">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1626180999363" />
+    <state width="1899" height="192" key="GridCell.Tab.0.bottom" timestamp="1626186885444">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="192" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1626186885444" />
+    <state width="1899" height="192" key="GridCell.Tab.0.center" timestamp="1626186885443">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="192" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1626186885443" />
+    <state width="1899" height="192" key="GridCell.Tab.0.left" timestamp="1626186885443">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="192" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1626186885443" />
+    <state width="1899" height="192" key="GridCell.Tab.0.right" timestamp="1626186885444">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="192" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1626186885444" />
+    <state x="826" y="178" key="SettingsEditor" timestamp="1626189426231">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="826" y="178" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1626189426231" />
+    <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1626188514048" />
+  </component>
+</project>

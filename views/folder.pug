@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    .col
+        .row
+            .list
+                if paths.lvlUp
+                    a(href=`${paths.lvlUp}`)
+                        .item.folder
+                            .title ...
+                if ls.length
+                    each item in ls
+                        if (item.type === 'folder')
+                            a(href=`${paths.rel}${item.url}`)
+                                .item.folder
+                                    .title #{item.name}
+                        if (item.type === 'file' && item.ext === 'mp3')
+                            .item.audio
+                                .title #{item.name}
+                                audio(controls='controls')
+                                    source(src=`/content${paths.rel}${item.name}` type='audio/mpeg')
+                        if (item.type === 'file' && (item.ext === 'jpg' || item.ext === 'png'))
+                            .item.image
+                                .title #{item.name}
+                                img(src=`/content${paths.rel}${item.name}`)
+                else
+                    h3 Fuck! Nothing in this folder :(
+    //include debug
