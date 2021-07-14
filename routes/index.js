@@ -9,8 +9,8 @@ function elementProcessing(element, elemsNumbers, linkedFile) {
 	let url = encodeURI(element.name)
 	elemsNumbers[ext] == undefined ? elemsNumbers[ext] = '0' : null
 	let number = elemsNumbers[ext]++
-	if (linkedFile){
-		if (`${name}.${ext}`===linkedFile.name){
+	if (linkedFile) {
+		if (name === `${linkedFile.name}.${linkedFile.ext}`) {
 			linkedFile.number = number
 		}
 	}

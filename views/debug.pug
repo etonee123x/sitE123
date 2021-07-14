@@ -1,3 +1,7 @@
 h5 lvl up: #{paths.lvlUp}
 h5 rel: #{paths.rel}
 h5 abs: #{paths.abs}
+if linkedFile
+    h5 linked file: #{linkedFile.name}.#{linkedFile.ext} (#{linkedFile.number})
+else
+    h5 No file linked
