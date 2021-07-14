@@ -26,7 +26,7 @@ function elementProcessing(element, elemsNumbers, linkedFile) {
 async function getFolderData(relPath = '') {
 	let elemsNumbers = {}
 	let folderData = {}
-	if (relPath.includes('.')) {
+	if (fs.statSync(`./public/content/${relPath}`).isFile()) {
 		console.log('FILE!!!'.red)
 		let fileMatch = relPath.match(/([^\/]*)\.(.*)/)
 		folderData.linkedFile = {}
