@@ -2,7 +2,6 @@ const defaultVolume = 0.8
 let currentVolume = defaultVolume
 
 let audio = document.getElementsByTagName('audio')
-
 //for all audio
 for (let i = 0; i < audio.length; i++) {
 	//set default volume
@@ -32,5 +31,14 @@ for (let i = 0; i < audio.length; i++) {
 		}
 	})
 }
-if (audio)
-	audio[0].play()
+
+document.addEventListener('DOMContentLoaded', playSelectedTrack(document.location.pathname))
+
+function playSelectedTrack(href) {
+	console.log(href)
+	for (let track of audio) {
+		if (track.getElementsByTagName('source')[0].src.replace('http://localhost:3000/content', '') === href) {
+			track.play()
+		}
+	}
+}
