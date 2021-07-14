@@ -3,19 +3,25 @@ let currentVolume = defaultVolume
 
 let audio = document.getElementsByTagName('audio')
 
+//for all audio
 for (let i = 0; i < audio.length; i++) {
+	//set default volume
 	audio[i].volume = defaultVolume
+
+	//after playing resets current time and plays next
 	audio[i].addEventListener('ended', function () {
+		audio[i].currentTime = 0
 		audio[(i + 1) % audio.length].play()
 	})
+
+	//when 1 plays others paused
 	audio[i].addEventListener('play', function () {
-		for (let j = 0; j < audio.length; j++) {
-			if (i !== j) {
+		for (let j = 0; j < audio.length; j++)
+			if (i !== j)
 				audio[j].pause()
-				audio[j].currentTime = 0
-			}
-		}
 	})
+
+	//links volumes of all players together
 	audio[i].addEventListener('volumechange', function () {
 		for (let j = 0; j < audio.length; j++) {
 			if (this.muted)
@@ -25,9 +31,6 @@ for (let i = 0; i < audio.length; i++) {
 			audio[j].volume = this.volume
 		}
 	})
-	audio[i].addEventListener('', function () {
-		for (let j = 0; j < audio.length; j++) {
-			audio[j].volume = audio[i].volume
-		}
-	})
 }
+if (audio)
+	audio[0].play()
