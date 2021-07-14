@@ -35,7 +35,6 @@ for (let i = 0; i < audio.length; i++) {
 document.addEventListener('DOMContentLoaded', playSelectedTrack(document.location.pathname))
 
 function playSelectedTrack(href) {
-	console.log(href)
 	for (let track of audio) {
 		if (track.getElementsByTagName('source')[0].src.replace('http://localhost:3000/content', '') === href) {
 			track.play()
