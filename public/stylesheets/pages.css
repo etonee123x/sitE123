@@ -19,6 +19,10 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
 
+.playing {
+
+}
+
 .folder {
 }
 
@@ -26,9 +30,6 @@ a:link, a:visited, a:hover, a:active {
 
 }
 
-.audio {
-
-}
 
 .image {
 

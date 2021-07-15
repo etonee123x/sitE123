@@ -2,18 +2,13 @@ const express = require('express')
 const fs = require('fs')
 let router = express.Router()
 
-function elementProcessing(element, elemsNumbers, linkedFile) {
+function elementProcessing(element, elemsNumbers) {
 	let name = element.name
 	let type = element.isDirectory() ? 'folder' : 'file'
 	let ext = element.isDirectory() ? null : element.name.match(/([^\.]+)$/g)[0]
 	let url = encodeURI(element.name)
 	elemsNumbers[ext] == undefined ? elemsNumbers[ext] = '0' : null
 	let number = elemsNumbers[ext]++
-	if (linkedFile) {
-		if (name === `${linkedFile.name}.${linkedFile.ext}`) {
-			linkedFile.number = number
-		}
-	}
 	return {
 		name: name,
 		type: type,
@@ -45,7 +40,7 @@ async function getFolderData(relPath = '') {
 	console.log(`${folderData.paths.abs}`.bgBlue)
 	console.log(`${folderData.paths.lvlUp}`.bgGreen)
 	folderData.ls = []
-	folderData.ls = fs.readdirSync(folderData.paths.abs, {withFileTypes: true}).map((element) => elementProcessing(element, elemsNumbers, folderData.linkedFile))
+	folderData.ls = fs.readdirSync(folderData.paths.abs, {withFileTypes: true}).map((element) => elementProcessing(element, elemsNumbers))
 	return folderData
 }
 

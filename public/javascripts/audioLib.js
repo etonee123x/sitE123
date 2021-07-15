@@ -15,9 +15,11 @@ for (let i = 0; i < audio.length; i++) {
 
 	//when 1 plays others paused
 	audio[i].addEventListener('play', function () {
-		for (let j = 0; j < audio.length; j++)
-			if (i !== j)
+		for (let j = 0; j < audio.length; j++){
+			if (i !== j){
 				audio[j].pause()
+			}
+		}
 	})
 
 	//links volumes of all players together
@@ -38,6 +40,7 @@ function playSelectedTrack(href) {
 	for (let track of audio) {
 		if (track.getElementsByTagName('source')[0].src.replace(`${document.location.origin}/content`, '') === href) {
 			track.play()
+			track.classList.add('playing')
 		}
 	}
 }
