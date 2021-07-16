@@ -3,6 +3,7 @@ let path = require('path')
 let cookieParser = require('cookie-parser')
 let logger = require('morgan')
 let c = require('colors')
+let createError = require('http-errors');
 
 let indexRouter = require('./routes/index')
 
@@ -16,3 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 module.exports = app
+
+app.use(function(req, res, next) {
+	next(createError(404));
+	res.render('error')
+});

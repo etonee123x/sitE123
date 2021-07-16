@@ -1,5 +1,6 @@
 const express = require('express')
 const fs = require('fs')
+let createError = require('http-errors')
 let router = express.Router()
 
 function elementProcessing(element, elemsNumbers) {
@@ -46,8 +47,12 @@ async function getFolderData(relPath = '') {
 
 router.get('/*', async function (req, res, next) {
 	console.log(req.params)
-	await res.render('folder', await getFolderData(req.params[0]))
-	//await res.send(await getFolderData(req.params[0]))
+	try {
+		await res.render('folder', await getFolderData(req.params[0]))
+	} catch (e) {
+		await res.render('error')
+	}
+//await res.send(await getFolderData(req.params[0]))
 })
 
 module.exports = router
