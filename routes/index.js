@@ -42,13 +42,32 @@ async function getFolderData(relPath = '') {
 	console.log(`${folderData.paths.lvlUp}`.bgGreen)
 	folderData.ls = []
 	folderData.ls = fs.readdirSync(folderData.paths.abs, {withFileTypes: true}).map((element) => elementProcessing(element, elemsNumbers))
+	folderData.navigation = parseNavigation(folderData.paths.rel)
 	return folderData
+}
+
+function parseNavigation(path) {
+	let result = path.split('/')
+	result.pop()
+	result.shift()
+	result.unshift({
+		text: 'root',
+		link: '/',
+	})
+	for (let i = 1; i < result.length; i++) {
+		result[i] = {
+			text: result[i],
+			link: result[i - 1].link + result[i] + '/',
+		}
+	}
+	return result
 }
 
 router.get('/*', async function (req, res, next) {
 	console.log(req.params)
 	try {
 		await res.render('folder', await getFolderData(req.params[0]))
+		//await res.send(await getFolderData(req.params[0]))
 	} catch (e) {
 		await res.render('error')
 	}
