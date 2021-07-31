@@ -33,7 +33,8 @@ a:link, a:visited, a:hover, a:active {
 .image {
 
 }
-
+audio::-webkit-media-controls-timeline{
+}
 .item img {
     width: 100%;
 }

@@ -2,12 +2,8 @@ extends layout
 
 block content
     .col
-        .row.navigation
-            ul
-                each item in navigation
-                    li
-                        a(href=item.link)
-                            |#{item.text}
+        .row
+            include navigation
         .row
             .list
                 if paths.lvlUp
