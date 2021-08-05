@@ -42,7 +42,7 @@ async function getFolderData(relPath = '') {
 	console.log(`${folderData.paths.abs}`.bgBlue)
 	console.log(`${folderData.paths.lvlUp}`.bgGreen)
 	folderData.ls = []
-	folderData.ls = fs.readdirSync(folderData.paths.abs, {withFileTypes: true}).map(element,key => elementProcessing(element, key , elemsNumbers))
+	folderData.ls = fs.readdirSync(folderData.paths.abs, {withFileTypes: true}).map((element,key) => elementProcessing(element, key , elemsNumbers))
 	folderData.navigation = parseNavigation(folderData.paths.rel)
 	return folderData
 }
