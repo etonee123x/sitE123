@@ -3,7 +3,7 @@ const fs = require('fs')
 let createError = require('http-errors')
 let router = express.Router()
 
-function elementProcessing(element, key, elemsNumbers) {
+function elementProcessing(element, elemsNumbers) {
 	let name = element.name
 	let type = element.isDirectory() ? 'folder' : 'file'
 	let ext = element.isDirectory() ? null : element.name.match(/([^\.]+)$/g)[0]
@@ -14,7 +14,6 @@ function elementProcessing(element, key, elemsNumbers) {
 		name: name,
 		type: type,
 		ext: ext,
-		key:key+1,
 		url: url,
 		numberOfThisExt: number,
 	}
@@ -42,7 +41,7 @@ async function getFolderData(relPath = '') {
 	console.log(`${folderData.paths.abs}`.bgBlue)
 	console.log(`${folderData.paths.lvlUp}`.bgGreen)
 	folderData.ls = []
-	folderData.ls = fs.readdirSync(folderData.paths.abs, {withFileTypes: true}).map((element,key) => elementProcessing(element, key , elemsNumbers))
+	folderData.ls = fs.readdirSync(folderData.paths.abs, {withFileTypes: true}).map(element => elementProcessing(element, elemsNumbers))
 	folderData.navigation = parseNavigation(folderData.paths.rel)
 	return folderData
 }
