@@ -14,7 +14,7 @@ function elementProcessing(element, key, elemsNumbers) {
 		name: name,
 		type: type,
 		ext: ext,
-		key:key,
+		key:key+1,
 		url: url,
 		numberOfThisExt: number,
 	}
