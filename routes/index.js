@@ -66,10 +66,10 @@ function parseNavigation(path) {
 router.get('/*', async function (req, res, next) {
 	console.log(req.params)
 	try {
-		await res.render('folder', await getFolderData(req.params[0]))
-		//await res.send(await getFolderData(req.params[0]))
+		//await res.render('folder', await getFolderData(req.params[0]))
+		await res.send(await getFolderData(req.params[0]))
 	} catch (e) {
-		await res.render('error')
+		await res.send('error')
 	}
 //await res.send(await getFolderData(req.params[0]))
 })
