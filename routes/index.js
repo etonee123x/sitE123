@@ -24,6 +24,11 @@ async function getFolderData(relPath = '') {
 	let folderData = {}
 	if (fs.statSync(`./public/content/${decodeURI(relPath)}`).isFile()) {
 		console.log('FILE!!!'.red)
+		let fileMatch = relPath.match(/([^\/]*)\.(.*)/)
+		folderData.linkedFile = {}
+		folderData.linkedFile.name = fileMatch[1]
+		folderData.linkedFile.ext = fileMatch[2]
+		relPath = relPath.slice(0, fileMatch.index)
 		relPath = relPath.split('/')
 		relPath.pop()
 		relPath = relPath.join('/')
