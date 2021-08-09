@@ -71,7 +71,6 @@ router.get('/*', async function (req, res, next) {
 	} catch (e) {
 		await res.send('error')
 	}
-//await res.send(await getFolderData(req.params[0]))
 })
 
 module.exports = router
