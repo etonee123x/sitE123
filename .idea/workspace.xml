@@ -25,7 +25,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/content/music/E123 – Hagelbössa.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/content/music/albums/E123 x † ∑ I z 3.W † – МЫ ВСЕ/Jgbev.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/content/music/albums/E123 x † ∑ I z 3.W † – МЫ ВСЕ/test/Jgbev.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/content/music/albums/E123 x † ∑ I z 3.W † – МЫ ВСЕ/кто мы/Jgbev.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,24 +61,24 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../site123-react" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/content/music/albums/E123 x † ∑ I z 3.W † – МЫ ВСЕ" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content\music\albums\E123 x † ∑ I z 3.W † – МЫ ВСЕ" />
+      <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content\music\albums\E123 x † ∑ I z 3.W † – МЫ ВСЕ\кто мы" />
+      <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content\music\albums\E123 x † ∑ I z 3.W † – МЫ ВСЕ\test" />
+      <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content\music" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public" />
       <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\music\albums" />
       <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\media_content\music" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content" />
-      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\music\albums" />
-      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\music" />
-      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\images" />
-      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\javascripts" />
     </key>
   </component>
   <component name="RunManager" selected="npm.watch">
@@ -170,6 +175,7 @@
       <workItem from="1628776937714" duration="1271000" />
       <workItem from="1628782167315" duration="1230000" />
       <workItem from="1628850920127" duration="3521000" />
+      <workItem from="1628866347142" duration="9378000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <created>1626189469056</created>
@@ -332,7 +338,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628502851176</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="min update">
+      <created>1628866628002</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1628866628002</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,7 +384,8 @@
     <MESSAGE value="minor update" />
     <MESSAGE value="min up" />
     <MESSAGE value="linked file is back" />
-    <option name="LAST_COMMIT_MESSAGE" value="linked file is back" />
+    <MESSAGE value="min update" />
+    <option name="LAST_COMMIT_MESSAGE" value="min update" />
   </component>
   <component name="WindowStateProjectService">
     <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1624903743839">
@@ -398,22 +412,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1628851111453" />
-    <state width="1899" height="282" key="GridCell.Tab.0.bottom" timestamp="1628861191089">
+    <state width="1899" height="282" key="GridCell.Tab.0.bottom" timestamp="1628876312860">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1628861191089" />
-    <state width="1899" height="282" key="GridCell.Tab.0.center" timestamp="1628861191089">
+    <state width="1899" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1628876312860" />
+    <state width="1899" height="282" key="GridCell.Tab.0.center" timestamp="1628876312859">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1628861191089" />
-    <state width="1899" height="282" key="GridCell.Tab.0.left" timestamp="1628861191089">
+    <state width="1899" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1628876312859" />
+    <state width="1899" height="282" key="GridCell.Tab.0.left" timestamp="1628876312859">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1628861191089" />
-    <state width="1899" height="282" key="GridCell.Tab.0.right" timestamp="1628861191089">
+    <state width="1899" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1628876312859" />
+    <state width="1899" height="282" key="GridCell.Tab.0.right" timestamp="1628876312859">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1628861191089" />
+    <state width="1899" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1628876312859" />
     <state x="750" y="226" key="RollbackChangesDialog" timestamp="1628503323250">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -422,10 +436,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="826" y="178" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1626189426231" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1628502853342">
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1628866630288">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1628502853342" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1628866630288" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
