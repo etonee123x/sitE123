@@ -32,6 +32,8 @@ async function getFolderData(relPath = '') {
 		relPath = relPath.split('/')
 		relPath.pop()
 		relPath = relPath.join('/')
+	} else {
+		folderData.linkedFile = 'none'
 	}
 	folderData.currentFolder = 'root/' + relPath
 	folderData.paths = {}
