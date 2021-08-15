@@ -5,17 +5,20 @@ class FileSystemOperator {
     constructor(contentPath) {
         this.contentPath = contentPath.replace(/\/{2,}|\/$|^\//g, '')
     }
+
     NewRequest(url) {
         this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '')
         this.elementsNumbers = {}
         this.data = {}
         this.getData()
     }
+
     getData() {
         this.getLinkedFile()
         this.getFolderList()
         this.getAllPaths()
         this.getNavigation()
+        console.log(JSON.stringify(this.data, null, 4))
     }
 
     getLinkedFile() {
@@ -60,8 +63,8 @@ class FileSystemOperator {
 
     getAllPaths() {
         this.data.paths = {}
-        this.data.paths.rel = `/${this.data.currentDirectory}`
-        this.data.paths.abs = `/${this.contentPath}/${this.data.currentDirectory}`
+        this.data.paths.rel = `/${this.data.currentDirectory}/`.replace(/\/{2,}/, '/')
+        this.data.paths.abs = `/${this.contentPath}/${this.data.currentDirectory}/`.replace(/\/{2,}/, '/')
         try {
             this.data.paths.lvlUp = this.data.paths.rel.match(/.*\/(?=.+$)/)[0]
         } catch (e) {
@@ -71,7 +74,7 @@ class FileSystemOperator {
 
     getNavigation() {
         let result = this.data.paths.rel.split('/')
-        result.shift()
+        result = result.filter(e => e !== '')
         result.unshift({
             text: 'root',
             link: '/',
