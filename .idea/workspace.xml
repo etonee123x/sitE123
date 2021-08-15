@@ -25,6 +25,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/functions/FsOperator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
@@ -36,13 +37,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Pug File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1uUdNc4bjccmmxjI0SnD53oYLjz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -57,11 +64,14 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../site123-react" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -78,6 +88,9 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.watch">
+    <configuration name="FsOperator.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/functions/FsOperator.js" working-dir="$PROJECT_DIR$/functions">
+      <method v="2" />
+    </configuration>
     <configuration name="audioLib.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/public/javascripts/audioLib.js" working-dir="$PROJECT_DIR$/public/javascripts">
       <method v="2" />
     </configuration>
@@ -103,11 +116,13 @@
     </configuration>
     <list>
       <item itemvalue="Node.js.audioLib.js" />
+      <item itemvalue="Node.js.FsOperator.js" />
       <item itemvalue="npm.start" />
       <item itemvalue="npm.watch" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.FsOperator.js" />
         <item itemvalue="Node.js.audioLib.js" />
       </list>
     </recent_temporary>
@@ -174,7 +189,9 @@
       <workItem from="1628866347142" duration="9983000" />
       <workItem from="1628878386556" duration="835000" />
       <workItem from="1628879241126" duration="2246000" />
-      <workItem from="1628921620595" duration="1615000" />
+      <workItem from="1628921620595" duration="1701000" />
+      <workItem from="1629012473367" duration="7589000" />
+      <workItem from="1629023915260" duration="12035000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <created>1626189469056</created>
@@ -365,7 +382,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628878815529</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="added comments">
+      <created>1628923283603</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1628923283603</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -407,21 +431,26 @@
     <MESSAGE value="fixed bad regex bug" />
     <MESSAGE value="+send error" />
     <MESSAGE value="min update" />
-    <option name="LAST_COMMIT_MESSAGE" value="min update" />
+    <MESSAGE value="added comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="added comments" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1624903743839">
+    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1629023327594">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624903743839" />
+    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1629023327594" />
     <state x="679" y="329" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1625291964542">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="679" y="329" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1625291964542" />
-    <state x="740" y="227" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1624766071217">
+    <state x="740" y="227" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1629016008681">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="227" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1624766071217" />
+    <state x="740" y="227" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1629016008681" />
+    <state x="868" y="311" width="540" height="440" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper" timestamp="1629017683112">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="868" y="311" width="540" height="440" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper/0.0.1920.1040@0.0.1920.1040" timestamp="1629017683112" />
     <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1626189321889">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -430,38 +459,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1628878803532" />
-    <state x="740" y="277" key="FileChooserDialogImpl" timestamp="1628879248748">
+    <state x="419" y="300" key="FileChooserDialogImpl" timestamp="1629023925387">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="277" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1628879248748" />
-    <state width="1899" height="282" key="GridCell.Tab.0.bottom" timestamp="1628882412543">
+    <state x="419" y="300" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1629023925387" />
+    <state width="1899" height="289" key="GridCell.Tab.0.bottom" timestamp="1629041001110">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1628882412543" />
-    <state width="1899" height="282" key="GridCell.Tab.0.center" timestamp="1628882412543">
+    <state width="1899" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1629041001110" />
+    <state width="1899" height="289" key="GridCell.Tab.0.center" timestamp="1629041001110">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1628882412543" />
-    <state width="1899" height="282" key="GridCell.Tab.0.left" timestamp="1628882412543">
+    <state width="1899" height="289" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1629041001110" />
+    <state width="1899" height="289" key="GridCell.Tab.0.left" timestamp="1629041001110">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1628882412543" />
-    <state width="1899" height="282" key="GridCell.Tab.0.right" timestamp="1628882412543">
+    <state width="1899" height="289" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1629041001110" />
+    <state width="1899" height="289" key="GridCell.Tab.0.right" timestamp="1629041001110">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1628882412543" />
+    <state width="1899" height="289" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1629041001110" />
     <state x="750" y="226" key="RollbackChangesDialog" timestamp="1628503323250">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="750" y="226" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1628503323250" />
-    <state x="453" y="178" width="1371" height="711" key="SettingsEditor" timestamp="1628878659553">
+    <state x="453" y="178" width="1371" height="711" key="SettingsEditor" timestamp="1629018194359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="453" y="178" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1628878659553" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1628878817008">
+    <state x="453" y="178" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1629018194359" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1628923286243">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1628878817008" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1628923286243" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
