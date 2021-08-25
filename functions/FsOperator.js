@@ -9,8 +9,9 @@ class FileSystemOperator {
     NewRequest(url) {
         this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '')
         console.log('URL: ', this.url)
+        this.data = {}
+        this.getLinkedFile()
         //this.elementsNumbers = {}
-        //this.data = {}
         //this.getData()
     }
 
