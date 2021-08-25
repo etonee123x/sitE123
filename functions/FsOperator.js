@@ -3,7 +3,16 @@ require('colors')
 
 class FileSystemOperator {
     constructor(contentPath) {
-        this.contentPath = contentPath.replace(/\/{2,}|\/$|^\//g, '')
+        this.contentPath = this.tryToPreventError(contentPath.replace(/\/{2,}|\/$|^\//g, ''))
+    }
+
+    tryToPreventError(path) {
+        try {
+            fs.statSync(path)
+        } catch (e) {
+            path = '../' + path
+        }
+        return path
     }
 
     NewRequest(url) {

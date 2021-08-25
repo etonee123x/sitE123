@@ -3,7 +3,7 @@ let router = express.Router()
 const mode = 'API'
 
 const FileSystemOperator = require('../functions/FsOperator')
-let fsOperator = new FileSystemOperator('../public/content')
+let fsOperator = new FileSystemOperator('public/content')
 
 router.get('/*', function (req, res) {
     console.log(req.params)
