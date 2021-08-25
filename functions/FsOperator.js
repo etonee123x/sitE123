@@ -11,7 +11,7 @@ class FileSystemOperator {
         console.log('URL: ', this.url)
         this.data = {}
         this.getLinkedFile()
-        console.log(fs)
+        console.log(fs.statSync(this.contentPath))
         //this.elementsNumbers = {}
         //this.getData()
     }
