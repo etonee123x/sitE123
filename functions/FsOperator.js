@@ -8,9 +8,10 @@ class FileSystemOperator {
 
     NewRequest(url) {
         this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '')
-        this.elementsNumbers = {}
-        this.data = {}
-        this.getData()
+        console.log('URL: ', this.url)
+        //this.elementsNumbers = {}
+        //this.data = {}
+        //this.getData()
     }
 
     getData() {
@@ -18,7 +19,7 @@ class FileSystemOperator {
         this.getFolderList()
         this.getAllPaths()
         this.getNavigation()
-        console.log(JSON.stringify(this.data, null, 4))
+        //console.log(JSON.stringify(this.data, null, 4))
     }
 
     getLinkedFile() {
