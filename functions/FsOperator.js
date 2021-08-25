@@ -10,8 +10,8 @@ class FileSystemOperator {
         this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '')
         console.log('URL: ', this.url)
         this.data = {}
-        this.getLinkedFile()
-        console.log(fs.statSync(this.contentPath))
+        console.log(fs.statSync(this.url))
+        //this.getLinkedFile()
         //this.elementsNumbers = {}
         //this.getData()
     }
