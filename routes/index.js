@@ -14,7 +14,7 @@ router.get('/*', function (req, res) {
             res.render('folder', fsOperator.data)
         }
     } catch (e) {
-        res.send('error')
+        res.send(e)
     }
 })
 
