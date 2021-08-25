@@ -6,6 +6,7 @@ const FileSystemOperator = require('../functions/FsOperator')
 let fsOperator = new FileSystemOperator('public/content')
 
 router.get('/*', function (req, res) {
+    console.log(req.params)
     try {
         fsOperator.NewRequest(req.params[0])
         if (mode === 'API') {
