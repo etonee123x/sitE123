@@ -11,6 +11,7 @@ class FileSystemOperator {
         console.log('URL: ', this.url)
         this.data = {}
         this.getLinkedFile()
+        console.log(fs)
         //this.elementsNumbers = {}
         //this.getData()
     }
