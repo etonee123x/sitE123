@@ -24,10 +24,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/FsOperator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/FsOperator.js" afterDir="false" />
-    </list>
+    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -199,7 +196,7 @@
       <workItem from="1629968434483" duration="3000" />
       <workItem from="1629988032391" duration="19000" />
       <workItem from="1629991012015" duration="5664000" />
-      <workItem from="1630002848137" duration="92000" />
+      <workItem from="1630002848137" duration="476000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <created>1626189469056</created>
@@ -502,7 +499,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630000204124</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="added few more times fields">
+      <created>1630003017281</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1630003017281</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,7 +528,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="+ translating bin/www" />
     <MESSAGE value="major update&#10;-more test content&#10;-better functionality of Audio players" />
     <MESSAGE value="+autoplay" />
     <MESSAGE value="+autoplay!" />
@@ -549,7 +552,8 @@
     <MESSAGE value="fixed the &quot;../&quot; issue..." />
     <MESSAGE value="added some comments and info about dates (birth, modification) of files" />
     <MESSAGE value="added lox's picture" />
-    <option name="LAST_COMMIT_MESSAGE" value="added lox's picture" />
+    <MESSAGE value="added few more times fields" />
+    <option name="LAST_COMMIT_MESSAGE" value="added few more times fields" />
   </component>
   <component name="WindowStateProjectService">
     <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1629023327594">
@@ -604,10 +608,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="453" y="178" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1629018194359" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630000206470">
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630003024073">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1630000206470" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1630003024073" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
