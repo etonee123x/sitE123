@@ -84,11 +84,10 @@ class FileSystemOperator {
             typeof this.elementsNumbers[ext] === 'undefined' ? this.elementsNumbers[ext] = 0 : null
             let number = this.elementsNumbers[ext]++
 
-            // == when the file had been added in folder
             let birthTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).birthtime
-
-            // == when the file had been created
             let modTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).mtime
+            let accessTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).atime
+            let changedTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).ctime
             return {
                 name,
                 type,
@@ -97,6 +96,8 @@ class FileSystemOperator {
                 numberOfThisExt: number,
                 birthTime,
                 modTime,
+                changedTime,
+                accessTime,
             }
         })
     }
