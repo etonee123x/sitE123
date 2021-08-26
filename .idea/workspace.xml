@@ -26,10 +26,6 @@
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/FsOperator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/FsOperator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +62,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../site123-react" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
@@ -200,7 +196,7 @@
       <workItem from="1629920842328" duration="1732000" />
       <workItem from="1629968434483" duration="3000" />
       <workItem from="1629988032391" duration="19000" />
-      <workItem from="1629991012015" duration="4098000" />
+      <workItem from="1629991012015" duration="5591000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <created>1626189469056</created>
@@ -489,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629922495893</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="added some comments and info about dates (birth, modification) of files">
+      <created>1629995373780</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1629995373780</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -511,7 +514,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="+.gitignore file" />
     <MESSAGE value="updating .idea" />
     <MESSAGE value="+ translating bin/www" />
     <MESSAGE value="major update&#10;-more test content&#10;-better functionality of Audio players" />
@@ -536,7 +538,8 @@
     <MESSAGE value="server check" />
     <MESSAGE value="testing..." />
     <MESSAGE value="fixed the &quot;../&quot; issue..." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the &quot;../&quot; issue..." />
+    <MESSAGE value="added some comments and info about dates (birth, modification) of files" />
+    <option name="LAST_COMMIT_MESSAGE" value="added some comments and info about dates (birth, modification) of files" />
   </component>
   <component name="WindowStateProjectService">
     <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1629023327594">
@@ -563,10 +566,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1628878803532" />
-    <state x="419" y="300" key="FileChooserDialogImpl" timestamp="1629988058161">
+    <state x="419" y="300" key="FileChooserDialogImpl" timestamp="1629995396395">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="419" y="300" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1629988058161" />
+    <state x="419" y="300" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1629995396395" />
     <state width="1899" height="284" key="GridCell.Tab.0.bottom" timestamp="1629992470269">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -591,10 +594,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="453" y="178" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1629018194359" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1629922498744">
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1629995384166">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1629922498744" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1629995384166" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
