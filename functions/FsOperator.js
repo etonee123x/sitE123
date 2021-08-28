@@ -37,6 +37,7 @@ class FileSystemOperator {
         this.getNavigation()
 
         await this.getMetas()
+        this.sortItems()
         console.log(JSON.stringify(this.data, null, 4))
         // console.log(this.data)
     }
@@ -56,6 +57,15 @@ class FileSystemOperator {
                 }
             }
         }
+    }
+
+    sortItems() {
+        this.data.filesList = this.data.filesList.sort((a,b)=>{
+            if (a.type === 'folder' && b.type === 'file'){
+                return -1
+            }
+            return 0
+        })
     }
 
     // gets linked file
