@@ -22,33 +22,38 @@ class FileSystemOperator {
     }
 
     // parses url and gets new data
-    newRequest(url) {
+    async newRequest(url) {
         this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '')
         this.data = {}
         this.elementsNumbers = {}
-        this.getData()
+        await this.getData()
     }
 
     // gets data
-    getData() {
+    async getData() {
         this.getLinkedFile()
         this.getFolderList()
         this.getAllPaths()
         this.getNavigation()
 
-        // this.getMetas()
+        await this.getMetas()
         console.log(JSON.stringify(this.data, null, 4))
+        // console.log(this.data)
     }
 
-    getMetas() {
-        async function parseMeta(path) {
-            return await musMetaData.parseFile(path)
-        }
+    async getMetas() {
         for (let i = 0; i < this.data.filesList.length; i++) {
             if (this.data.filesList[i].ext === 'mp3') {
-                parseMeta(`${this.contentPath}/${this.data.currentDirectory}/${this.data.filesList[0].name}`).then(
-                    console.log
-                )
+                const metaData = await musMetaData
+                    .parseFile(`${this.contentPath}/${this.data.currentDirectory}/${this.data.filesList[i].name}`)
+                this.data.filesList[i].metaData = {
+                    bitrate: metaData.format.bitrate || null,
+                    duration: metaData.format.duration.toFixed(2) || null,
+                    album: metaData.common.album || null,
+                    artists: metaData.common.artists || null,
+                    bpm: metaData.common.bpm || null,
+                    year: metaData.common.year || null,
+                }
             }
         }
     }
