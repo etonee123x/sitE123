@@ -1,5 +1,5 @@
 const fs = require('fs')
-const moment = require('moment')
+const musMetaData = require('music-metadata')
 
 class FileSystemOperator {
     constructor(contentPath) {
@@ -13,6 +13,7 @@ class FileSystemOperator {
         } catch (e) {
             try {
                 path = '../' + path
+                fs.statSync(path)
             } catch (e) {
                 `Adding '../' haven't helped :(`
             }
@@ -34,7 +35,22 @@ class FileSystemOperator {
         this.getFolderList()
         this.getAllPaths()
         this.getNavigation()
+
+        // this.getMetas()
         console.log(JSON.stringify(this.data, null, 4))
+    }
+
+    getMetas() {
+        async function parseMeta(path) {
+            return await musMetaData.parseFile(path)
+        }
+        for (let i = 0; i < this.data.filesList.length; i++) {
+            if (this.data.filesList[i].ext === 'mp3') {
+                parseMeta(`${this.contentPath}/${this.data.currentDirectory}/${this.data.filesList[0].name}`).then(
+                    console.log
+                )
+            }
+        }
     }
 
     // gets linked file
@@ -73,21 +89,22 @@ class FileSystemOperator {
             `${this.contentPath}/${this.data.currentDirectory}`,
             {withFileTypes: true}
         ).map(element => {
-            let name = element.name
-            let type = element.isDirectory() ? 'folder' : 'file'
-            let ext = element.isDirectory() ? null : element.name.match(/([^.]+)$/g)[0]
+            const name = element.name
+            const type = element.isDirectory() ? 'folder' : 'file'
+            const ext = element.isDirectory() ? null : element.name.match(/([^.]+)$/g)[0]
 
             // cyphers file name to url (space => '%20' and etc)
-            let url = encodeURI(element.name)
+            const url = encodeURI(element.name)
 
             // counts the ordinal number of file with this extension
             typeof this.elementsNumbers[ext] === 'undefined' ? this.elementsNumbers[ext] = 0 : null
-            let number = this.elementsNumbers[ext]++
+            const number = this.elementsNumbers[ext]++
 
-            let birthTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).birthtime
-            let modTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).mtime
-            let accessTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).atime
-            let changedTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).ctime
+            const birthTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).birthtime
+
+            // let modTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).mtime
+            // let accessTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).atime
+            // let changedTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).ctime
             return {
                 name,
                 type,
@@ -95,9 +112,10 @@ class FileSystemOperator {
                 url,
                 numberOfThisExt: number,
                 birthTime,
-                modTime,
-                changedTime,
-                accessTime,
+
+                // modTime,
+                // changedTime,
+                // accessTime,
             }
         })
     }
