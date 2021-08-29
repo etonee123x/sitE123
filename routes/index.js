@@ -20,10 +20,10 @@ router.get('/get_folder_data/*', async function (req, res) {
         }
     } catch (e) {
         // sends 'error'
-        // res.send('error')
+        res.send('error')
 
         // sends error
-        res.send(e)
+        // res.send(e)
     }
 })
 

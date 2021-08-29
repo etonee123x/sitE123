@@ -37,9 +37,29 @@ class FileSystemOperator {
         this.getNavigation()
 
         await this.getMetas()
+        if (this.fileIsLinked){
+            this.getPlaylist()
+        }
         this.sortItems()
         console.log(JSON.stringify(this.data, null, 4))
         // console.log(this.data)
+    }
+
+    getPlaylist(){
+        console.log('getting a playlist!')
+        const playlist = []
+        this.data.filesList.forEach(e=>{
+            if (e.ext ==='mp3'){
+                playlist.push({
+                    name: e.name,
+                    ext: e.ext,
+                    url: '/'+this.data.currentDirectory+e.url,
+                    thisIsLinkedFile: (e.name === this.data.linkedFile.name)
+                })
+            }
+        })
+        this.data.playlist = playlist
+        console.log(this.data.playlist)
     }
 
     async getMetas() {
@@ -78,14 +98,13 @@ class FileSystemOperator {
                 //        file name without .ext in .match[1]
                 //        file extension without "." in .match[2]
                 let fileMatch = this.url.match(/([^\/]*)\.([^\/]*)$/)
-                this.data.linkedFile.name = fileMatch[1]
+                this.data.linkedFile.name = fileMatch[0]
                 this.data.linkedFile.ext = fileMatch[2]
 
                 // will contain url from location.pathname
                 this.data.linkedFile.url = `/${this.url}`
 
-                // will contain url from location.pathname with contentPath before (link to real file)
-                this.data.linkedFile.fullUrl = `/${this.contentPath}/${this.url}`
+                this.fileIsLinked = true
 
                 //current directory is location.pathname without `.../name.ext`
                 this.data.currentDirectory = this.url.replace(fileMatch[0], '')

@@ -26,5 +26,5 @@ module.exports = app
 
 app.use(function(req, res, next) {
 	next(createError(404));
-	res.render('error')
+	res.send('error')
 });
