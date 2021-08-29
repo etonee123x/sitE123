@@ -24,7 +24,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="" />
+    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/FsOperator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/FsOperator.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -207,13 +210,8 @@
       <workItem from="1630169098830" duration="3162000" />
       <workItem from="1630237395829" duration="1707000" />
       <workItem from="1630241960953" duration="2861000" />
-    </task>
-    <task id="LOCAL-00003" summary="updating .idea">
-      <created>1626192276226</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1626192276226</updated>
+      <workItem from="1630251198802" duration="39000" />
+      <workItem from="1630251514304" duration="340000" />
     </task>
     <task id="LOCAL-00004" summary="updating .idea">
       <created>1626192288256</created>
@@ -551,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630244825413</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="testing...">
+      <created>1630251230582</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1630251230584</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -591,14 +596,14 @@
     <MESSAGE value="added some comments and info about dates (birth, modification) of files" />
     <MESSAGE value="added lox's picture" />
     <MESSAGE value="added few more times fields" />
-    <MESSAGE value="testing..." />
     <MESSAGE value="minor fixs" />
     <MESSAGE value="+metadata for .mp3-files" />
     <MESSAGE value="minor fixes" />
     <MESSAGE value="folders &gt; files now" />
     <MESSAGE value="+ new logic (request types)" />
     <MESSAGE value="+ playlist" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ playlist" />
+    <MESSAGE value="testing..." />
+    <option name="LAST_COMMIT_MESSAGE" value="testing..." />
   </component>
   <component name="WindowStateProjectService">
     <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1629023327594">
@@ -653,10 +658,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="453" y="178" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1629018194359" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630244827619">
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630251232840">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1630244827619" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1630251232840" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

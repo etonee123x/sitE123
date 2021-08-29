@@ -25,7 +25,6 @@ class FileSystemOperator {
     async newRequest(url) {
         this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '')
         this.data = {}
-        this.elementsNumbers = {}
         await this.getData()
     }
 
@@ -39,6 +38,8 @@ class FileSystemOperator {
         await this.getMetas()
         if (this.fileIsLinked){
             this.getPlaylist()
+        } else {
+            this.data.playlist = null
         }
         this.sortItems()
         console.log(JSON.stringify(this.data, null, 4))
@@ -53,13 +54,13 @@ class FileSystemOperator {
                 playlist.push({
                     name: e.name,
                     ext: e.ext,
-                    url: '/'+this.data.currentDirectory+'/'+e.url,
+                    url: '/'+this.data.currentDirectory+e.url,
                     thisIsLinkedFile: (e.name === this.data.linkedFile.name)
                 })
             }
         })
         this.data.playlist = playlist
-        console.log(this.data.playlist)
+        //console.log(this.data.playlist)
     }
 
     async getMetas() {
@@ -110,7 +111,8 @@ class FileSystemOperator {
                 this.data.currentDirectory = this.url.replace(fileMatch[0], '')
             } else {
                 this.data.linkedFile = 'none'
-                this.data.currentDirectory = this.url
+                this.fileIsLinked = false
+                this.data.currentDirectory = this.url || '/'
             }
         } catch (e) {
             this.data.linkedFile = "Linked file not found!"
@@ -119,6 +121,7 @@ class FileSystemOperator {
 
     //gets info about files and dirs in current dir
     getFolderList() {
+        this.elementsNumbers = {}
         this.data.filesList = fs.readdirSync(
             `${this.contentPath}/${this.data.currentDirectory}`,
             {withFileTypes: true}
