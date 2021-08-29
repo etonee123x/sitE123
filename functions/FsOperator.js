@@ -53,7 +53,7 @@ class FileSystemOperator {
                 playlist.push({
                     name: e.name,
                     ext: e.ext,
-                    url: '/'+this.data.currentDirectory+e.url,
+                    url: '/'+this.data.currentDirectory+'/'+e.url,
                     thisIsLinkedFile: (e.name === this.data.linkedFile.name)
                 })
             }
