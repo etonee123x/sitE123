@@ -6,7 +6,7 @@ const FileSystemOperator = require('../functions/FsOperator')
 let fsOperator = new FileSystemOperator('public/content')
 
 //resolves any url
-router.get('/*', async function (req, res) {
+router.get('/get_folder_data/*', async function (req, res) {
     console.log(req.params[0])
     try {
         // gets new data
@@ -20,10 +20,10 @@ router.get('/*', async function (req, res) {
         }
     } catch (e) {
         // sends 'error'
-        res.send('error')
+        // res.send('error')
 
         // sends error
-        // res.send(e)
+        res.send(e)
     }
 })
 

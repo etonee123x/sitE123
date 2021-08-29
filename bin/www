@@ -22,7 +22,6 @@ app.set('port', port);
 
 var server = http.createServer(app);
 console.log(`Server have been launched at http://localhost:${port}`)
-console.log('Hostname:',os.hostname())
 /**
  * Listen on provided port, on all network interfaces.
  */
