@@ -35,19 +35,19 @@ class FileSystemOperator {
         this.getAllPaths()
         this.getNavigation()
 
-        await this.getMetas()
         if (this.fileIsLinked) {
             this.getPlaylist()
         } else {
             this.data.playlist = null
         }
+
+        await this.getMetas()
         this.sortItems()
-        console.log(JSON.stringify(this.data, null, 4))
+        // console.log(JSON.stringify(this.data, null, 4))
         // console.log(this.data)
     }
 
     getPlaylist() {
-        console.log('getting a playlist!')
         const playlist = []
         this.data.filesList.forEach(e => {
             if (e.ext === 'mp3') {
@@ -63,31 +63,34 @@ class FileSystemOperator {
         //console.log(this.data.playlist)
     }
 
+    async getMetaDataFields(path) {
+        const metadata = await musMetaData
+            .parseFile(path)
+        return Promise.resolve({
+            bitrate: metadata.format.bitrate || null,
+            duration: metadata.format.duration.toFixed(2) || null,
+            album: metadata.common.album || null,
+            artists: metadata.common.artists || null,
+            bpm: metadata.common.bpm || null,
+            year: metadata.common.year || null,
+        })
+    }
+
     async getMetas() {
         for (let i = 0; i < this.data.filesList.length; i++) {
             if (this.data.filesList[i].ext === 'mp3') {
-                const metaData = await musMetaData
-                    .parseFile(`${this.contentPath}/${this.data.currentDirectory}/${this.data.filesList[i].name}`)
-                this.data.filesList[i].metaData = {
-                    bitrate: metaData.format.bitrate || null,
-                    duration: metaData.format.duration.toFixed(2) || null,
-                    album: metaData.common.album || null,
-                    artists: metaData.common.artists || null,
-                    bpm: metaData.common.bpm || null,
-                    year: metaData.common.year || null,
-                }
+                this.data.filesList[i].metaData =
+                    await this.getMetaDataFields(`${this.contentPath}/${this.data.currentDirectory}/${this.data.filesList[i].name}`)
             }
         }
         if (!(this.data.linkedFile === 'none' || this.data.linkedFile === 'Linked file not found!')) {
-            const metaData = await musMetaData
-                .parseFile(`${this.contentPath}/${this.data.linkedFile.url}`)
-            this.data.linkedFile.metaData = {
-                bitrate: metaData.format.bitrate || null,
-                duration: metaData.format.duration.toFixed(2) || null,
-                album: metaData.common.album || null,
-                artists: metaData.common.artists || null,
-                bpm: metaData.common.bpm || null,
-                year: metaData.common.year || null,
+            this.data.linkedFile.metaData =
+                await this.getMetaDataFields(`${this.contentPath}/${this.data.linkedFile.url}`)
+        }
+        if (this.data.playlist) {
+            for (let elem of this.data.playlist) {
+                elem.metaData =
+                    await this.getMetaDataFields(`${this.contentPath}/${elem.url}`)
             }
         }
     }
