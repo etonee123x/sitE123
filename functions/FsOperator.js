@@ -99,7 +99,7 @@ class FileSystemOperator {
             if (this.data.playlist) {
                 for (let elem of this.data.playlist) {
                     elem.metaData =
-                        await this.getMetaDataFields(`${this.contentPath}/${this.data.currentDirectory}/${elem.url}`)
+                        await this.getMetaDataFields(`${this.contentPath}/${decodeURI(elem.url)}`)
                 }
             }
         } catch (e) {
