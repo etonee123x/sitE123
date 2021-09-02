@@ -77,21 +77,33 @@ class FileSystemOperator {
     }
 
     async getMetas() {
-        for (let i = 0; i < this.data.filesList.length; i++) {
-            if (this.data.filesList[i].ext === 'mp3') {
-                this.data.filesList[i].metaData =
-                    await this.getMetaDataFields(`${this.contentPath}/${this.data.currentDirectory}/${this.data.filesList[i].name}`)
+        try{
+            for (let i = 0; i < this.data.filesList.length; i++) {
+                if (this.data.filesList[i].ext === 'mp3') {
+                    this.data.filesList[i].metaData =
+                        await this.getMetaDataFields(`${this.contentPath}/${this.data.currentDirectory}/${this.data.filesList[i].name}`)
+                }
             }
+        } catch (e) {
+            console.log('Не получилось найти метаданные для файлов')
         }
-        if (!(this.data.linkedFile === 'none' || this.data.linkedFile === 'Linked file not found!')) {
-            this.data.linkedFile.metaData =
-                await this.getMetaDataFields(`${this.contentPath}/${this.data.linkedFile.url}`)
-        }
-        if (this.data.playlist) {
-            for (let elem of this.data.playlist) {
-                elem.metaData =
-                    await this.getMetaDataFields(`${this.contentPath}/${elem.url}`)
+        try {
+            if (!(this.data.linkedFile === 'none' || this.data.linkedFile === 'Linked file not found!')) {
+                this.data.linkedFile.metaData =
+                    await this.getMetaDataFields(`${this.contentPath}/${this.data.linkedFile.url}`)
             }
+        } catch (e) {
+            console.log('Не получилось найти метаданные для привязанного файла')
+        }
+        try {
+            if (this.data.playlist) {
+                for (let elem of this.data.playlist) {
+                    elem.metaData =
+                        await this.getMetaDataFields(`${this.contentPath}/${this.data.currentDirectory}/${elem.url}`)
+                }
+            }
+        } catch (e) {
+            console.log('Не получилось найти метаданные для плейлиста')
         }
     }
 

@@ -214,14 +214,8 @@
       <workItem from="1630251514304" duration="574000" />
       <workItem from="1630423224154" duration="190000" />
       <workItem from="1630577748172" duration="2003000" />
-      <workItem from="1630597552337" duration="988000" />
-    </task>
-    <task id="LOCAL-00006" summary="major update&#10;-more test content&#10;-better functionality of Audio players">
-      <created>1626279697206</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1626279697206</updated>
+      <workItem from="1630597552337" duration="1030000" />
+      <workItem from="1630598803698" duration="216000" />
     </task>
     <task id="LOCAL-00007" summary="minor update">
       <created>1626285995745</created>
@@ -559,7 +553,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630579616914</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="+metaData for playlist!">
+      <created>1630598574095</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1630598574096</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -581,7 +582,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="hardtrying with git again" />
     <MESSAGE value="refactored to API" />
     <MESSAGE value="minor update" />
     <MESSAGE value="min up" />
@@ -606,7 +606,8 @@
     <MESSAGE value="testing..." />
     <MESSAGE value="fixing some issues" />
     <MESSAGE value="+metaData in linkedFile.metaData" />
-    <option name="LAST_COMMIT_MESSAGE" value="+metaData in linkedFile.metaData" />
+    <MESSAGE value="+metaData for playlist!" />
+    <option name="LAST_COMMIT_MESSAGE" value="+metaData for playlist!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1629023327594">
@@ -637,22 +638,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1630579770179" />
-    <state width="1899" height="306" key="GridCell.Tab.0.bottom" timestamp="1630598221681">
+    <state width="1899" height="306" key="GridCell.Tab.0.bottom" timestamp="1630598845283">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1630598221681" />
-    <state width="1899" height="306" key="GridCell.Tab.0.center" timestamp="1630598221681">
+    <state width="1899" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1630598845283" />
+    <state width="1899" height="306" key="GridCell.Tab.0.center" timestamp="1630598845283">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1630598221681" />
-    <state width="1899" height="306" key="GridCell.Tab.0.left" timestamp="1630598221681">
+    <state width="1899" height="306" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1630598845283" />
+    <state width="1899" height="306" key="GridCell.Tab.0.left" timestamp="1630598845283">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1630598221681" />
-    <state width="1899" height="306" key="GridCell.Tab.0.right" timestamp="1630598221681">
+    <state width="1899" height="306" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1630598845283" />
+    <state width="1899" height="306" key="GridCell.Tab.0.right" timestamp="1630598845283">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1630598221681" />
+    <state width="1899" height="306" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1630598845283" />
     <state x="750" y="226" key="RollbackChangesDialog" timestamp="1630579274052">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -661,10 +662,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="453" y="178" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1629018194359" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630579648907">
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630598576488">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1630579648907" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1630598576488" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
