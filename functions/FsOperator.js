@@ -36,7 +36,7 @@ class FileSystemOperator {
         this.getNavigation()
 
         await this.getMetas()
-        if (this.fileIsLinked){
+        if (this.fileIsLinked) {
             this.getPlaylist()
         } else {
             this.data.playlist = null
@@ -46,15 +46,15 @@ class FileSystemOperator {
         // console.log(this.data)
     }
 
-    getPlaylist(){
+    getPlaylist() {
         console.log('getting a playlist!')
         const playlist = []
-        this.data.filesList.forEach(e=>{
-            if (e.ext ==='mp3'){
+        this.data.filesList.forEach(e => {
+            if (e.ext === 'mp3') {
                 playlist.push({
                     name: e.name,
                     ext: e.ext,
-                    url: '/'+this.data.currentDirectory+e.url,
+                    url: '/' + this.data.currentDirectory + e.url,
                     thisIsLinkedFile: (e.name === this.data.linkedFile.name)
                 })
             }
@@ -78,11 +78,23 @@ class FileSystemOperator {
                 }
             }
         }
+        if (!(this.data.linkedFile === 'none' || this.data.linkedFile === 'Linked file not found!')) {
+            const metaData = await musMetaData
+                .parseFile(`${this.contentPath}/${this.data.linkedFile.url}`)
+            this.data.linkedFile.metaData = {
+                bitrate: metaData.format.bitrate || null,
+                duration: metaData.format.duration.toFixed(2) || null,
+                album: metaData.common.album || null,
+                artists: metaData.common.artists || null,
+                bpm: metaData.common.bpm || null,
+                year: metaData.common.year || null,
+            }
+        }
     }
 
     sortItems() {
-        this.data.filesList = this.data.filesList.sort((a,b)=>{
-            if (a.type === 'folder' && b.type === 'file'){
+        this.data.filesList = this.data.filesList.sort((a, b) => {
+            if (a.type === 'folder' && b.type === 'file') {
                 return -1
             }
             return 0
@@ -115,7 +127,7 @@ class FileSystemOperator {
                 this.data.currentDirectory = this.url || '/'
             }
         } catch (e) {
-            this.data.linkedFile = "Linked file not found!"
+            this.data.linkedFile = 'Linked file not found!'
         }
     }
 
