@@ -24,10 +24,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/FsOperator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/FsOperator.js" afterDir="false" />
-    </list>
+    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -216,14 +213,7 @@
       <workItem from="1630577748172" duration="2003000" />
       <workItem from="1630597552337" duration="1030000" />
       <workItem from="1630598803698" duration="246000" />
-      <workItem from="1630614922033" duration="278000" />
-    </task>
-    <task id="LOCAL-00008" summary="+autoplay">
-      <created>1626289653950</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1626289653950</updated>
+      <workItem from="1630614922033" duration="337000" />
     </task>
     <task id="LOCAL-00009" summary="+autoplay!">
       <created>1626293046009</created>
@@ -561,7 +551,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630599043801</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="playlist metadata getting bug fix ?what...">
+      <created>1630615240159</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1630615240160</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,7 +580,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="minor update" />
     <MESSAGE value="min up" />
     <MESSAGE value="linked file is back" />
     <MESSAGE value="fixed bad regex bug" />
@@ -608,7 +604,8 @@
     <MESSAGE value="+metaData in linkedFile.metaData" />
     <MESSAGE value="+metaData for playlist!" />
     <MESSAGE value="hot fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="hot fix" />
+    <MESSAGE value="playlist metadata getting bug fix ?what..." />
+    <option name="LAST_COMMIT_MESSAGE" value="playlist metadata getting bug fix ?what..." />
   </component>
   <component name="WindowStateProjectService">
     <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1629023327594">
@@ -639,22 +636,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1630579770179" />
-    <state width="1899" height="306" key="GridCell.Tab.0.bottom" timestamp="1630599051175">
+    <state width="1899" height="306" key="GridCell.Tab.0.bottom" timestamp="1630615261529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1630599051175" />
-    <state width="1899" height="306" key="GridCell.Tab.0.center" timestamp="1630599051175">
+    <state width="1899" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1630615261529" />
+    <state width="1899" height="306" key="GridCell.Tab.0.center" timestamp="1630615261529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1630599051175" />
-    <state width="1899" height="306" key="GridCell.Tab.0.left" timestamp="1630599051175">
+    <state width="1899" height="306" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1630615261529" />
+    <state width="1899" height="306" key="GridCell.Tab.0.left" timestamp="1630615261529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1630599051175" />
-    <state width="1899" height="306" key="GridCell.Tab.0.right" timestamp="1630599051175">
+    <state width="1899" height="306" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1630615261529" />
+    <state width="1899" height="306" key="GridCell.Tab.0.right" timestamp="1630615261529">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1630599051175" />
+    <state width="1899" height="306" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1630615261529" />
     <state x="750" y="226" key="RollbackChangesDialog" timestamp="1630579274052">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -663,10 +660,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="453" y="178" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1629018194359" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630599045826">
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630615242674">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1630599045826" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1630615242674" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
