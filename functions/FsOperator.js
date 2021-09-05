@@ -80,7 +80,7 @@ class FileSystemOperator {
         try{
             for (let i = 0; i < this.data.filesList.length; i++) {
                 if (this.data.filesList[i].ext === 'mp3') {
-                    this.data.filesList[i].metaData =
+                    this.data.filesList[i].metadata =
                         await this.getMetaDataFields(`${this.contentPath}/${this.data.currentDirectory}/${this.data.filesList[i].name}`)
                 }
             }
@@ -89,7 +89,7 @@ class FileSystemOperator {
         }
         try {
             if (!(this.data.linkedFile === 'none' || this.data.linkedFile === 'Linked file not found!')) {
-                this.data.linkedFile.metaData =
+                this.data.linkedFile.metadata =
                     await this.getMetaDataFields(`${this.contentPath}/${this.data.linkedFile.url}`)
             }
         } catch (e) {
@@ -98,7 +98,7 @@ class FileSystemOperator {
         try {
             if (this.data.playlist) {
                 for (let elem of this.data.playlist) {
-                    elem.metaData =
+                    elem.metadata =
                         await this.getMetaDataFields(`${this.contentPath}/${decodeURI(elem.url)}`)
                 }
             }
