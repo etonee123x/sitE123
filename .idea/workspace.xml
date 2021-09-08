@@ -26,6 +26,12 @@
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/FsOperator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/FsOperator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,14 +68,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../site123-react" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../vue-devexpress" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
     <property name="ts.external.directory.path" value="D:\Programs\Programming\WebStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -218,6 +230,7 @@
       <workItem from="1630614922033" duration="337000" />
       <workItem from="1630773806773" duration="426000" />
       <workItem from="1630789724514" duration="128000" />
+      <workItem from="1631133622416" duration="1943000" />
     </task>
     <task id="LOCAL-00010" summary="+autoplay debug">
       <created>1626295137211</created>
@@ -612,6 +625,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="new content testing" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="831" y="436" key="#ESLint" timestamp="1631133538293">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="831" y="436" key="#ESLint/0.0.1920.1040@0.0.1920.1040" timestamp="1631133538293" />
+    <state x="532" y="316" width="866" height="575" key="#JavaScript" timestamp="1631135344267">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="532" y="316" width="866" height="575" key="#JavaScript/0.0.1920.1040@0.0.1920.1040" timestamp="1631135344267" />
     <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1629023327594">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -636,34 +657,34 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1628878803532" />
-    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1630789852469">
+    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1631133093331">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1630789852469" />
-    <state width="1899" height="306" key="GridCell.Tab.0.bottom" timestamp="1630615261529">
+    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1631133093331" />
+    <state width="1899" height="306" key="GridCell.Tab.0.bottom" timestamp="1631133497418">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1630615261529" />
-    <state width="1899" height="306" key="GridCell.Tab.0.center" timestamp="1630615261529">
+    <state width="1899" height="306" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1631133497418" />
+    <state width="1899" height="306" key="GridCell.Tab.0.center" timestamp="1631133497418">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1630615261529" />
-    <state width="1899" height="306" key="GridCell.Tab.0.left" timestamp="1630615261529">
+    <state width="1899" height="306" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1631133497418" />
+    <state width="1899" height="306" key="GridCell.Tab.0.left" timestamp="1631133497418">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1630615261529" />
-    <state width="1899" height="306" key="GridCell.Tab.0.right" timestamp="1630615261529">
+    <state width="1899" height="306" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1631133497418" />
+    <state width="1899" height="306" key="GridCell.Tab.0.right" timestamp="1631133497418">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="306" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1630615261529" />
+    <state width="1899" height="306" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1631133497418" />
     <state x="750" y="226" key="RollbackChangesDialog" timestamp="1630579274052">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="750" y="226" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1630579274052" />
-    <state x="453" y="178" width="1371" height="711" key="SettingsEditor" timestamp="1629018194359">
+    <state x="-85" y="85" width="1371" height="711" key="SettingsEditor" timestamp="1631134359081">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="453" y="178" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1629018194359" />
+    <state x="-85" y="85" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631134359081" />
     <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1630774067306">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
