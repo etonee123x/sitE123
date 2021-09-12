@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+
+import FileSystemOperator from '../functions/FsOperator.js';
+
 const router = express.Router();
 const mode = 'API';
-
-const FileSystemOperator = require('../functions/FsOperator');
 const fsOperator = new FileSystemOperator('public/content');
 
 // resolves any url
@@ -27,4 +28,4 @@ router.get('/get_folder_data/*', async function(req, res) {
   }
 });
 
-module.exports = router;
+export default router;

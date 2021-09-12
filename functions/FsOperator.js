@@ -1,7 +1,7 @@
-const fs = require('fs');
-const musMetaData = require('music-metadata');
+import fs from 'fs';
+import musMetaData from 'music-metadata';
 
-class FileSystemOperator {
+export default class FileSystemOperator {
   constructor(contentPath) {
     this.contentPath = this.tryToPreventError(contentPath.replace(/\/{2,}|\/$|^\//g, ''));
   }
@@ -215,6 +215,4 @@ class FileSystemOperator {
     }
     this.data.navigation = result;
   }
-}
-
-module.exports = FileSystemOperator;
+};
