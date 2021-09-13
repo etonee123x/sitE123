@@ -1,5 +1,5 @@
 import express from 'express';
-import * as createError from 'http-errors';
+import createError from 'http-errors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import indexRouter from './routes/index.js';

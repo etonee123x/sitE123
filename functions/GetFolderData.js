@@ -15,6 +15,14 @@ export default class GetFolderData {
         this.contentPath = GetFolderData
             .tryToPreventError(contentPath.replace(/\/{2,}|\/$|^\//g, ''));
     }
+    // parses url and gets new data
+    newRequest(url) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '');
+            this.data = {};
+            yield this.getData();
+        });
+    }
     static tryToPreventError(path) {
         try {
             fs.statSync(path);
@@ -31,14 +39,6 @@ export default class GetFolderData {
             }
         }
         return path;
-    }
-    // parses url and gets new data
-    newRequest(url) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '');
-            this.data = {};
-            yield this.getData();
-        });
     }
     getData() {
         return __awaiter(this, void 0, void 0, function* () {

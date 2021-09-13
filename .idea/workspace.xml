@@ -25,10 +25,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/FsOperator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/GetFolderData.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/GetFolderData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/GetFolderData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/GetFolderData.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,14 +220,7 @@
       <workItem from="1631465186733" duration="4044000" />
       <workItem from="1631534998449" duration="554000" />
       <workItem from="1631549725506" duration="11118000" />
-      <workItem from="1631561363928" duration="81000" />
-    </task>
-    <task id="LOCAL-00014" summary="+ navigation row">
-      <created>1627720243387</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1627720243387</updated>
+      <workItem from="1631561363928" duration="999000" />
     </task>
     <task id="LOCAL-00015" summary="+refactoring">
       <created>1627734527518</created>
@@ -564,7 +558,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631560907559</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="+ typescript eslint">
+      <created>1631561686894</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1631561686896</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -591,7 +592,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="added comments" />
     <MESSAGE value="API 2.0 -- working with filesystem is in the special class" />
     <MESSAGE value="+bugfix" />
     <MESSAGE value="server check" />
@@ -616,7 +616,8 @@
     <MESSAGE value="+eslint&#10;+ESM imports/exports&#10;-useless files and deps" />
     <MESSAGE value="eslint settings mini-update" />
     <MESSAGE value="+.ts&#10;rewrote getFolderData via ts :)" />
-    <option name="LAST_COMMIT_MESSAGE" value="+.ts&#10;rewrote getFolderData via ts :)" />
+    <MESSAGE value="+ typescript eslint" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ typescript eslint" />
   </component>
   <component name="WindowStateProjectService">
     <state x="831" y="436" key="#ESLint" timestamp="1631535536600">
@@ -663,22 +664,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="84" y="63" key="FileDocumentManager.FileCacheConflict/0.0.1920.1040@0.0.1920.1040" timestamp="1631551135535" />
-    <state width="1899" height="288" key="GridCell.Tab.0.bottom" timestamp="1631560951043">
+    <state width="1899" height="345" key="GridCell.Tab.0.bottom" timestamp="1631562300572">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1631560951043" />
-    <state width="1899" height="288" key="GridCell.Tab.0.center" timestamp="1631560951043">
+    <state width="1899" height="345" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1631562300572" />
+    <state width="1899" height="345" key="GridCell.Tab.0.center" timestamp="1631562300572">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="288" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1631560951043" />
-    <state width="1899" height="288" key="GridCell.Tab.0.left" timestamp="1631560951043">
+    <state width="1899" height="345" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1631562300572" />
+    <state width="1899" height="345" key="GridCell.Tab.0.left" timestamp="1631562300571">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="288" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1631560951043" />
-    <state width="1899" height="288" key="GridCell.Tab.0.right" timestamp="1631560951043">
+    <state width="1899" height="345" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1631562300571" />
+    <state width="1899" height="345" key="GridCell.Tab.0.right" timestamp="1631562300572">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="288" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1631560951043" />
+    <state width="1899" height="345" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1631562300572" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1631469258982">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -735,10 +736,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="231" y="123" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631550607297" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1631560912209">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1631561690545">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1631560912209" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1631561690545" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

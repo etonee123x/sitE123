@@ -66,6 +66,13 @@ export default class GetFolderData {
       .tryToPreventError(contentPath.replace(/\/{2,}|\/$|^\//g, ''));
   }
 
+  // parses url and gets new data
+  public async newRequest(url: string) {
+    this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '');
+    this.data = {};
+    await this.getData();
+  }
+
   private static tryToPreventError(path: string) {
     try {
       fs.statSync(path);
@@ -80,13 +87,6 @@ export default class GetFolderData {
       }
     }
     return path;
-  }
-
-  // parses url and gets new data
-  public async newRequest(url: string) {
-    this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '');
-    this.data = {};
-    await this.getData();
   }
 
   private async getData() {
