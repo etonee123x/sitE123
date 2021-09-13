@@ -168,10 +168,6 @@ export default class FileSystemOperator {
       const number = this.elementsNumbers[ext]++;
 
       const birthTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).birthtime;
-
-      // let modTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).mtime
-      // let accessTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).atime
-      // let changedTime = fs.statSync(`${this.contentPath}/${this.data.currentDirectory}/${element.name}`).ctime
       return {
         name,
         type,
@@ -179,10 +175,6 @@ export default class FileSystemOperator {
         url,
         numberOfThisExt: number,
         birthTime
-
-        // modTime,
-        // changedTime,
-        // accessTime,
       };
     });
   }

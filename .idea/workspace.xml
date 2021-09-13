@@ -25,8 +25,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/GetFolderData.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/FsOperator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/FsOperator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +70,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../site123-react" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -77,8 +83,8 @@
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
-    <property name="ts.external.directory.path" value="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\node_modules\typescript\lib" />
+    <property name="settings.editor.selected.configurable" value="settings.typescriptcompiler" />
+    <property name="ts.external.directory.path" value="C:\Users\E123WH\AppData\Roaming\npm\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -216,14 +222,7 @@
       <workItem from="1631170451512" duration="2088000" />
       <workItem from="1631465186733" duration="4044000" />
       <workItem from="1631534998449" duration="554000" />
-      <workItem from="1631549725506" duration="74000" />
-    </task>
-    <task id="LOCAL-00012" summary="-linked file logic">
-      <created>1626328965358</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1626328965358</updated>
+      <workItem from="1631549725506" duration="10943000" />
     </task>
     <task id="LOCAL-00013" summary="+error handler (install dependences)">
       <created>1626411743015</created>
@@ -561,11 +560,23 @@
       <option name="project" value="LOCAL" />
       <updated>1631469248019</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="eslint settings mini-update">
+      <created>1631549819091</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1631549819092</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/functions/GetFolderData.js" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -583,7 +594,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="+send error" />
     <MESSAGE value="min update" />
     <MESSAGE value="added comments" />
     <MESSAGE value="API 2.0 -- working with filesystem is in the special class" />
@@ -608,7 +618,8 @@
     <MESSAGE value="new content testing" />
     <MESSAGE value="installed eslint &amp; typescript for further development" />
     <MESSAGE value="+eslint&#10;+ESM imports/exports&#10;-useless files and deps" />
-    <option name="LAST_COMMIT_MESSAGE" value="+eslint&#10;+ESM imports/exports&#10;-useless files and deps" />
+    <MESSAGE value="eslint settings mini-update" />
+    <option name="LAST_COMMIT_MESSAGE" value="eslint settings mini-update" />
   </component>
   <component name="WindowStateProjectService">
     <state x="831" y="436" key="#ESLint" timestamp="1631535536600">
@@ -623,10 +634,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="484" y="208" key="#TypeScript/0.0.1920.1040@0.0.1920.1040" timestamp="1631135977323" />
-    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1631468790587">
+    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1631550659997">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631468790587" />
+    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631550659997" />
     <state x="679" y="329" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1625291964542">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -647,26 +658,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1628878803532" />
-    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1631535561786">
+    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1631551306595">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1631535561786" />
-    <state width="1899" height="348" key="GridCell.Tab.0.bottom" timestamp="1631469258981">
+    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1631551306595" />
+    <state x="84" y="63" key="FileDocumentManager.FileCacheConflict" timestamp="1631551135535">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1631469258981" />
-    <state width="1899" height="348" key="GridCell.Tab.0.center" timestamp="1631469258981">
+    <state x="84" y="63" key="FileDocumentManager.FileCacheConflict/0.0.1920.1040@0.0.1920.1040" timestamp="1631551135535" />
+    <state width="1899" height="288" key="GridCell.Tab.0.bottom" timestamp="1631553978260">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1631469258981" />
-    <state width="1899" height="348" key="GridCell.Tab.0.left" timestamp="1631469258981">
+    <state width="1899" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1631553978260" />
+    <state width="1899" height="288" key="GridCell.Tab.0.center" timestamp="1631553978260">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1631469258981" />
-    <state width="1899" height="348" key="GridCell.Tab.0.right" timestamp="1631469258981">
+    <state width="1899" height="288" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1631553978260" />
+    <state width="1899" height="288" key="GridCell.Tab.0.left" timestamp="1631553978260">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1631469258981" />
+    <state width="1899" height="288" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1631553978260" />
+    <state width="1899" height="288" key="GridCell.Tab.0.right" timestamp="1631553978260">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="288" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1631553978260" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1631469258982">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -719,14 +734,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="750" y="226" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631135906467" />
-    <state x="-85" y="85" width="1371" height="711" key="SettingsEditor" timestamp="1631134359081">
+    <state x="231" y="123" width="1371" height="711" key="SettingsEditor" timestamp="1631550607297">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-85" y="85" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631134359081" />
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1631469250729">
+    <state x="231" y="123" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631550607297" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2" timestamp="1631549821531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1631469250729" />
+    <state x="552" y="244" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1631549821531" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

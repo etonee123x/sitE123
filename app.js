@@ -1,5 +1,5 @@
 import express from 'express';
-import createError from 'http-errors';
+import * as createError from 'http-errors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import indexRouter from './routes/index.js';
@@ -11,7 +11,8 @@ const app = express();
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 app.set('view engine', 'pug');
