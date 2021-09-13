@@ -121,7 +121,7 @@ export default class GetFolderData {
     getNavigation() {
         let buffResult = this.data.paths.rel.split('/');
         buffResult = buffResult.filter(e => e !== '');
-        let result = [];
+        const result = [];
         result.unshift({
             text: 'root',
             link: '/'
@@ -185,9 +185,9 @@ export default class GetFolderData {
                 console.log('Не получилось найти метаданные для файлов');
             }
             try {
-                if (this.data.linkedFile !== 'none'
-                    && this.data.linkedFile !== 'Linked file not found!'
-                    && typeof this.data.linkedFile !== 'string') {
+                if (this.data.linkedFile !== 'none' &&
+                    this.data.linkedFile !== 'Linked file not found!' &&
+                    typeof this.data.linkedFile !== 'string') {
                     this.data.linkedFile.metadata =
                         yield GetFolderData
                             .getMetaDataFields(`${this.contentPath}/${this.data.linkedFile.url}`);
@@ -211,3 +211,4 @@ export default class GetFolderData {
         });
     }
 }
+;

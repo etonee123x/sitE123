@@ -2,6 +2,15 @@ import fs from 'fs';
 import musMetaData from 'music-metadata';
 import moment from 'moment';
 
+interface IMetadata {
+  bitrate: number | null,
+  duration: string | null,
+  album: string | null,
+  artists: string[] | null,
+  bpm: number | null,
+  year: number | null
+}
+
 interface IItem {
   name: string
   type: string
@@ -10,15 +19,6 @@ interface IItem {
   numberOfThisExt: number,
   birthTime: string
   metadata?: IMetadata,
-}
-
-interface IMetadata {
-  bitrate: number | null,
-  duration: string | null,
-  album: string | null,
-  artists: string[] | null,
-  bpm: number | null,
-  year: number | null
 }
 
 interface ILinkedFile {
@@ -55,7 +55,7 @@ interface IGetFolderData {
 }
 
 export default class GetFolderData {
-  private contentPath: string;
+  private readonly contentPath: string;
   private url?: string;
   private data?: IGetFolderData;
   private fileIsLinked?: boolean;
@@ -69,12 +69,12 @@ export default class GetFolderData {
   private static tryToPreventError(path: string) {
     try {
       fs.statSync(path);
-      console.log('Default path is OK!')
+      console.log('Default path is OK!');
     } catch (e) {
       try {
         path = '../' + path;
         fs.statSync(path);
-        console.log('"../" path is OK!')
+        console.log('"../" path is OK!');
       } catch (e) {
         console.log('Adding \'../\' haven\'t helped :(');
       }
@@ -85,7 +85,7 @@ export default class GetFolderData {
   // parses url and gets new data
   public async newRequest(url: string) {
     this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '');
-    this.data = {}
+    this.data = {};
     await this.getData();
   }
 
@@ -107,7 +107,7 @@ export default class GetFolderData {
   private getLinkedFile() {
     try {
       if (fs.statSync(`${this.contentPath}/${this.url}`).isFile()) {
-        this.data!.linkedFile = {}
+        this.data!.linkedFile = {};
 
         // detects full file name in .match[0]
         //        file name without .ext in .match[1]
@@ -162,7 +162,7 @@ export default class GetFolderData {
         numberOfThisExt: number,
         birthTime: moment(birthTime).format('YYYY-MM-DD/HH:mm:ss')
       };
-    })
+    });
   }
 
   private getAllPaths() {
@@ -179,7 +179,7 @@ export default class GetFolderData {
   private getNavigation() {
     let buffResult = this.data!.paths!.rel!.split('/');
     buffResult = buffResult.filter(e => e !== '');
-    let result: { text: string, link: string }[] = []
+    const result: { text: string, link: string }[] = [];
     result.unshift({
       text: 'root',
       link: '/'
@@ -243,9 +243,9 @@ export default class GetFolderData {
       console.log('Не получилось найти метаданные для файлов');
     }
     try {
-      if (this.data!.linkedFile !== 'none'
-        && this.data!.linkedFile !== 'Linked file not found!'
-        && typeof this.data!.linkedFile !== 'string') {
+      if (this.data!.linkedFile !== 'none' &&
+        this.data!.linkedFile !== 'Linked file not found!' &&
+        typeof this.data!.linkedFile !== 'string') {
         this.data!.linkedFile!.metadata =
           await GetFolderData
             .getMetaDataFields(`${this.contentPath}/${this.data!.linkedFile!.url}`);
@@ -265,4 +265,4 @@ export default class GetFolderData {
       console.log('Не получилось найти метаданные для плейлиста');
     }
   }
-}
+};
