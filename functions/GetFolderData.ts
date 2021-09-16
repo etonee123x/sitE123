@@ -1,6 +1,5 @@
 import fs from 'fs';
 import musMetaData from 'music-metadata';
-import moment from 'moment';
 
 interface IMetadata {
   bitrate: number | null,
@@ -17,7 +16,7 @@ interface IItem {
   ext: string | null,
   url: string,
   numberOfThisExt: number,
-  birthTime: string
+  birthTime: Date,
   metadata?: IMetadata,
 }
 
@@ -160,7 +159,7 @@ export default class GetFolderData {
         ext,
         url,
         numberOfThisExt: number,
-        birthTime: moment(birthTime).format('YYYY-MM-DD/HH:mm:ss')
+        birthTime: birthTime,
       };
     });
   }

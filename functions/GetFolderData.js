@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import fs from 'fs';
 import musMetaData from 'music-metadata';
-import moment from 'moment';
 export default class GetFolderData {
     constructor(contentPath) {
         this.contentPath = GetFolderData
@@ -103,7 +102,7 @@ export default class GetFolderData {
                 ext,
                 url,
                 numberOfThisExt: number,
-                birthTime: moment(birthTime).format('YYYY-MM-DD/HH:mm:ss')
+                birthTime: birthTime,
             };
         });
     }
