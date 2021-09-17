@@ -159,7 +159,7 @@ export default class GetFolderData {
         ext,
         url,
         numberOfThisExt: number,
-        birthTime: birthTime,
+        birthTime: birthTime
       };
     });
   }
@@ -178,15 +178,16 @@ export default class GetFolderData {
   private getNavigation() {
     let buffResult = this.data!.paths!.rel!.split('/');
     buffResult = buffResult.filter(e => e !== '');
+    console.log(buffResult);
     const result: { text: string, link: string }[] = [];
     result.unshift({
       text: 'root',
       link: '/'
     });
-    for (let i = 1; i < result.length; i++) {
-      result[i] = {
+    for (let i = 0; i < buffResult.length; i++) {
+      result[i + 1] = {
         text: buffResult[i],
-        link: result[i - 1].link + buffResult[i] + '/'
+        link: result[i].link + buffResult[i] + '/'
       };
     }
     this.data!.navigation = result;

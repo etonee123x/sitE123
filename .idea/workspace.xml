@@ -26,6 +26,8 @@
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/GetFolderData.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/GetFolderData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/GetFolderData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/GetFolderData.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +65,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../vue-devexpress" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -218,13 +220,8 @@
       <workItem from="1631549725506" duration="11118000" />
       <workItem from="1631561363928" duration="1493000" />
       <workItem from="1631602760876" duration="880000" />
-    </task>
-    <task id="LOCAL-00016" summary="hardtrying with git again">
-      <created>1627900760032</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1627900760032</updated>
+      <workItem from="1631813397506" duration="351000" />
+      <workItem from="1631862564987" duration="391000" />
     </task>
     <task id="LOCAL-00017" summary="refactored to API">
       <created>1628186852832</created>
@@ -562,7 +559,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631562412791</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="birthTime has Date type now">
+      <created>1631813741558</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1631813741558</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -589,7 +593,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="+bugfix" />
     <MESSAGE value="server check" />
     <MESSAGE value="fixed the &quot;../&quot; issue..." />
     <MESSAGE value="added some comments and info about dates (birth, modification) of files" />
@@ -614,7 +617,8 @@
     <MESSAGE value="+.ts&#10;rewrote getFolderData via ts :)" />
     <MESSAGE value="+ typescript eslint" />
     <MESSAGE value="mini-changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="mini-changes" />
+    <MESSAGE value="birthTime has Date type now" />
+    <option name="LAST_COMMIT_MESSAGE" value="birthTime has Date type now" />
   </component>
   <component name="WindowStateProjectService">
     <state x="831" y="436" key="#ESLint" timestamp="1631535536600">
@@ -733,10 +737,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="231" y="123" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631550607297" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1631562415016">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1631813746319">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1631562415016" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1631813746319" />
     <state x="764" y="256" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1626188514048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
