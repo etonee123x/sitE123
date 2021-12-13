@@ -56,7 +56,7 @@ interface IGetFolderData {
 export default class GetFolderData {
   private readonly contentPath: string;
   private url?: string;
-  private data?: IGetFolderData;
+  public data?: IGetFolderData;
   private fileIsLinked?: boolean;
   private elementsNumbers: any;
 
