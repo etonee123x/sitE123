@@ -3,6 +3,7 @@ import { Router, Request, Response } from 'express';
 import GetFolderData from '../functions/GetFolderData.js';
 import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
+import AlinaHandler from '../functions/AlinaHandler';
 
 const router = Router();
 
@@ -30,6 +31,15 @@ router.get('/funny-animals/', async function(req: Request, res: Response) {
   try {
     const funnyAnimals = new FunnyAnimals();
     res.type('image/jpeg').send(funnyAnimals.getPhoto());
+  } catch (e) {
+    res.status(500).send(`error: ${(e as Error).message}`);
+  }
+});
+router.get('/alina-handler/', async function(req: Request, res: Response) {
+  console.log('New request to /alina-handler/:');
+  try {
+    const alinaHandler = new AlinaHandler();
+    res.type('image/jpeg').send(alinaHandler.getPhoto());
   } catch (e) {
     res.status(500).send(`error: ${(e as Error).message}`);
   }

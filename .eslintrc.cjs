@@ -3,16 +3,17 @@ module.exports = {
   env: {
     commonjs: true,
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
-    'standard'
+    'standard',
   ],
   parserOptions: {
-    ecmaVersion: 12
+    ecmaVersion: 12,
   },
   rules: {
+    'comma-dangle': ['error', 'always-multiline'],
     semi: [2, 'always'],
-    'space-before-function-paren': ['error', 'never']
-  }
+    'space-before-function-paren': ['error', 'never'],
+  },
 };
