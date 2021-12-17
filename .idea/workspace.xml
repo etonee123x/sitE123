@@ -25,20 +25,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/content/alina-handler/photo_2021-06-17_02-46-59.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/alina-handler/photo_2021-07-24_10-00-51.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/alina-handler/photo_2021-08-20_00-16-55.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/alina-handler/photo_2021-08-23_16-46-58.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/alina-handler/photo_2021-08-26_05-34-12.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/alina-handler/photo_2021-11-09_10-47-39.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/alina-handler/photo_2021-11-26_03-48-36.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/finalTest.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/AlinaHandler.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/RMSHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +95,7 @@
       <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content\music" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.RMSHandler.js">
+  <component name="RunManager" selected="npm.watch">
     <configuration name="RMSHandler.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/functions/RMSHandler.js" working-dir="$PROJECT_DIR$/functions">
       <method v="2" />
     </configuration>
@@ -257,14 +244,7 @@
       <workItem from="1639685818863" duration="1718000" />
       <workItem from="1639712845502" duration="111000" />
       <workItem from="1639727486441" duration="486000" />
-      <workItem from="1639752741601" duration="104000" />
-    </task>
-    <task id="LOCAL-00019" summary="minor update">
-      <created>1628190463913</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1628190463913</updated>
+      <workItem from="1639752741601" duration="690000" />
     </task>
     <task id="LOCAL-00020" summary="minor update">
       <created>1628191556168</created>
@@ -602,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639438789368</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="+Alina Handler Api">
+      <created>1639753390933</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1639753390934</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,7 +621,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="added some comments and info about dates (birth, modification) of files" />
     <MESSAGE value="added lox's picture" />
     <MESSAGE value="added few more times fields" />
     <MESSAGE value="minor fixs" />
@@ -659,7 +645,8 @@
     <MESSAGE value="birthTime has Date type now" />
     <MESSAGE value="fixed the navigation error" />
     <MESSAGE value="+ some API functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ some API functions" />
+    <MESSAGE value="+Alina Handler Api" />
+    <option name="LAST_COMMIT_MESSAGE" value="+Alina Handler Api" />
   </component>
   <component name="WindowStateProjectService">
     <state x="831" y="436" key="#ESLint" timestamp="1631535536600">
@@ -770,10 +757,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="231" y="123" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631550607297" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1639438792666">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1639753400634">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1639438792666" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1639753400634" />
     <state x="500" y="454" key="jetbrains.nodejs.interpreters-dialog" timestamp="1631467640200">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

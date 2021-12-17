@@ -11,7 +11,7 @@ import { Router } from 'express';
 import GetFolderData from '../functions/GetFolderData.js';
 import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
-import AlinaHandler from '../functions/AlinaHandler';
+import AlinaHandler from '../functions/AlinaHandler.js';
 const router = Router();
 router.get('/get-folder-data/*', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
