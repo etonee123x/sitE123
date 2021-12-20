@@ -24,9 +24,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -653,10 +651,6 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="831" y="436" key="#ESLint/0.0.1920.1040@0.0.1920.1040" timestamp="1631535536600" />
-    <state x="532" y="316" width="866" height="575" key="#JavaScript" timestamp="1631135344267">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="532" y="316" width="866" height="575" key="#JavaScript/0.0.1920.1040@0.0.1920.1040" timestamp="1631135344267" />
     <state x="484" y="208" width="935" height="616" key="#TypeScript" timestamp="1639752861452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -685,22 +679,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="84" y="63" key="FileDocumentManager.FileCacheConflict/0.0.1920.1040@0.0.1920.1040" timestamp="1631551135535" />
-    <state width="1899" height="299" key="GridCell.Tab.0.bottom" timestamp="1639687561480">
+    <state width="1899" height="299" key="GridCell.Tab.0.bottom" timestamp="1639989716804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="299" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1639687561480" />
-    <state width="1899" height="299" key="GridCell.Tab.0.center" timestamp="1639687561480">
+    <state width="1899" height="299" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1639989716804" />
+    <state width="1899" height="299" key="GridCell.Tab.0.center" timestamp="1639989716804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="299" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1639687561480" />
-    <state width="1899" height="299" key="GridCell.Tab.0.left" timestamp="1639687561480">
+    <state width="1899" height="299" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1639989716804" />
+    <state width="1899" height="299" key="GridCell.Tab.0.left" timestamp="1639989716804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="299" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1639687561480" />
-    <state width="1899" height="299" key="GridCell.Tab.0.right" timestamp="1639687561480">
+    <state width="1899" height="299" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1639989716804" />
+    <state width="1899" height="299" key="GridCell.Tab.0.right" timestamp="1639989716804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="299" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1639687561480" />
+    <state width="1899" height="299" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1639989716804" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1639679545549">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -749,10 +743,6 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1639679545549" />
-    <state x="750" y="226" key="RollbackChangesDialog" timestamp="1631135906467">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="750" y="226" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631135906467" />
     <state x="231" y="123" width="1371" height="711" key="SettingsEditor" timestamp="1631550607297">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
