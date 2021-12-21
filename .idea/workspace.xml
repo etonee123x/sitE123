@@ -26,11 +26,8 @@
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/RMSHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/RMSHandler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/RMSHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/RMSHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
     </list>
@@ -253,14 +250,8 @@
       <workItem from="1639727486441" duration="486000" />
       <workItem from="1639752741601" duration="690000" />
       <workItem from="1639995704431" duration="212000" />
-      <workItem from="1640091605163" duration="4070000" />
-    </task>
-    <task id="LOCAL-00021" summary="minor update">
-      <created>1628194935824</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1628194935824</updated>
+      <workItem from="1640091605163" duration="4525000" />
+      <workItem from="1640110821142" duration="378000" />
     </task>
     <task id="LOCAL-00022" summary="min up">
       <created>1628502720232</created>
@@ -598,7 +589,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639995870839</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="rms-handler module">
+      <created>1640098366791</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1640098366791</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -629,7 +627,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="added few more times fields" />
     <MESSAGE value="minor fixs" />
     <MESSAGE value="+metadata for .mp3-files" />
     <MESSAGE value="minor fixes" />
@@ -654,7 +651,8 @@
     <MESSAGE value="+ some API functions" />
     <MESSAGE value="+Alina Handler Api" />
     <MESSAGE value="order" />
-    <option name="LAST_COMMIT_MESSAGE" value="order" />
+    <MESSAGE value="rms-handler module" />
+    <option name="LAST_COMMIT_MESSAGE" value="rms-handler module" />
   </component>
   <component name="WindowStateProjectService">
     <state x="831" y="436" key="#ESLint" timestamp="1631535536600">
@@ -693,22 +691,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="84" y="63" key="FileDocumentManager.FileCacheConflict/0.0.1920.1040@0.0.1920.1040" timestamp="1631551135535" />
-    <state width="1899" height="324" key="GridCell.Tab.0.bottom" timestamp="1640094956444">
+    <state width="1899" height="324" key="GridCell.Tab.0.bottom" timestamp="1640098539295">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1640094956444" />
-    <state width="1899" height="324" key="GridCell.Tab.0.center" timestamp="1640094956444">
+    <state width="1899" height="324" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1640098539295" />
+    <state width="1899" height="324" key="GridCell.Tab.0.center" timestamp="1640098539295">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1640094956444" />
-    <state width="1899" height="324" key="GridCell.Tab.0.left" timestamp="1640094956444">
+    <state width="1899" height="324" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1640098539295" />
+    <state width="1899" height="324" key="GridCell.Tab.0.left" timestamp="1640098539295">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1640094956444" />
-    <state width="1899" height="324" key="GridCell.Tab.0.right" timestamp="1640094956444">
+    <state width="1899" height="324" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1640098539295" />
+    <state width="1899" height="324" key="GridCell.Tab.0.right" timestamp="1640098539295">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1640094956444" />
+    <state width="1899" height="324" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1640098539295" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1639679545549">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -761,10 +759,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="231" y="123" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631550607297" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1639995873451">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1640098369599">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1639995873451" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1640098369599" />
     <state x="500" y="454" key="jetbrains.nodejs.interpreters-dialog" timestamp="1631467640200">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

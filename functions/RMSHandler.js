@@ -115,10 +115,31 @@ export default class RMSHandler {
             },
         };
         const intervals = RMSHandler.getIntervals(this.segmentRmsDbValues);
-        return `Duration: ${audioDuration.minutes}:${audioDuration.seconds}\n` +
-            `The loudest segment: ${theLoudestSegment.start.minutes}:${theLoudestSegment.start.seconds}-${theLoudestSegment.end.minutes}:${theLoudestSegment.end.seconds}\n` +
-            `RMS: ${Math.min(...this.segmentRmsDbValues)} .. ${Math.max(...this.segmentRmsDbValues)}\n` +
-            `Intervals: ${intervals.min.toFixed(2)} .. ${intervals.max.toFixed(2)}`;
+        return {
+            audio_duration: {
+                minutes: audioDuration.minutes,
+                seconds: audioDuration.seconds,
+            },
+            the_loudest_segment: {
+                start: {
+                    minutes: theLoudestSegment.start.minutes,
+                    seconds: theLoudestSegment.start.seconds,
+                },
+                end: {
+                    minutes: theLoudestSegment.end.minutes,
+                    seconds: theLoudestSegment.end.seconds,
+                },
+            },
+            rms_values: {
+                rms_array: this.segmentRmsDbValues,
+                min: Math.min(...this.segmentRmsDbValues),
+                max: Math.max(...this.segmentRmsDbValues),
+                confidence_interval: {
+                    min: intervals.min.toFixed(2),
+                    max: intervals.max.toFixed(2),
+                },
+            },
+        };
     }
     static toMinutes(time) {
         return Math.floor(time / 60).toString();

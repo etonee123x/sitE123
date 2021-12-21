@@ -50,15 +50,17 @@ router.get('/funny-animals/', function (req, res) {
         }
     });
 });
-router.post('/rms-handler', function (req, res) {
+router.post('/rms-handler/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log('new request to /rms-handler/');
             res.send(new RMSHandler()
                 .fromBuffer(req.body.data.data)
                 .getRms()
                 .formInfo());
         }
         catch (e) {
+            console.log('failed:', e);
             res.send(e);
         }
     });

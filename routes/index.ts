@@ -35,8 +35,9 @@ router.get('/funny-animals/', async function(req: Request, res: Response) {
     res.status(500).send(`error: ${(e as Error).message}`);
   }
 });
-router.post('/rms-handler', async function(req: Request, res: Response) {
+router.post('/rms-handler/', async function(req: Request, res: Response) {
   try {
+    console.log('new request to /rms-handler/');
     res.send(
       new RMSHandler()
         .fromBuffer(req.body.data.data)
@@ -44,6 +45,7 @@ router.post('/rms-handler', async function(req: Request, res: Response) {
         .formInfo(),
     );
   } catch (e) {
+    console.log('failed:', e);
     res.send(e);
   }
 });
