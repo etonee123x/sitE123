@@ -10,7 +10,7 @@ interface IWAVHeaders {
   dataSize: number
 }
 
-export default class RmsHandler {
+export default class RMSHandler {
   public theBuffer?: Buffer;
   private blocksNumber?: number;
   private headers: IWAVHeaders = {} as IWAVHeaders;
@@ -25,13 +25,13 @@ export default class RmsHandler {
   private static readonly M_MILLISECONDS_TO_CHECK = 300;
   private static readonly K_BLOCKS = Math.pow(2, 6);
 
-  public fromFile(pathToFile: string): RmsHandler {
+  public fromFile(pathToFile: string): RMSHandler {
     this.theBuffer = readFileSync(pathToFile);
     return this;
   }
 
-  public fromBuffer(buffer: Buffer): RmsHandler {
-    this.theBuffer = buffer;
+  public fromBuffer(buffer: Buffer): RMSHandler {
+    this.theBuffer = Buffer.from(buffer);
     return this;
   }
 
@@ -53,21 +53,21 @@ export default class RmsHandler {
   }
 
   private findBlockLengths() {
-    const blocksPerSecondInASingleChannel = this.headers.byteRate / (this.headers.blockAlign * RmsHandler.K_BLOCKS);
-    this.blocksPerNSeconds = Math.floor(blocksPerSecondInASingleChannel * RmsHandler.N_SECONDS_TO_CHECK);
-    this.blocksPerMMilliSeconds = Math.floor(blocksPerSecondInASingleChannel * RmsHandler.M_MILLISECONDS_TO_CHECK / 1000);
+    const blocksPerSecondInASingleChannel = this.headers.byteRate / (this.headers.blockAlign * RMSHandler.K_BLOCKS);
+    this.blocksPerNSeconds = Math.floor(blocksPerSecondInASingleChannel * RMSHandler.N_SECONDS_TO_CHECK);
+    this.blocksPerMMilliSeconds = Math.floor(blocksPerSecondInASingleChannel * RMSHandler.M_MILLISECONDS_TO_CHECK / 1000);
   }
 
   private parseWavToChannels() {
     this.channels = { left: [], right: [] };
     if (this.headers.bitsPerSample === 16) {
-      for (let i = 1; i < this.blocksNumber!; i += RmsHandler.K_BLOCKS) {
+      for (let i = 1; i < this.blocksNumber!; i += RMSHandler.K_BLOCKS) {
         const blockData = this.theBuffer!.slice(i * this.headers.blockAlign, (i + 1) * this.headers.blockAlign);
         this.channels.left.push(blockData.readInt16LE(0));
         this.channels.right.push(blockData.readInt16LE(2));
       }
     } else if (this.headers.bitsPerSample === 32) {
-      for (let i = 1; i < this.blocksNumber!; i += RmsHandler.K_BLOCKS) {
+      for (let i = 1; i < this.blocksNumber!; i += RMSHandler.K_BLOCKS) {
         const blockData = this.theBuffer!.slice(i * this.headers.blockAlign, (i + 1) * this.headers.blockAlign);
         this.channels.left.push(blockData.readInt32LE(0));
         this.channels.right.push(blockData.readInt32LE(4));
@@ -133,15 +133,15 @@ export default class RmsHandler {
     const audioDuration = { minutes: Math.floor(duration / 60), seconds: duration % 60 };
     const theLoudestSegment = {
       start: {
-        minutes: RmsHandler.toMinutes(this.theLoudestSegment!.start / this.pointsNumber! * duration),
-        seconds: RmsHandler.toSeconds(this.theLoudestSegment!.start / this.pointsNumber! * duration),
+        minutes: RMSHandler.toMinutes(this.theLoudestSegment!.start / this.pointsNumber! * duration),
+        seconds: RMSHandler.toSeconds(this.theLoudestSegment!.start / this.pointsNumber! * duration),
       },
       end: {
-        minutes: RmsHandler.toMinutes(this.theLoudestSegment!.end / this.pointsNumber! * duration),
-        seconds: RmsHandler.toSeconds(this.theLoudestSegment!.end / this.pointsNumber! * duration),
+        minutes: RMSHandler.toMinutes(this.theLoudestSegment!.end / this.pointsNumber! * duration),
+        seconds: RMSHandler.toSeconds(this.theLoudestSegment!.end / this.pointsNumber! * duration),
       },
     };
-    const intervals = RmsHandler.getIntervals(this.segmentRmsDbValues!) as { min: number, max: number };
+    const intervals = RMSHandler.getIntervals(this.segmentRmsDbValues!) as { min: number, max: number };
     return `Duration: ${audioDuration.minutes}:${audioDuration.seconds}\n` +
       `The loudest segment: ${theLoudestSegment.start.minutes}:${theLoudestSegment.start.seconds}-${theLoudestSegment.end.minutes}:${theLoudestSegment.end.seconds}\n` +
       `RMS: ${Math.min(...this.segmentRmsDbValues!)} .. ${Math.max(...this.segmentRmsDbValues!)}\n` +
@@ -175,12 +175,3 @@ export default class RmsHandler {
     };
   }
 }
-(async() => {
-  const rmsHandler = new RmsHandler();
-  console.log(rmsHandler
-    .fromFile('../content/t.wav')
-    .getRms()
-    .formInfo());
-  console.log();
-  console.log(rmsHandler);
-})().catch(e => console.error('Error:', (e as Error).message));

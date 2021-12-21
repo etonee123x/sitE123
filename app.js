@@ -16,9 +16,9 @@ app.use(function(req, res, next) {
   next();
 });
 app.set('view engine', 'pug');
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ limit: 1000 * 1024 * 1024, extended: true }));
+app.use(express.json({ limit: 1000 * 1024 * 1024, extended: true }));
 
 app.use('/', indexRouter);
 export default app;

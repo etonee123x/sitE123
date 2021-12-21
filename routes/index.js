@@ -11,6 +11,7 @@ import { Router } from 'express';
 import GetFolderData from '../functions/GetFolderData.js';
 import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
+import RMSHandler from '../functions/RMSHandler.js';
 const router = Router();
 router.get('/get-folder-data/*', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -49,4 +50,25 @@ router.get('/funny-animals/', function (req, res) {
         }
     });
 });
+router.post('/rms-handler', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            res.send(new RMSHandler()
+                .fromBuffer(req.body.data.data)
+                .getRms()
+                .formInfo());
+        }
+        catch (e) {
+            res.send(e);
+        }
+    });
+});
+/* router.get('/test', async(req: Request, res: Response) => {
+  const data = readFileSync('./content/finalTest.wav');
+  console.log('data size:', data.length);
+  const response = await axios.post('http://localhost:3001/rms-handler'
+    , { data }
+    , { maxBodyLength: Infinity });
+  res.send(response.data);
+}); */
 export default router;
