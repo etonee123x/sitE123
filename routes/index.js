@@ -54,6 +54,9 @@ router.post('/rms-handler/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             console.log('new request to /rms-handler/');
+            console.log('req:', req);
+            console.log('req body:', req.body);
+            console.log('req body data:', req.body.data);
             res.send(new RMSHandler()
                 .fromBuffer(req.body.data.data)
                 .getRms()

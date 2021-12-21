@@ -26,10 +26,6 @@
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/RMSHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/RMSHandler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/RMSHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/RMSHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,14 +247,9 @@
       <workItem from="1639752741601" duration="690000" />
       <workItem from="1639995704431" duration="212000" />
       <workItem from="1640091605163" duration="4525000" />
-      <workItem from="1640110821142" duration="378000" />
-    </task>
-    <task id="LOCAL-00022" summary="min up">
-      <created>1628502720232</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1628502720232</updated>
+      <workItem from="1640110821142" duration="575000" />
+      <workItem from="1640111506895" duration="15000" />
+      <workItem from="1640111891782" duration="28000" />
     </task>
     <task id="LOCAL-00023" summary="linked file is back">
       <created>1628502851176</created>
@@ -596,7 +587,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640098366791</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="better output for rms handler">
+      <created>1640111394810</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1640111394810</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -627,7 +625,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="minor fixs" />
     <MESSAGE value="+metadata for .mp3-files" />
     <MESSAGE value="minor fixes" />
     <MESSAGE value="folders &gt; files now" />
@@ -652,7 +649,8 @@
     <MESSAGE value="+Alina Handler Api" />
     <MESSAGE value="order" />
     <MESSAGE value="rms-handler module" />
-    <option name="LAST_COMMIT_MESSAGE" value="rms-handler module" />
+    <MESSAGE value="better output for rms handler" />
+    <option name="LAST_COMMIT_MESSAGE" value="better output for rms handler" />
   </component>
   <component name="WindowStateProjectService">
     <state x="831" y="436" key="#ESLint" timestamp="1631535536600">
@@ -675,14 +673,6 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="722" y="329" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1640098073626" />
-    <state x="740" y="227" key="#com.intellij.ide.macro.MacrosDialog" timestamp="1631467647590">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="227" key="#com.intellij.ide.macro.MacrosDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631467647590" />
-    <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1631468739579">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631468739579" />
     <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1639995921271">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -759,14 +749,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="231" y="123" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631550607297" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1640098369599">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1640111402515">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1640098369599" />
-    <state x="500" y="454" key="jetbrains.nodejs.interpreters-dialog" timestamp="1631467640200">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="500" y="454" key="jetbrains.nodejs.interpreters-dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631467640200" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1640111402515" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1639669974682">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

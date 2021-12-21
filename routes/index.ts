@@ -38,6 +38,9 @@ router.get('/funny-animals/', async function(req: Request, res: Response) {
 router.post('/rms-handler/', async function(req: Request, res: Response) {
   try {
     console.log('new request to /rms-handler/');
+    console.log('req:', req);
+    console.log('req body:', req.body);
+    console.log('req body data:', req.body.data);
     res.send(
       new RMSHandler()
         .fromBuffer(req.body.data.data)
