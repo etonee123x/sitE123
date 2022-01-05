@@ -12,6 +12,7 @@ import GetFolderData from '../functions/GetFolderData.js';
 import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
 import RMSHandler from '../functions/RMSHandler.js';
+import Parser from '../functions/Parser.js';
 const router = Router();
 router.get('/get-folder-data/*', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -40,7 +41,7 @@ router.get('/happy-norming/', function (req, res) {
 });
 router.get('/funny-animals/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('New request to /funny-animals/:');
+        console.log('New request to /funny-animals/');
         try {
             const funnyAnimals = new FunnyAnimals();
             res.type('image/jpeg').send(funnyAnimals.getPhoto());
@@ -52,11 +53,8 @@ router.get('/funny-animals/', function (req, res) {
 });
 router.post('/rms-handler/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log('new request to /rms-handler/');
         try {
-            console.log('new request to /rms-handler/');
-            console.log('req:', req);
-            console.log('req body:', req.body);
-            console.log('req body data:', req.body.data);
             res.send(new RMSHandler()
                 .fromBuffer(req.body.data.data)
                 .getRms()
@@ -68,12 +66,32 @@ router.post('/rms-handler/', function (req, res) {
         }
     });
 });
-/* router.get('/test', async(req: Request, res: Response) => {
-  const data = readFileSync('./content/finalTest.wav');
-  console.log('data size:', data.length);
-  const response = await axios.post('http://localhost:3001/rms-handler'
-    , { data }
-    , { maxBodyLength: Infinity });
-  res.send(response.data);
+router.post('/parser/', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log('new request to /parser/:', req.body);
+        try {
+            const parser = new Parser(req.body.id, req.body.links, req.body.method);
+            yield parser.init();
+            res.json(yield parser.parse());
+        }
+        catch (e) {
+            console.log('failed:', e);
+            res.send(e);
+        }
+    });
+});
+/* router.get('/test/', async(req: Request, res: Response) => {
+  const links: { type: 'csv' | 'txt' | 'json', data?: Buffer } = { type: 'csv' };
+  links.data = readFileSync('./content/links.csv');
+  const method = readFileSync('./content/method.js');
+  const id = Date.now();
+  res.json(
+    await axios.post('http://localhost:3001/parser/', {
+      links,
+      method,
+      id,
+    }, { maxBodyLength: Infinity })
+      .then(r => r.data),
+  );
 }); */
 export default router;

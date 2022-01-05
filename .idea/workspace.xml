@@ -25,7 +25,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/content/links.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/content/method.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/Parser.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +43,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Pug File" />
-        <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -64,7 +71,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../discord_bot" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -250,13 +257,14 @@
       <workItem from="1640110821142" duration="575000" />
       <workItem from="1640111506895" duration="15000" />
       <workItem from="1640111891782" duration="28000" />
-    </task>
-    <task id="LOCAL-00023" summary="linked file is back">
-      <created>1628502851176</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1628502851176</updated>
+      <workItem from="1640118204684" duration="106000" />
+      <workItem from="1640119827105" duration="24000" />
+      <workItem from="1640193696193" duration="45000" />
+      <workItem from="1640194704040" duration="17000" />
+      <workItem from="1640789131075" duration="66000" />
+      <workItem from="1640789312729" duration="12000" />
+      <workItem from="1640789365214" duration="230000" />
+      <workItem from="1641403414690" duration="14982000" />
     </task>
     <task id="LOCAL-00024" summary="min update">
       <created>1628866628002</created>
@@ -594,7 +602,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640111394810</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="testing...">
+      <created>1640118300438</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1640118300440</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -606,6 +621,7 @@
         <option value="$PROJECT_DIR$/functions/HappyNorming.js" />
         <option value="$PROJECT_DIR$/functions/FunnyAnimals.js" />
         <option value="$PROJECT_DIR$/functions/RMSHandler.js" />
+        <option value="$PROJECT_DIR$/functions/Parser.js" />
       </list>
     </option>
   </component>
@@ -630,7 +646,6 @@
     <MESSAGE value="folders &gt; files now" />
     <MESSAGE value="+ new logic (request types)" />
     <MESSAGE value="+ playlist" />
-    <MESSAGE value="testing..." />
     <MESSAGE value="fixing some issues" />
     <MESSAGE value="+metaData in linkedFile.metaData" />
     <MESSAGE value="+metaData for playlist!" />
@@ -650,13 +665,10 @@
     <MESSAGE value="order" />
     <MESSAGE value="rms-handler module" />
     <MESSAGE value="better output for rms handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="better output for rms handler" />
+    <MESSAGE value="testing..." />
+    <option name="LAST_COMMIT_MESSAGE" value="testing..." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="831" y="436" key="#ESLint" timestamp="1631535536600">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="831" y="436" key="#ESLint/0.0.1920.1040@0.0.1920.1040" timestamp="1631535536600" />
     <state x="707" y="231" width="821" height="577" key="#JavaScript" timestamp="1640092791379">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -665,38 +677,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="484" y="208" width="935" height="616" key="#TypeScript/0.0.1920.1040@0.0.1920.1040" timestamp="1639752861452" />
-    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1631550659997">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="237" y="301" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1631550659997" />
     <state x="722" y="329" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1640098073626">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="722" y="329" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1640098073626" />
-    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1639995921271">
+    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1641418012800">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1639995921271" />
-    <state x="84" y="63" key="FileDocumentManager.FileCacheConflict" timestamp="1631551135535">
+    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1641418012800" />
+    <state width="1899" height="324" key="GridCell.Tab.0.bottom" timestamp="1641414935708">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="84" y="63" key="FileDocumentManager.FileCacheConflict/0.0.1920.1040@0.0.1920.1040" timestamp="1631551135535" />
-    <state width="1899" height="324" key="GridCell.Tab.0.bottom" timestamp="1640098539295">
+    <state width="1899" height="324" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1641414935708" />
+    <state width="1899" height="324" key="GridCell.Tab.0.center" timestamp="1641414935707">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1640098539295" />
-    <state width="1899" height="324" key="GridCell.Tab.0.center" timestamp="1640098539295">
+    <state width="1899" height="324" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1641414935707" />
+    <state width="1899" height="324" key="GridCell.Tab.0.left" timestamp="1641414935707">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1640098539295" />
-    <state width="1899" height="324" key="GridCell.Tab.0.left" timestamp="1640098539295">
+    <state width="1899" height="324" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1641414935707" />
+    <state width="1899" height="324" key="GridCell.Tab.0.right" timestamp="1641414935708">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1640098539295" />
-    <state width="1899" height="324" key="GridCell.Tab.0.right" timestamp="1640098539295">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1640098539295" />
+    <state width="1899" height="324" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1641414935708" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1639679545549">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -745,14 +749,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1639679545549" />
-    <state x="231" y="123" width="1371" height="711" key="SettingsEditor" timestamp="1631550607297">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1640118302692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="231" y="123" width="1371" height="711" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1631550607297" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1640111402515">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1640111402515" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1640118302692" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1639669974682">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -4,6 +4,7 @@ import GetFolderData from '../functions/GetFolderData.js';
 import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
 import RMSHandler from '../functions/RMSHandler.js';
+import Parser from '../functions/Parser.js';
 
 const router = Router();
 
@@ -17,6 +18,7 @@ router.get('/get-folder-data/*', async function(req: Request, res: Response) {
     res.status(500).send(`error: ${(e as Error).message}`);
   }
 });
+
 router.get('/happy-norming/', async function(req: Request, res: Response) {
   console.log('New request to /happy-norming/:', req.query);
   try {
@@ -26,8 +28,9 @@ router.get('/happy-norming/', async function(req: Request, res: Response) {
     res.status(500).send(`error: ${(e as Error).message}`);
   }
 });
+
 router.get('/funny-animals/', async function(req: Request, res: Response) {
-  console.log('New request to /funny-animals/:');
+  console.log('New request to /funny-animals/');
   try {
     const funnyAnimals = new FunnyAnimals();
     res.type('image/jpeg').send(funnyAnimals.getPhoto());
@@ -35,12 +38,10 @@ router.get('/funny-animals/', async function(req: Request, res: Response) {
     res.status(500).send(`error: ${(e as Error).message}`);
   }
 });
+
 router.post('/rms-handler/', async function(req: Request, res: Response) {
+  console.log('new request to /rms-handler/');
   try {
-    console.log('new request to /rms-handler/');
-    console.log('req:', req);
-    console.log('req body:', req.body);
-    console.log('req body data:', req.body.data);
     res.send(
       new RMSHandler()
         .fromBuffer(req.body.data.data)
@@ -53,13 +54,31 @@ router.post('/rms-handler/', async function(req: Request, res: Response) {
   }
 });
 
-/* router.get('/test', async(req: Request, res: Response) => {
-  const data = readFileSync('./content/finalTest.wav');
-  console.log('data size:', data.length);
-  const response = await axios.post('http://localhost:3001/rms-handler'
-    , { data }
-    , { maxBodyLength: Infinity });
-  res.send(response.data);
+router.post('/parser/', async function(req: Request, res: Response) {
+  console.log('new request to /parser/:', req.body);
+  try {
+    const parser = new Parser(req.body.id, req.body.links, req.body.method);
+    await parser.init();
+    res.json(await parser.parse());
+  } catch (e) {
+    console.log('failed:', e);
+    res.send(e);
+  }
+});
+
+/* router.get('/test/', async(req: Request, res: Response) => {
+  const links: { type: 'csv' | 'txt' | 'json', data?: Buffer } = { type: 'csv' };
+  links.data = readFileSync('./content/links.csv');
+  const method = readFileSync('./content/method.js');
+  const id = Date.now();
+  res.json(
+    await axios.post('http://localhost:3001/parser/', {
+      links,
+      method,
+      id,
+    }, { maxBodyLength: Infinity })
+      .then(r => r.data),
+  );
 }); */
 
 export default router;
