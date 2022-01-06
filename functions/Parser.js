@@ -11,58 +11,26 @@ import Puppeteer from 'puppeteer';
 import { Buffer } from 'buffer';
 import { mkdirSync, rmdirSync, writeFileSync } from 'fs';
 export default class Parser {
-    constructor(id, links, method) {
+    constructor(options, id) {
         this.allParsedData = [];
-        this.bufferLinks = links;
-        this.bufferMethod = method;
-        this.id = id;
+        this.id = id || Date.now();
+        this.bufferedOptions = options;
     }
-    static parseLinksBufferToArray(links) {
-        const parseCSV = (buffer) => {
-            return Buffer
-                .from(buffer)
-                .toString()
-                .trim()
-                .split('\n')
-                .filter((item, idx) => idx > 0)
-                .map((item) => item.trim());
-        };
-        const parseTXT = (buffer) => {
-            return Buffer
-                .from(buffer)
-                .toString()
-                .trim()
-                .split('\n')
-                .map((item) => item.trim());
-        };
-        const parseJSON = (buffer) => {
-            return JSON.parse(Buffer.from(buffer).toString());
-        };
-        switch (links.type) {
-            case 'csv':
-                return parseCSV(links.data.data);
-            case 'txt':
-                return parseTXT(links.data.data);
-            case 'json':
-                return parseJSON(links.data.data);
-        }
-    }
-    static parseMethodBufferToMethod(method, id) {
+    getOptionsFromBuffer() {
         return __awaiter(this, void 0, void 0, function* () {
-            mkdirSync(`./content/parser/${id}`);
-            writeFileSync(`./content/parser/${id}/index.cjs`, Buffer.from(method.data));
-            const answer = yield import(`../content/parser/${id}/index.cjs`);
-            rmdirSync(`./content/parser/${id}`, { recursive: true });
-            return answer.default;
+            mkdirSync(`./content/parser/${this.id}`);
+            writeFileSync(`./content/parser/${this.id}/index.cjs`, Buffer.from(this.bufferedOptions.data));
+            const options = yield import(`../content/parser/${this.id}/index.cjs`);
+            rmdirSync(`./content/parser/${this.id}`, { recursive: true });
+            this.links = options.default.links;
+            this.method = options.default.method;
         });
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
             this.browser = yield Puppeteer.launch({ headless: true });
             this.page = yield this.browser.newPage();
-            this.links = Parser.parseLinksBufferToArray(this.bufferLinks);
-            this.method = yield Parser.parseMethodBufferToMethod(this.bufferMethod, this.id);
-            return this;
+            yield this.getOptionsFromBuffer();
         });
     }
     parse() {

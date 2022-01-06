@@ -5,6 +5,8 @@ import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
 import RMSHandler from '../functions/RMSHandler.js';
 import Parser from '../functions/Parser.js';
+// import { readFileSync } from 'fs';
+// import axios from 'axios';
 
 const router = Router();
 
@@ -57,7 +59,7 @@ router.post('/rms-handler/', async function(req: Request, res: Response) {
 router.post('/parser/', async function(req: Request, res: Response) {
   console.log('new request to /parser/:', req.body);
   try {
-    const parser = new Parser(req.body.id, req.body.links, req.body.method);
+    const parser = new Parser(req.body.options, req.body.id);
     await parser.init();
     res.json(await parser.parse());
   } catch (e) {
@@ -67,15 +69,11 @@ router.post('/parser/', async function(req: Request, res: Response) {
 });
 
 /* router.get('/test/', async(req: Request, res: Response) => {
-  const links: { type: 'csv' | 'txt' | 'json', data?: Buffer } = { type: 'csv' };
-  links.data = readFileSync('./content/links.csv');
-  const method = readFileSync('./content/method.js');
-  const id = Date.now();
+  const options = readFileSync('./content/options.js');
+  const id = 'test';
   res.json(
     await axios.post('http://localhost:3001/parser/', {
-      links,
-      method,
-      id,
+      options, id,
     }, { maxBodyLength: Infinity })
       .then(r => r.data),
   );

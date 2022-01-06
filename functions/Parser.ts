@@ -2,15 +2,7 @@ import Puppeteer, { Browser, Page } from 'puppeteer';
 import { Buffer } from 'buffer';
 import { mkdirSync, rmdirSync, writeFileSync } from 'fs';
 
-interface Links {
-  type: 'csv' | 'txt' | 'json'
-  data: {
-    type: 'Buffer',
-    data: number[]
-  }
-}
-
-interface Method {
+interface Options {
   type: 'Buffer',
   data: number[]
 }
@@ -19,64 +11,30 @@ export default class Parser {
   private browser?: Browser;
   private page?: Page;
   private allParsedData: any[] = [];
-  private readonly id: number;
-  private readonly bufferLinks: Links;
-  private readonly bufferMethod: Method;
+  private readonly bufferedOptions: Options;
+  private readonly id?: number | string;
 
-  private links: string[]| undefined;
+  private links: string[] | undefined;
   private method?: any;
 
-  constructor(id: number, links: Links, method: Method) {
-    this.bufferLinks = links;
-    this.bufferMethod = method;
-    this.id = id;
+  constructor(options: Options, id?: number | string) {
+    this.id = id || Date.now();
+    this.bufferedOptions = options;
   }
 
-  private static parseLinksBufferToArray(links: Links) {
-    const parseCSV = (buffer: number[]) => {
-      return Buffer
-        .from(buffer)
-        .toString()
-        .trim()
-        .split('\n')
-        .filter((item: string, idx: number) => idx > 0)
-        .map((item: string) => item.trim());
-    };
-    const parseTXT = (buffer: number[]) => {
-      return Buffer
-        .from(buffer)
-        .toString()
-        .trim()
-        .split('\n')
-        .map((item: string) => item.trim());
-    };
-    const parseJSON = (buffer: number[]) => {
-      return JSON.parse(Buffer.from(buffer).toString());
-    };
-    switch (links.type) {
-      case 'csv':
-        return parseCSV(links.data.data);
-      case 'txt':
-        return parseTXT(links.data.data);
-      case 'json':
-        return parseJSON(links.data.data);
-    }
+  private async getOptionsFromBuffer() {
+    mkdirSync(`./content/parser/${this.id}`);
+    writeFileSync(`./content/parser/${this.id}/index.cjs`, Buffer.from(this.bufferedOptions.data));
+    const options = await import(`../content/parser/${this.id}/index.cjs`);
+    rmdirSync(`./content/parser/${this.id}`, { recursive: true });
+    this.links = options.default.links;
+    this.method = options.default.method;
   }
 
-  private static async parseMethodBufferToMethod(method: Method, id: number): Promise<Function> {
-    mkdirSync(`./content/parser/${id}`);
-    writeFileSync(`./content/parser/${id}/index.cjs`, Buffer.from(method.data));
-    const answer = await import(`../content/parser/${id}/index.cjs`);
-    rmdirSync(`./content/parser/${id}`, { recursive: true });
-    return answer.default;
-  }
-
-  public async init(): Promise<this> {
+  public async init() {
     this.browser = await Puppeteer.launch({ headless: true });
     this.page = await this.browser.newPage();
-    this.links = Parser.parseLinksBufferToArray(this.bufferLinks);
-    this.method = await Parser.parseMethodBufferToMethod(this.bufferMethod, this.id)!;
-    return this;
+    await this.getOptionsFromBuffer();
   }
 
   public async parse(): Promise<any[]> {

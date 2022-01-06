@@ -25,10 +25,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/content/links.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/content/method.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/Parser.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/links.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/method.js" beforeDir="false" afterPath="$PROJECT_DIR$/content/options.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/Parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/Parser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/Parser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/Parser.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
@@ -71,7 +72,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../discord_bot" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -264,14 +265,9 @@
       <workItem from="1640789131075" duration="66000" />
       <workItem from="1640789312729" duration="12000" />
       <workItem from="1640789365214" duration="230000" />
-      <workItem from="1641403414690" duration="14982000" />
-    </task>
-    <task id="LOCAL-00024" summary="min update">
-      <created>1628866628002</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1628866628002</updated>
+      <workItem from="1641403414690" duration="15175000" />
+      <workItem from="1641419540659" duration="24000" />
+      <workItem from="1641448872372" duration="1440000" />
     </task>
     <task id="LOCAL-00025" summary="fixed bad regex bug">
       <created>1628877714331</created>
@@ -609,7 +605,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640118300440</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="+parser">
+      <created>1641418705956</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1641418705957</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -641,7 +644,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="+metadata for .mp3-files" />
     <MESSAGE value="minor fixes" />
     <MESSAGE value="folders &gt; files now" />
     <MESSAGE value="+ new logic (request types)" />
@@ -666,7 +668,8 @@
     <MESSAGE value="rms-handler module" />
     <MESSAGE value="better output for rms handler" />
     <MESSAGE value="testing..." />
-    <option name="LAST_COMMIT_MESSAGE" value="testing..." />
+    <MESSAGE value="+parser" />
+    <option name="LAST_COMMIT_MESSAGE" value="+parser" />
   </component>
   <component name="WindowStateProjectService">
     <state x="707" y="231" width="821" height="577" key="#JavaScript" timestamp="1640092791379">
@@ -681,26 +684,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="722" y="329" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1640098073626" />
-    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1641418012800">
+    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1641419562951">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1641418012800" />
-    <state width="1899" height="324" key="GridCell.Tab.0.bottom" timestamp="1641414935708">
+    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1641419562951" />
+    <state width="1899" height="324" key="GridCell.Tab.0.bottom" timestamp="1641449214653">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1641414935708" />
-    <state width="1899" height="324" key="GridCell.Tab.0.center" timestamp="1641414935707">
+    <state width="1899" height="324" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1641449214653" />
+    <state width="1899" height="324" key="GridCell.Tab.0.center" timestamp="1641449214653">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1641414935707" />
-    <state width="1899" height="324" key="GridCell.Tab.0.left" timestamp="1641414935707">
+    <state width="1899" height="324" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1641449214653" />
+    <state width="1899" height="324" key="GridCell.Tab.0.left" timestamp="1641449214653">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1641414935707" />
-    <state width="1899" height="324" key="GridCell.Tab.0.right" timestamp="1641414935708">
+    <state width="1899" height="324" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1641449214653" />
+    <state width="1899" height="324" key="GridCell.Tab.0.right" timestamp="1641449214653">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1641414935708" />
+    <state width="1899" height="324" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1641449214653" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1639679545549">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -749,10 +752,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1639679545549" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1640118302692">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641418712368">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1640118302692" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641418712368" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1639669974682">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
