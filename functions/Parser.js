@@ -28,7 +28,10 @@ export default class Parser {
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.browser = yield Puppeteer.launch({ headless: true });
+            this.browser = yield Puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            });
             this.page = yield this.browser.newPage();
             yield this.getOptionsFromBuffer();
         });

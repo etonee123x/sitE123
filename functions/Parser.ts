@@ -32,7 +32,10 @@ export default class Parser {
   }
 
   public async init() {
-    this.browser = await Puppeteer.launch({ headless: true });
+    this.browser = await Puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     this.page = await this.browser.newPage();
     await this.getOptionsFromBuffer();
   }
