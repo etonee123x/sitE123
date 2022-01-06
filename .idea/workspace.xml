@@ -265,14 +265,8 @@
       <workItem from="1641450447469" duration="169000" />
       <workItem from="1641452549486" duration="1301000" />
       <workItem from="1641453965089" duration="369000" />
-      <workItem from="1641478964019" duration="1926000" />
-    </task>
-    <task id="LOCAL-00027" summary="min update">
-      <created>1628878815529</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1628878815529</updated>
+      <workItem from="1641478964019" duration="2324000" />
+      <workItem from="1641484587684" duration="60000" />
     </task>
     <task id="LOCAL-00028" summary="added comments">
       <created>1628923283603</created>
@@ -610,7 +604,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641454061960</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="+errors log">
+      <created>1641482354277</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1641482354278</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -642,7 +643,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="+ new logic (request types)" />
     <MESSAGE value="+ playlist" />
     <MESSAGE value="fixing some issues" />
     <MESSAGE value="+metaData in linkedFile.metaData" />
@@ -667,7 +667,8 @@
     <MESSAGE value="+parser" />
     <MESSAGE value="single-file parser" />
     <MESSAGE value="parser no sandbox" />
-    <option name="LAST_COMMIT_MESSAGE" value="parser no sandbox" />
+    <MESSAGE value="+errors log" />
+    <option name="LAST_COMMIT_MESSAGE" value="+errors log" />
   </component>
   <component name="WindowStateProjectService">
     <state x="707" y="231" width="821" height="577" key="#JavaScript" timestamp="1640092791379">
@@ -750,10 +751,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1639679545549" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641454064488">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641482359414">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641454064488" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641482359414" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1639669974682">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

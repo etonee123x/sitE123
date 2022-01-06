@@ -47,7 +47,11 @@ export default class Parser {
                 catch (e) {
                     this.allParsedData.push({
                         caption: `Ошибка парсинга на странице ${url}`,
-                        error: e,
+                        error: {
+                            name: e.name,
+                            message: e.message,
+                            stack: e.stack,
+                        },
                     });
                 }
             }
