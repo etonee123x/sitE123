@@ -39,14 +39,16 @@ export default class Parser {
     parse() {
         return __awaiter(this, void 0, void 0, function* () {
             for (const url of this.links) {
-                console.log(`Переходим на ${url}`);
                 yield this.page.goto(url, { waitUntil: 'networkidle2' });
                 try {
                     const pageData = yield this.page.evaluate(yield this.method);
                     this.allParsedData.push(pageData);
                 }
                 catch (e) {
-                    console.log(`Ошибка парсинга на странице ${url}:`, e.message);
+                    this.allParsedData.push({
+                        caption: `Ошибка парсинга на странице ${url}`,
+                        error: e,
+                    });
                 }
             }
             yield this.browser.close();

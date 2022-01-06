@@ -42,13 +42,17 @@ export default class Parser {
 
   public async parse(): Promise<any[]> {
     for (const url of this.links!) {
-      console.log(`Переходим на ${url}`);
       await this.page!.goto(url, { waitUntil: 'networkidle2' });
       try {
         const pageData = await this.page!.evaluate(await this.method!);
         this.allParsedData.push(pageData);
       } catch (e) {
-        console.log(`Ошибка парсинга на странице ${url}:`, (e as Error).message);
+        this.allParsedData.push(
+          {
+            caption: `Ошибка парсинга на странице ${url}`,
+            error: e,
+          },
+        );
       }
     }
     await this.browser!.close();
