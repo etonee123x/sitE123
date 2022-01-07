@@ -13,6 +13,7 @@ import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
 import RMSHandler from '../functions/RMSHandler.js';
 import Parser from '../functions/Parser.js';
+import Index from '../functions/YaSearch/index.js';
 // import { readFileSync } from 'fs';
 // import axios from 'axios';
 const router = Router();
@@ -82,6 +83,15 @@ router.post('/parser/', function (req, res) {
         }
     });
 });
+router.get('/search/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('New request to /search/:', req.query);
+    if (!req.query.q) {
+        res.json('nothing to search!');
+    }
+    const yaSearch = new Index(req.query.q);
+    yield yaSearch.search();
+    res.json(yaSearch.getResults());
+}));
 /* router.get('/test/', async(req: Request, res: Response) => {
   const options = readFileSync('./content/options.js');
   const id = 'test';

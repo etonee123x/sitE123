@@ -5,6 +5,7 @@ import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
 import RMSHandler from '../functions/RMSHandler.js';
 import Parser from '../functions/Parser.js';
+import Index from '../functions/YaSearch/index.js';
 // import { readFileSync } from 'fs';
 // import axios from 'axios';
 
@@ -66,6 +67,16 @@ router.post('/parser/', async function(req: Request, res: Response) {
     console.log('failed:', e);
     res.send(e);
   }
+});
+
+router.get('/search/', async(req: Request, res: Response) => {
+  console.log('New request to /search/:', req.query);
+  if (!req.query.q) {
+    res.json('nothing to search!');
+  }
+  const yaSearch = new Index(req.query.q as string);
+  await yaSearch.search();
+  res.json(yaSearch.getResults());
 });
 
 /* router.get('/test/', async(req: Request, res: Response) => {

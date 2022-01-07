@@ -25,9 +25,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/functions/ParserEngine/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/YaSearch/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/YaSearch/parseMethod.cjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/Parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/Parser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/Parser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/Parser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +69,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tg_bot" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -83,18 +86,19 @@
     <property name="ts.external.directory.path" value="C:\Users\E123WH\AppData\Roaming\npm\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content\images\lox" />
-      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public" />
-      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\music\albums" />
-      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\media_content\music" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\content\alina-handler" />
       <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\content" />
       <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\content\happy-norming" />
       <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content" />
       <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content\music" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\functions\YaSearch" />
+      <recent name="D:\Programs\Programming\WebStorm 2020.1\Projects\sitE123\public\content\images\lox" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\content\music\albums" />
+      <recent name="D:\Programs\WebStorm 2020.1\Projects\sitE123\public\media_content\music" />
     </key>
   </component>
   <component name="RunManager" selected="npm.watch">
@@ -266,14 +270,14 @@
       <workItem from="1641452549486" duration="1301000" />
       <workItem from="1641453965089" duration="369000" />
       <workItem from="1641478964019" duration="2324000" />
-      <workItem from="1641484587684" duration="60000" />
-    </task>
-    <task id="LOCAL-00028" summary="added comments">
-      <created>1628923283603</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1628923283603</updated>
+      <workItem from="1641484587684" duration="98000" />
+      <workItem from="1641562245453" duration="136000" />
+      <workItem from="1641562451017" duration="2428000" />
+      <workItem from="1641564931072" duration="332000" />
+      <workItem from="1641565296811" duration="473000" />
+      <workItem from="1641565800877" duration="97000" />
+      <workItem from="1641565928877" duration="2715000" />
+      <workItem from="1641569988308" duration="2771000" />
     </task>
     <task id="LOCAL-00029" summary="API 2.0 -- working with filesystem is in the special class">
       <created>1629043299517</created>
@@ -611,7 +615,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641482354278</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="min fix">
+      <created>1641484657898</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1641484657899</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -624,6 +635,7 @@
         <option value="$PROJECT_DIR$/functions/FunnyAnimals.js" />
         <option value="$PROJECT_DIR$/functions/RMSHandler.js" />
         <option value="$PROJECT_DIR$/functions/Parser.js" />
+        <option value="$PROJECT_DIR$/functions/ParserEngine/index.js" />
       </list>
     </option>
   </component>
@@ -643,7 +655,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="+ playlist" />
     <MESSAGE value="fixing some issues" />
     <MESSAGE value="+metaData in linkedFile.metaData" />
     <MESSAGE value="+metaData for playlist!" />
@@ -668,7 +679,8 @@
     <MESSAGE value="single-file parser" />
     <MESSAGE value="parser no sandbox" />
     <MESSAGE value="+errors log" />
-    <option name="LAST_COMMIT_MESSAGE" value="+errors log" />
+    <MESSAGE value="min fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="min fix" />
   </component>
   <component name="WindowStateProjectService">
     <state x="707" y="231" width="821" height="577" key="#JavaScript" timestamp="1640092791379">
@@ -683,26 +695,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="722" y="329" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1640098073626" />
-    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1641450617417">
+    <state x="448" y="31" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1641564532918">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1641450617417" />
-    <state width="1899" height="324" key="GridCell.Tab.0.bottom" timestamp="1641453865563">
+    <state x="448" y="31" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1641564532918" />
+    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1641570136919">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1641453865563" />
-    <state width="1899" height="324" key="GridCell.Tab.0.center" timestamp="1641453865563">
+    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1641570136919" />
+    <state width="1899" height="257" key="GridCell.Tab.0.bottom" timestamp="1641572364141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1641453865563" />
-    <state width="1899" height="324" key="GridCell.Tab.0.left" timestamp="1641453865563">
+    <state width="1899" height="257" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1641572364141" />
+    <state width="1899" height="257" key="GridCell.Tab.0.center" timestamp="1641572364141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1641453865563" />
-    <state width="1899" height="324" key="GridCell.Tab.0.right" timestamp="1641453865563">
+    <state width="1899" height="257" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1641572364141" />
+    <state width="1899" height="257" key="GridCell.Tab.0.left" timestamp="1641572364141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="324" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1641453865563" />
+    <state width="1899" height="257" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1641572364141" />
+    <state width="1899" height="257" key="GridCell.Tab.0.right" timestamp="1641572364141">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="257" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1641572364141" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1639679545549">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -751,10 +767,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1639679545549" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641482359414">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641484661616">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641482359414" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641484661616" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1639669974682">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
