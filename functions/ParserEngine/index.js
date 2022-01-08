@@ -21,6 +21,7 @@ export default class ParserEngine {
                 args: ['--no-sandbox', '--disable-setuid-sandbox'],
             });
             this.page = yield this.browser.newPage();
+            return this;
         });
     }
     parse() {

@@ -13,12 +13,13 @@ export default class ParserEngine {
     this.method = method;
   }
 
-  public async init() {
+  public async init(): Promise<this> {
     this.browser = await Puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
     this.page = await this.browser.newPage();
+    return this;
   }
 
   public async parse(): Promise<any[]> {

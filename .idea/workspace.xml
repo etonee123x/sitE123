@@ -25,13 +25,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/engine/ReqResHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/GetFolderData.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/GetFolderData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/GetFolderData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/GetFolderData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/options.js" beforeDir="false" afterPath="$PROJECT_DIR$/content/options.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/Parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/Parser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/Parser.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/Parser.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/ParserEngine/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/ParserEngine/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/ParserEngine/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/ParserEngine/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
     </list>
@@ -75,7 +74,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tg_bot" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -288,14 +287,7 @@
       <workItem from="1641573670829" duration="201000" />
       <workItem from="1641575583304" duration="20000" />
       <workItem from="1641625076748" duration="1550000" />
-      <workItem from="1641626654926" duration="10295000" />
-    </task>
-    <task id="LOCAL-00034" summary="testing...">
-      <created>1629907199351</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1629907199351</updated>
+      <workItem from="1641626654926" duration="10960000" />
     </task>
     <task id="LOCAL-00035" summary="testing...">
       <created>1629907546627</created>
@@ -633,7 +625,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641632871483</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="+ ReqResHandler.ts and Parser update">
+      <created>1641637259445</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1641637259445</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -669,7 +668,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="playlist metadata getting bug fix ?what..." />
     <MESSAGE value="new content testing" />
     <MESSAGE value="installed eslint &amp; typescript for further development" />
     <MESSAGE value="+eslint&#10;+ESM imports/exports&#10;-useless files and deps" />
@@ -694,7 +692,8 @@
     <MESSAGE value="testing os interfaces" />
     <MESSAGE value="+ index page for API" />
     <MESSAGE value="+ index page meta viewport" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ index page meta viewport" />
+    <MESSAGE value="+ ReqResHandler.ts and Parser update" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ ReqResHandler.ts and Parser update" />
   </component>
   <component name="WindowStateProjectService">
     <state x="720" y="239" key="#CSS" timestamp="1641630180872">
@@ -705,10 +704,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="831" y="436" width="649" height="437" key="#ESLint/0.0.1920.1040@0.0.1920.1040" timestamp="1641635719265" />
-    <state x="707" y="231" width="821" height="577" key="#JavaScript" timestamp="1640092791379">
+    <state x="707" y="231" width="821" height="577" key="#JavaScript" timestamp="1641637672030">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="707" y="231" width="821" height="577" key="#JavaScript/0.0.1920.1040@0.0.1920.1040" timestamp="1640092791379" />
+    <state x="707" y="231" width="821" height="577" key="#JavaScript/0.0.1920.1040@0.0.1920.1040" timestamp="1641637672030" />
     <state x="484" y="208" width="935" height="616" key="#TypeScript" timestamp="1641628828596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -725,10 +724,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1641625427146" />
-    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1641626279896">
+    <state x="1061" y="328" key="FileChooserDialogImpl" timestamp="1641637455824">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1641626279896" />
+    <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1641637455824" />
     <state width="1899" height="257" key="GridCell.Tab.0.bottom" timestamp="1641637202892">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -797,10 +796,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="403" y="157" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1641628806810" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641632873442">
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641637261345">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641632873442" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641637261345" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1641635882218">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

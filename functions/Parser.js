@@ -23,8 +23,7 @@ export default class Parser {
             rmdirSync(`./content/parser/${this.id}`, { recursive: true });
             this.links = options.default.links;
             this.method = options.default.method;
-            const parserEngine = new ParserEngine(this.links, this.method);
-            yield parserEngine.init();
+            const parserEngine = yield new ParserEngine(this.links, this.method).init();
             this.results = yield parserEngine.parse();
         });
     }

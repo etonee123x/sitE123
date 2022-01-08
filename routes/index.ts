@@ -47,7 +47,7 @@ router.post('/parser/', async (req: Request, res: Response) => {
   await new ReqResHandler(req, res, async (req: Request, res: Response) => {
     const parser = new Parser(req.body.options, req.body.id);
     await parser.init();
-    res.json(parser.getResults());
+    res.json(await parser.getResults());
   }).init();
 });
 

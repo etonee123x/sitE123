@@ -47,7 +47,7 @@ router.post('/parser/', (req, res) => __awaiter(void 0, void 0, void 0, function
     yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const parser = new Parser(req.body.options, req.body.id);
         yield parser.init();
-        res.json(parser.getResults());
+        res.json(yield parser.getResults());
     })).init();
 }));
 router.get('/search/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
