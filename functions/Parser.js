@@ -7,16 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import Puppeteer from 'puppeteer';
 import { Buffer } from 'buffer';
 import { mkdirSync, rmdirSync, writeFileSync } from 'fs';
+import ParserEngine from './ParserEngine/index.js';
 export default class Parser {
     constructor(options, id) {
-        this.allParsedData = [];
         this.id = id || Date.now();
         this.bufferedOptions = options;
     }
-    getOptionsFromBuffer() {
+    init() {
         return __awaiter(this, void 0, void 0, function* () {
             mkdirSync(`./content/parser/${this.id}`);
             writeFileSync(`./content/parser/${this.id}/index.cjs`, Buffer.from(this.bufferedOptions.data));
@@ -24,39 +23,14 @@ export default class Parser {
             rmdirSync(`./content/parser/${this.id}`, { recursive: true });
             this.links = options.default.links;
             this.method = options.default.method;
+            const parserEngine = new ParserEngine(this.links, this.method);
+            yield parserEngine.init();
+            this.results = yield parserEngine.parse();
         });
     }
-    init() {
+    getResults() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.browser = yield Puppeteer.launch({
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            });
-            this.page = yield this.browser.newPage();
-            yield this.getOptionsFromBuffer();
-        });
-    }
-    parse() {
-        return __awaiter(this, void 0, void 0, function* () {
-            for (const url of this.links) {
-                yield this.page.goto(url, { waitUntil: 'networkidle2' });
-                try {
-                    const pageData = yield this.page.evaluate(yield this.method);
-                    this.allParsedData.push(pageData);
-                }
-                catch (e) {
-                    this.allParsedData.push({
-                        caption: `Ошибка парсинга на странице ${url}`,
-                        error: {
-                            name: e.name,
-                            message: e.message,
-                            stack: e.stack,
-                        },
-                    });
-                }
-            }
-            yield this.browser.close();
-            return this.allParsedData;
+            return this.results;
         });
     }
 }

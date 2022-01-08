@@ -1,6 +1,6 @@
-import Puppeteer, { Browser, Page } from 'puppeteer';
 import { Buffer } from 'buffer';
 import { mkdirSync, rmdirSync, writeFileSync } from 'fs';
+import ParserEngine from './ParserEngine/index.js';
 
 interface Options {
   type: 'Buffer',
@@ -8,11 +8,9 @@ interface Options {
 }
 
 export default class Parser {
-  private browser?: Browser;
-  private page?: Page;
-  private allParsedData: any[] = [];
   private readonly bufferedOptions: Options;
   private readonly id?: number | string;
+  private results: any[] | undefined;
 
   private links: string[] | undefined;
   private method?: any;
@@ -22,44 +20,19 @@ export default class Parser {
     this.bufferedOptions = options;
   }
 
-  private async getOptionsFromBuffer() {
+  public async init() {
     mkdirSync(`./content/parser/${this.id}`);
     writeFileSync(`./content/parser/${this.id}/index.cjs`, Buffer.from(this.bufferedOptions.data));
     const options = await import(`../content/parser/${this.id}/index.cjs`);
     rmdirSync(`./content/parser/${this.id}`, { recursive: true });
     this.links = options.default.links;
     this.method = options.default.method;
+    const parserEngine = new ParserEngine(this.links!, this.method);
+    await parserEngine.init();
+    this.results = await parserEngine.parse();
   }
 
-  public async init() {
-    this.browser = await Puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
-    this.page = await this.browser.newPage();
-    await this.getOptionsFromBuffer();
-  }
-
-  public async parse(): Promise<any[]> {
-    for (const url of this.links!) {
-      await this.page!.goto(url, { waitUntil: 'networkidle2' });
-      try {
-        const pageData = await this.page!.evaluate(await this.method!);
-        this.allParsedData.push(pageData);
-      } catch (e) {
-        this.allParsedData.push(
-          {
-            caption: `Ошибка парсинга на странице ${url}`,
-            error: {
-              name: (e as Error).name,
-              message: (e as Error).message,
-              stack: (e as Error).stack,
-            },
-          },
-        );
-      }
-    }
-    await this.browser!.close();
-    return this.allParsedData;
+  public async getResults() {
+    return this.results;
   }
 }

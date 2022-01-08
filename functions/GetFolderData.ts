@@ -61,8 +61,7 @@ export default class GetFolderData {
   private elementsNumbers: any;
 
   constructor(contentPath: string) {
-    this.contentPath = GetFolderData
-      .tryToPreventError(contentPath.replace(/\/{2,}|\/$|^\//g, ''));
+    this.contentPath = contentPath.replace(/\/{2,}|\/$|^\//g, '');
   }
 
   // parses url and gets new data
@@ -70,22 +69,6 @@ export default class GetFolderData {
     this.url = decodeURI(url).replace(/\/{2,}|\/$|^\//g, '');
     this.data = {};
     await this.getData();
-  }
-
-  private static tryToPreventError(path: string) {
-    try {
-      fs.statSync(path);
-      console.log('Default path is OK!');
-    } catch (e) {
-      try {
-        path = '../' + path;
-        fs.statSync(path);
-        console.log('"../" path is OK!');
-      } catch (e) {
-        console.log('Adding \'../\' haven\'t helped :(');
-      }
-    }
-    return path;
   }
 
   private async getData() {
@@ -137,7 +120,7 @@ export default class GetFolderData {
     this.elementsNumbers = {};
     this.data!.filesList = fs.readdirSync(
       `${this.contentPath}/${this.data!.currentDirectory}`,
-      { withFileTypes: true }
+      { withFileTypes: true },
     ).map(element => {
       const name = element.name;
       const type = element.isDirectory() ? 'folder' : 'file';
@@ -159,7 +142,7 @@ export default class GetFolderData {
         ext,
         url,
         numberOfThisExt: number,
-        birthTime: birthTime
+        birthTime: birthTime,
       };
     });
   }
@@ -178,16 +161,15 @@ export default class GetFolderData {
   private getNavigation() {
     let buffResult = this.data!.paths!.rel!.split('/');
     buffResult = buffResult.filter(e => e !== '');
-    console.log(buffResult);
     const result: { text: string, link: string }[] = [];
     result.unshift({
       text: 'root',
-      link: '/'
+      link: '/',
     });
     for (let i = 0; i < buffResult.length; i++) {
       result[i + 1] = {
         text: buffResult[i],
-        link: result[i].link + buffResult[i] + '/'
+        link: result[i].link + buffResult[i] + '/',
       };
     }
     this.data!.navigation = result;
@@ -201,7 +183,7 @@ export default class GetFolderData {
           name: e.name,
           ext: e.ext,
           url: '/' + this.data!.currentDirectory + e.url,
-          thisIsLinkedFile: (e.name === this.data!.linkedFile!.name)
+          thisIsLinkedFile: (e.name === this.data!.linkedFile!.name),
         });
       }
     });
@@ -217,7 +199,7 @@ export default class GetFolderData {
       album: metadata.common.album || null,
       artists: metadata.common.artists || null,
       bpm: metadata.common.bpm || null,
-      year: metadata.common.year || null
+      year: metadata.common.year || null,
     });
   }
 

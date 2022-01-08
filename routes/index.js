@@ -13,71 +13,50 @@ import HappyNorming from '../functions/HappyNorming.js';
 import FunnyAnimals from '../functions/FunnyAnimals.js';
 import RMSHandler from '../functions/RMSHandler.js';
 import Parser from '../functions/Parser.js';
-import Index from '../functions/YaSearch/index.js';
+import YaSearch from '../functions/YaSearch/index.js';
+import ReqResHandler from '../engine/ReqResHandler.js';
 const router = Router();
 router.get('/get-folder-data/*', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(`New request to /get-folder-data/: ${req.params[0] || '/'}`);
-    try {
+    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const getFolderData = new GetFolderData('public/content');
         yield getFolderData.newRequest(req.params[0]);
         res.send(getFolderData.data);
-    }
-    catch (e) {
-        res.status(500).send(`error: ${e.message}`);
-    }
+    })).init();
 }));
 router.get('/happy-norming/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('New request to /happy-norming/:', req.query);
-    try {
+    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const happyNorming = new HappyNorming(req.query.dotw);
         res.type('image/jpeg').send(happyNorming.getPhoto());
-    }
-    catch (e) {
-        res.status(500).send(`error: ${e.message}`);
-    }
+    })).init();
 }));
 router.get('/funny-animals/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('New request to /funny-animals/');
-    try {
+    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const funnyAnimals = new FunnyAnimals();
         res.type('image/jpeg').send(funnyAnimals.getPhoto());
-    }
-    catch (e) {
-        res.status(500).send(`error: ${e.message}`);
-    }
+    })).init();
 }));
 router.post('/rms-handler/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('new request to /rms-handler/');
-    try {
+    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send(new RMSHandler()
             .fromBuffer(req.body.data.data)
             .getRms()
             .formInfo());
-    }
-    catch (e) {
-        console.log('failed:', e);
-        res.send(e);
-    }
+    })).init();
 }));
 router.post('/parser/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('new request to /parser/:', req.body);
-    try {
+    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const parser = new Parser(req.body.options, req.body.id);
         yield parser.init();
-        res.json(yield parser.parse());
-    }
-    catch (e) {
-        console.log('failed:', e);
-        res.send(e);
-    }
+        res.json(parser.getResults());
+    })).init();
 }));
 router.get('/search/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('New request to /search/:', req.query);
-    if (!req.query.q) {
-        res.json('nothing to search!');
-    }
-    const yaSearch = new Index(req.query.q);
-    yield yaSearch.search();
-    res.json(yaSearch.getResults());
+    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        if (!req.query.q)
+            res.json('nothing to search!');
+        const yaSearch = new YaSearch(req.query.q);
+        yield yaSearch.search();
+        res.json(yaSearch.getResults());
+    })).init();
 }));
 export default router;

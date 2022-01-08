@@ -11,8 +11,7 @@ import fs from 'fs';
 import musMetaData from 'music-metadata';
 export default class GetFolderData {
     constructor(contentPath) {
-        this.contentPath = GetFolderData
-            .tryToPreventError(contentPath.replace(/\/{2,}|\/$|^\//g, ''));
+        this.contentPath = contentPath.replace(/\/{2,}|\/$|^\//g, '');
     }
     // parses url and gets new data
     newRequest(url) {
@@ -21,23 +20,6 @@ export default class GetFolderData {
             this.data = {};
             yield this.getData();
         });
-    }
-    static tryToPreventError(path) {
-        try {
-            fs.statSync(path);
-            console.log('Default path is OK!');
-        }
-        catch (e) {
-            try {
-                path = '../' + path;
-                fs.statSync(path);
-                console.log('"../" path is OK!');
-            }
-            catch (e) {
-                console.log('Adding \'../\' haven\'t helped :(');
-            }
-        }
-        return path;
     }
     getData() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -102,7 +84,7 @@ export default class GetFolderData {
                 ext,
                 url,
                 numberOfThisExt: number,
-                birthTime: birthTime
+                birthTime: birthTime,
             };
         });
     }
@@ -120,16 +102,15 @@ export default class GetFolderData {
     getNavigation() {
         let buffResult = this.data.paths.rel.split('/');
         buffResult = buffResult.filter(e => e !== '');
-        console.log(buffResult);
         const result = [];
         result.unshift({
             text: 'root',
-            link: '/'
+            link: '/',
         });
         for (let i = 0; i < buffResult.length; i++) {
             result[i + 1] = {
                 text: buffResult[i],
-                link: result[i].link + buffResult[i] + '/'
+                link: result[i].link + buffResult[i] + '/',
             };
         }
         this.data.navigation = result;
@@ -142,7 +123,7 @@ export default class GetFolderData {
                     name: e.name,
                     ext: e.ext,
                     url: '/' + this.data.currentDirectory + e.url,
-                    thisIsLinkedFile: (e.name === this.data.linkedFile.name)
+                    thisIsLinkedFile: (e.name === this.data.linkedFile.name),
                 });
             }
         });
@@ -158,7 +139,7 @@ export default class GetFolderData {
                 album: metadata.common.album || null,
                 artists: metadata.common.artists || null,
                 bpm: metadata.common.bpm || null,
-                year: metadata.common.year || null
+                year: metadata.common.year || null,
             });
         });
     }
