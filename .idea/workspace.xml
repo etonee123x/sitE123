@@ -25,9 +25,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="044679d9-8b54-48f4-9193-bb4395af19f9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/www.js" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/www.ts" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +43,8 @@
         <option value="Pug File" />
         <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -62,11 +67,13 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -79,7 +86,7 @@
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="settings.typescriptcompiler" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
     <property name="ts.external.directory.path" value="C:\Users\E123WH\AppData\Roaming\npm\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
@@ -278,14 +285,7 @@
       <workItem from="1641573670829" duration="201000" />
       <workItem from="1641575583304" duration="20000" />
       <workItem from="1641625076748" duration="1550000" />
-      <workItem from="1641626654926" duration="1757000" />
-    </task>
-    <task id="LOCAL-00031" summary="server check">
-      <created>1629903676257</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1629903676257</updated>
+      <workItem from="1641626654926" duration="4775000" />
     </task>
     <task id="LOCAL-00032" summary="testing...">
       <created>1629904116420</created>
@@ -623,7 +623,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641627193659</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="testing os interfaces">
+      <created>1641628475874</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1641628475874</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -686,14 +693,18 @@
     <option name="LAST_COMMIT_MESSAGE" value="testing os interfaces" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="720" y="239" key="#CSS" timestamp="1641630180872">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="720" y="239" key="#CSS/0.0.1920.1040@0.0.1920.1040" timestamp="1641630180872" />
     <state x="707" y="231" width="821" height="577" key="#JavaScript" timestamp="1640092791379">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="231" width="821" height="577" key="#JavaScript/0.0.1920.1040@0.0.1920.1040" timestamp="1640092791379" />
-    <state x="484" y="208" width="935" height="616" key="#TypeScript" timestamp="1639752861452">
+    <state x="484" y="208" width="935" height="616" key="#TypeScript" timestamp="1641628828596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="484" y="208" width="935" height="616" key="#TypeScript/0.0.1920.1040@0.0.1920.1040" timestamp="1639752861452" />
+    <state x="484" y="208" width="935" height="616" key="#TypeScript/0.0.1920.1040@0.0.1920.1040" timestamp="1641628828596" />
     <state x="722" y="329" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1640098073626">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -710,22 +721,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1061" y="328" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1641626279896" />
-    <state width="1899" height="257" key="GridCell.Tab.0.bottom" timestamp="1641628158331">
+    <state width="1899" height="257" key="GridCell.Tab.0.bottom" timestamp="1641631546310">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="257" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1641628158331" />
-    <state width="1899" height="257" key="GridCell.Tab.0.center" timestamp="1641628158331">
+    <state width="1899" height="257" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1641631546310" />
+    <state width="1899" height="257" key="GridCell.Tab.0.center" timestamp="1641631546310">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="257" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1641628158331" />
-    <state width="1899" height="257" key="GridCell.Tab.0.left" timestamp="1641628158331">
+    <state width="1899" height="257" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1641631546310" />
+    <state width="1899" height="257" key="GridCell.Tab.0.left" timestamp="1641631546310">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="257" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1641628158331" />
-    <state width="1899" height="257" key="GridCell.Tab.0.right" timestamp="1641628158331">
+    <state width="1899" height="257" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1641631546310" />
+    <state width="1899" height="257" key="GridCell.Tab.0.right" timestamp="1641631546310">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="257" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1641628158331" />
+    <state width="1899" height="257" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1641631546310" />
     <state width="1899" height="348" key="GridCell.Tab.1.bottom" timestamp="1639679545549">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -774,10 +785,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="348" key="GridCell.Tab.3.right/0.0.1920.1040@0.0.1920.1040" timestamp="1639679545549" />
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641627197476">
+    <state x="403" y="157" key="SettingsEditor" timestamp="1641628806810">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641627197476" />
+    <state x="403" y="157" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1641628806810" />
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2" timestamp="1641628477789">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="321" y="232" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1641628477789" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1639669974682">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

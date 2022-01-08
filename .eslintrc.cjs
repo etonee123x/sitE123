@@ -14,6 +14,10 @@ module.exports = {
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
     semi: [2, 'always'],
-    'space-before-function-paren': ['error', 'never'],
+    'space-before-function-paren': ['error', {
+      anonymous: 'never',
+      named: 'never',
+      asyncArrow: 'always',
+    }],
   },
 };

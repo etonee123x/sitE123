@@ -15,72 +15,62 @@ import RMSHandler from '../functions/RMSHandler.js';
 import Parser from '../functions/Parser.js';
 import Index from '../functions/YaSearch/index.js';
 const router = Router();
-router.get('/get-folder-data/*', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log(`New request to /get-folder-data/: ${req.params[0] || '/'}`);
-        try {
-            const getFolderData = new GetFolderData('public/content');
-            yield getFolderData.newRequest(req.params[0]);
-            res.send(getFolderData.data);
-        }
-        catch (e) {
-            res.status(500).send(`error: ${e.message}`);
-        }
-    });
-});
-router.get('/happy-norming/', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log('New request to /happy-norming/:', req.query);
-        try {
-            const happyNorming = new HappyNorming(req.query.dotw);
-            res.type('image/jpeg').send(happyNorming.getPhoto());
-        }
-        catch (e) {
-            res.status(500).send(`error: ${e.message}`);
-        }
-    });
-});
-router.get('/funny-animals/', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log('New request to /funny-animals/');
-        try {
-            const funnyAnimals = new FunnyAnimals();
-            res.type('image/jpeg').send(funnyAnimals.getPhoto());
-        }
-        catch (e) {
-            res.status(500).send(`error: ${e.message}`);
-        }
-    });
-});
-router.post('/rms-handler/', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log('new request to /rms-handler/');
-        try {
-            res.send(new RMSHandler()
-                .fromBuffer(req.body.data.data)
-                .getRms()
-                .formInfo());
-        }
-        catch (e) {
-            console.log('failed:', e);
-            res.send(e);
-        }
-    });
-});
-router.post('/parser/', function (req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log('new request to /parser/:', req.body);
-        try {
-            const parser = new Parser(req.body.options, req.body.id);
-            yield parser.init();
-            res.json(yield parser.parse());
-        }
-        catch (e) {
-            console.log('failed:', e);
-            res.send(e);
-        }
-    });
-});
+router.get('/get-folder-data/*', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(`New request to /get-folder-data/: ${req.params[0] || '/'}`);
+    try {
+        const getFolderData = new GetFolderData('public/content');
+        yield getFolderData.newRequest(req.params[0]);
+        res.send(getFolderData.data);
+    }
+    catch (e) {
+        res.status(500).send(`error: ${e.message}`);
+    }
+}));
+router.get('/happy-norming/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('New request to /happy-norming/:', req.query);
+    try {
+        const happyNorming = new HappyNorming(req.query.dotw);
+        res.type('image/jpeg').send(happyNorming.getPhoto());
+    }
+    catch (e) {
+        res.status(500).send(`error: ${e.message}`);
+    }
+}));
+router.get('/funny-animals/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('New request to /funny-animals/');
+    try {
+        const funnyAnimals = new FunnyAnimals();
+        res.type('image/jpeg').send(funnyAnimals.getPhoto());
+    }
+    catch (e) {
+        res.status(500).send(`error: ${e.message}`);
+    }
+}));
+router.post('/rms-handler/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('new request to /rms-handler/');
+    try {
+        res.send(new RMSHandler()
+            .fromBuffer(req.body.data.data)
+            .getRms()
+            .formInfo());
+    }
+    catch (e) {
+        console.log('failed:', e);
+        res.send(e);
+    }
+}));
+router.post('/parser/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('new request to /parser/:', req.body);
+    try {
+        const parser = new Parser(req.body.options, req.body.id);
+        yield parser.init();
+        res.json(yield parser.parse());
+    }
+    catch (e) {
+        console.log('failed:', e);
+        res.send(e);
+    }
+}));
 router.get('/search/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('New request to /search/:', req.query);
     if (!req.query.q) {

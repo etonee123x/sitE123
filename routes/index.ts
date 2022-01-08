@@ -9,7 +9,7 @@ import Index from '../functions/YaSearch/index.js';
 
 const router = Router();
 
-router.get('/get-folder-data/*', async function(req: Request, res: Response) {
+router.get('/get-folder-data/*', async (req: Request, res: Response) => {
   console.log(`New request to /get-folder-data/: ${req.params[0] || '/'}`);
   try {
     const getFolderData = new GetFolderData('public/content');
@@ -20,7 +20,7 @@ router.get('/get-folder-data/*', async function(req: Request, res: Response) {
   }
 });
 
-router.get('/happy-norming/', async function(req: Request, res: Response) {
+router.get('/happy-norming/', async (req: Request, res: Response) => {
   console.log('New request to /happy-norming/:', req.query);
   try {
     const happyNorming = new HappyNorming(req.query.dotw as string);
@@ -30,7 +30,7 @@ router.get('/happy-norming/', async function(req: Request, res: Response) {
   }
 });
 
-router.get('/funny-animals/', async function(req: Request, res: Response) {
+router.get('/funny-animals/', async (req: Request, res: Response) => {
   console.log('New request to /funny-animals/');
   try {
     const funnyAnimals = new FunnyAnimals();
@@ -40,7 +40,7 @@ router.get('/funny-animals/', async function(req: Request, res: Response) {
   }
 });
 
-router.post('/rms-handler/', async function(req: Request, res: Response) {
+router.post('/rms-handler/', async (req: Request, res: Response) => {
   console.log('new request to /rms-handler/');
   try {
     res.send(
@@ -55,7 +55,7 @@ router.post('/rms-handler/', async function(req: Request, res: Response) {
   }
 });
 
-router.post('/parser/', async function(req: Request, res: Response) {
+router.post('/parser/', async (req: Request, res: Response) => {
   console.log('new request to /parser/:', req.body);
   try {
     const parser = new Parser(req.body.options, req.body.id);
@@ -67,7 +67,7 @@ router.post('/parser/', async function(req: Request, res: Response) {
   }
 });
 
-router.get('/search/', async(req: Request, res: Response) => {
+router.get('/search/', async (req: Request, res: Response) => {
   console.log('New request to /search/:', req.query);
   if (!req.query.q) {
     res.json('nothing to search!');
