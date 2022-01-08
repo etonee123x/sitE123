@@ -6,8 +6,6 @@ import FunnyAnimals from '../functions/FunnyAnimals.js';
 import RMSHandler from '../functions/RMSHandler.js';
 import Parser from '../functions/Parser.js';
 import Index from '../functions/YaSearch/index.js';
-// import { readFileSync } from 'fs';
-// import axios from 'axios';
 
 const router = Router();
 
@@ -78,16 +76,5 @@ router.get('/search/', async(req: Request, res: Response) => {
   await yaSearch.search();
   res.json(yaSearch.getResults());
 });
-
-/* router.get('/test/', async(req: Request, res: Response) => {
-  const options = readFileSync('./content/options.js');
-  const id = 'test';
-  res.json(
-    await axios.post('http://localhost:3001/parser/', {
-      options, id,
-    }, { maxBodyLength: Infinity })
-      .then(r => r.data),
-  );
-}); */
 
 export default router;
