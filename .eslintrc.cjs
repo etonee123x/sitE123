@@ -12,7 +12,7 @@ module.exports = {
     ecmaVersion: 12,
   },
   rules: {
-    curly: ['error', 'multi-or-nest'],
+    curly: ['error', 'multi'],
     'comma-dangle': ['error', 'always-multiline'],
     semi: [2, 'always'],
     'space-before-function-paren': ['error', {
