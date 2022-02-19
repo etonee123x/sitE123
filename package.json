@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node bin/www.js",
-    "watch": "nodemon bin/www.js",
-    "wp-watch": "webpack --watch"
+    "dev": "webpack --watch --config webpack.dev.cjs",
+    "build": "webpack --config webpack.prod.cjs",
+    "serve": "node ./dist/server.cjs"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -33,6 +33,7 @@
     "typescript": "^4.5.5",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
+    "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0"
   }
 }
