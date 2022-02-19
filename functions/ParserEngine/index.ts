@@ -30,16 +30,14 @@ export default class ParserEngine {
           const pageData = await this.page!.evaluate(await this.method!);
           this.allParsedData.push(pageData);
         } catch (e) {
-          this.allParsedData.push(
-            {
-              caption: `Error occurred on parsing ${url}`,
-              error: {
-                name: (e as Error).name,
-                message: (e as Error).message,
-                stack: (e as Error).stack,
-              },
+          this.allParsedData.push({
+            caption: `Error occurred on parsing ${url}`,
+            error: {
+              name: (e as Error).name,
+              message: (e as Error).message,
+              stack: (e as Error).stack,
             },
-          );
+          });
         }
       }
     } catch (e) {

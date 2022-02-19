@@ -1,10 +1,10 @@
 import { Buffer } from 'buffer';
 import { mkdirSync, rmdirSync, writeFileSync } from 'fs';
-import ParserEngine from './ParserEngine/index.js';
+import ParserEngine from './ParserEngine';
 
 interface Options {
-  type: 'Buffer',
-  data: number[]
+  type: 'Buffer';
+  data: number[];
 }
 
 export default class Parser {
@@ -22,12 +22,18 @@ export default class Parser {
 
   public async init() {
     mkdirSync(`./content/parser/${this.id}`);
-    writeFileSync(`./content/parser/${this.id}/index.cjs`, Buffer.from(this.bufferedOptions.data));
+    writeFileSync(
+      `./content/parser/${this.id}/index.cjs`,
+      Buffer.from(this.bufferedOptions.data),
+    );
     const options = await import(`../content/parser/${this.id}/index.cjs`);
     rmdirSync(`./content/parser/${this.id}`, { recursive: true });
     this.links = options.default.links;
     this.method = options.default.method;
-    const parserEngine = await new ParserEngine(this.links!, this.method).init();
+    const parserEngine = await new ParserEngine(
+      this.links!,
+      this.method,
+    ).init();
     this.results = await parserEngine.parse();
   }
 

@@ -1,8 +1,10 @@
-import ParserEngine from '../ParserEngine/index.js';
+import ParserEngine from '../ParserEngine';
 
 export default class YaSearch {
   private readonly query: string;
-  private static YA_QUERY = (query: string) => `https://yandex.ru/search/?text=${query.replace(/\s+/g, '+')}`;
+  private static YA_QUERY = (query: string) =>
+    `https://yandex.ru/search/?text=${query.replace(/\s+/g, '+')}`;
+
   // TODO: rewrite on TS
   // @ts-ignore
   private static PARSE_METHOD = import('./parseMethod.cjs');
@@ -14,7 +16,10 @@ export default class YaSearch {
   }
 
   public async search() {
-    const parserEngine = new ParserEngine(Array(YaSearch.YA_QUERY(this.query)), (await YaSearch.PARSE_METHOD).default);
+    const parserEngine = new ParserEngine(
+      Array(YaSearch.YA_QUERY(this.query)),
+      (await YaSearch.PARSE_METHOD).default,
+    );
     await parserEngine.init();
     this.results = await parserEngine.parse();
   }
@@ -22,4 +27,4 @@ export default class YaSearch {
   public getResults(): any[] {
     return this.results!;
   }
-};
+}

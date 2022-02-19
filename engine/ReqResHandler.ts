@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 
+export type Handler = (req: Request, res: Response) => unknown;
+
 export default class ReqResHandler {
   private readonly request: Request;
   private readonly response: Response;
-  private readonly handler: Function;
+  private readonly handler: Handler;
 
-  constructor(req: Request, res: Response, handler: Function) {
+  constructor(req: Request, res: Response, handler: Handler) {
     this.request = req;
     this.response = res;
     this.handler = handler;
@@ -14,14 +16,10 @@ export default class ReqResHandler {
     const bL = Object.keys(req.body).length;
     const pL = Object.keys(req.params).length;
     if (qL || bL || pL) {
-      if (qL)
-        console.log('Query:', req.query);
-      if (bL)
-        console.log('Body:', req.body);
-      if (pL)
-        console.log('Params:', req.params);
-    } else
-      console.log('No special params');
+      if (qL) console.log('Query:', req.query);
+      if (bL) console.log('Body:', req.body);
+      if (pL) console.log('Params:', req.params);
+    } else console.log('No special params');
   }
 
   public async init() {

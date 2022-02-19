@@ -1,6 +1,7 @@
-import app from '../app.js';
+import app from '../app';
 import http from 'http';
 import { networkInterfaces } from 'os';
+import 'dotenv/config';
 
 const port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
@@ -12,11 +13,13 @@ server.once('listening', () => {
   for (const _interfaceTitle in net) {
     if (Object.prototype.hasOwnProperty.call(net, _interfaceTitle) && !ip) {
       ip = net[_interfaceTitle]?.find(
-        _interface => !_interface.internal && _interface.family === 'IPv4',
+        (_interface) => !_interface.internal && _interface.family === 'IPv4',
       )?.address;
     }
   }
-  console.log(`Server have been launched at http://${ip || 'localhost'}:${port}`);
+  console.log(
+    `Server have been launched at http://${ip || 'localhost'}:${port}`,
+  );
 });
 
 server.listen(port);
