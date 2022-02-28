@@ -33,6 +33,7 @@ export default class ReqResHandler {
                 yield this.handler(this.request, this.response);
             }
             catch (e) {
+                console.log(e);
                 this.response.sendStatus(404);
             }
         });
