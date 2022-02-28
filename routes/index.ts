@@ -41,7 +41,7 @@ router.get('/rms-handler/', async (req, res) => {
   }).init();
 });
 
-router.get('/parser/', async (req, res) => {
+router.post('/parser/', async (req, res) => {
   await new ReqResHandler(req, res, async (req, res) => {
     const parser = new Parser(req.body.options, req.body.id);
     await parser.init();
