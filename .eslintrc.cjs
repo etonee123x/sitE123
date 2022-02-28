@@ -5,20 +5,21 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    'standard',
-  ],
+  extends: ['standard'],
   parserOptions: {
     ecmaVersion: 12,
   },
   rules: {
-    curly: ['error', 'multi-or-nest'],
+    curly: ['error', 'always'],
     'comma-dangle': ['error', 'always-multiline'],
     semi: [2, 'always'],
-    'space-before-function-paren': ['error', {
-      anonymous: 'never',
-      named: 'never',
-      asyncArrow: 'always',
-    }],
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'never',
+        named: 'never',
+        asyncArrow: 'always',
+      },
+    ],
   },
 };

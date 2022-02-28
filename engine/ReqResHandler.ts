@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 
+export type Handler = (req: Request, res: Response) => unknown;
+
 export default class ReqResHandler {
   private readonly request: Request;
   private readonly response: Response;
-  private readonly handler: Function;
+  private readonly handler: Handler;
 
-  constructor(req: Request, res: Response, handler: Function) {
+  constructor(req: Request, res: Response, handler: Handler) {
     this.request = req;
     this.response = res;
     this.handler = handler;

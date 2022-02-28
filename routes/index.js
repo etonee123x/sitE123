@@ -15,6 +15,7 @@ import RMSHandler from '../functions/RMSHandler.js';
 import Parser from '../functions/Parser.js';
 import YaSearch from '../functions/YaSearch/index.js';
 import ReqResHandler from '../engine/ReqResHandler.js';
+import Auth from '../functions/Auth.js';
 const router = Router();
 router.get('/get-folder-data/*', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,10 +38,7 @@ router.get('/funny-animals/', (req, res) => __awaiter(void 0, void 0, void 0, fu
 }));
 router.post('/rms-handler/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        res.send(new RMSHandler()
-            .fromBuffer(req.body.data.data)
-            .getRms()
-            .formInfo());
+        res.send(new RMSHandler().fromBuffer(req.body.data.data).getRms().formInfo());
     })).init();
 }));
 router.post('/parser/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -57,6 +55,15 @@ router.get('/search/', (req, res) => __awaiter(void 0, void 0, void 0, function*
         const yaSearch = new YaSearch(req.query.q);
         yield yaSearch.search();
         res.json(yaSearch.getResults());
+    })).init();
+}));
+router.get('/auth/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const login = req.query.login;
+        const password = req.query.password;
+        const token = req.query.token;
+        const auth = new Auth({ login, password, token });
+        auth.tryAuth(res);
     })).init();
 }));
 export default router;
