@@ -1,4 +1,4 @@
-import app from '../app.js';
+import app from './app.js';
 import http from 'http';
 import { networkInterfaces } from 'os';
 
