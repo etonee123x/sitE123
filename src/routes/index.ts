@@ -5,13 +5,11 @@ import { Router } from 'express';
 import { handleRequestsHandler, Guide } from '../engine/index.js';
 import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData } from '../functions/functions.js';
 
-import { __dirname } from '../app.js';
-
 const router = Router();
 
-router.get('/get-folder-data/*', async (req, res) => {
+router.get('/get-folder-data*', async (req, res) => {
   await handleRequestsHandler(req, res, async (req, res) => {
-    res.send(await getFolderData('public/content', req.params[0]));
+    res.send(await getFolderData('content', req.params[0]));
   });
 });
 

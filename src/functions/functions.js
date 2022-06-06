@@ -12,6 +12,7 @@ import { readdirSync, statSync, readFileSync, mkdirSync, rmdirSync, writeFileSyn
 import { commonParse } from '../engine/index.js';
 import pkg from 'jsonwebtoken';
 import musMetaData from 'music-metadata';
+import { apiUrl } from '../../src/www.js';
 export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e;
     let linkedFile;
@@ -21,64 +22,78 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
     let navigation;
     let currentDirectory;
     let buffer;
+    const getSlashedCurrentDirectory = () => {
+        console.log(currentDirectory);
+        if ((currentDirectory === null || currentDirectory === void 0 ? void 0 : currentDirectory.startsWith('/')) && currentDirectory.endsWith('/'))
+            return currentDirectory;
+        if (currentDirectory === '/')
+            return '/';
+        if (currentDirectory === null || currentDirectory === void 0 ? void 0 : currentDirectory.startsWith('/'))
+            return `${currentDirectory}/`;
+        if (currentDirectory === null || currentDirectory === void 0 ? void 0 : currentDirectory.endsWith('/'))
+            return `/${currentDirectory}`;
+        return '/';
+    };
     const getMetaDataFields = (path) => __awaiter(void 0, void 0, void 0, function* () {
         var _f;
         const metadata = yield musMetaData.parseFile(path);
-        return Promise.resolve({
+        return {
             // native: metadata.native,
             // quality: metadata.quality,
             // common: metadata.common,
             // format: metadata.format,
-            bitrate: metadata.format.bitrate,
-            duration: Number((_f = metadata.format.duration) !== null && _f !== void 0 ? _f : 0).toFixed(2),
+            bitrate: metadata.format.bitrate ? metadata.format.bitrate / 1000 : metadata.format.bitrate,
+            duration: Number(((_f = metadata.format.duration) !== null && _f !== void 0 ? _f : 0).toFixed(2)),
             album: metadata.common.album,
             artists: metadata.common.artists,
             bpm: metadata.common.bpm,
             year: metadata.common.year,
-        });
+        };
     });
     try {
-        if (statSync(`${contentPath}/${urlPath}`).isFile()) {
+        if (statSync(`public/${contentPath}${urlPath}`).isFile()) {
+            console.log(urlPath);
             // detects full file name in .match[0]
             //        file name without .ext in .match[1]
             //        file extension without "." in .match[2]
-            // eslint-disable-next-line no-useless-escape
             const fileMatch = urlPath.match(/([^\/]*)\.([^\/]*)$/);
             const name = (_a = fileMatch === null || fileMatch === void 0 ? void 0 : fileMatch[0]) !== null && _a !== void 0 ? _a : 'unknown title';
             const ext = (_b = fileMatch === null || fileMatch === void 0 ? void 0 : fileMatch[2]) !== null && _b !== void 0 ? _b : 'unknown extension';
-            const url = `/${urlPath}`;
-            buffer = { name, ext, url };
+            const src = `http://${apiUrl}/${contentPath}${urlPath}`;
+            buffer = { src, name, ext, url: urlPath };
             // current directory is location.pathname without `.../name.ext`
             if (fileMatch === null || fileMatch === void 0 ? void 0 : fileMatch[0])
-                currentDirectory = url.replace(fileMatch === null || fileMatch === void 0 ? void 0 : fileMatch[0], '');
+                currentDirectory = urlPath.replace(fileMatch === null || fileMatch === void 0 ? void 0 : fileMatch[0], '');
             linkedFile = buffer;
         }
         else {
-            buffer = 'none';
+            buffer = null;
             currentDirectory = urlPath || '/';
         }
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
         throw e;
     }
     linkedFile = buffer;
-    currentDirectory = currentDirectory !== null && currentDirectory !== void 0 ? currentDirectory : '/';
+    currentDirectory = currentDirectory || '/';
     const elementsNumbers = {};
-    filesList = readdirSync(`${contentPath}/${currentDirectory}`, { withFileTypes: true })
+    filesList = readdirSync(`public/${contentPath}/${getSlashedCurrentDirectory()}`, { withFileTypes: true })
         .map((element) => {
         var _a, _b;
         const name = element.name;
         const type = element.isDirectory() ? 'folder' : 'file';
         const ext = element.isDirectory() ? null : (_b = (_a = element.name.match(/([^.]+)$/g)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : 'unknown extension';
         const url = encodeURI(element.name);
+        const src = `http://${apiUrl}${getSlashedCurrentDirectory()}${encodeURI(element.name)}`;
         const number = -~elementsNumbers[ext !== null && ext !== void 0 ? ext : 'folder'];
-        const birthTime = statSync(`${contentPath}/${currentDirectory}/${element.name}`).birthtime;
+        const birthTime = statSync(`public/${contentPath}${getSlashedCurrentDirectory()}${element.name}`).birthtime;
         return {
             name,
             type,
             ext,
             url,
+            src,
             numberOfThisExt: number,
             birthTime: birthTime,
         };
@@ -91,8 +106,9 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
                 playlist.push({
                     name: filesList[i].name,
                     ext: (_c = filesList[i].ext) !== null && _c !== void 0 ? _c : '',
-                    url: '/' + currentDirectory + filesList[i].url,
-                    thisIsLinkedFile: filesList[i].name === linkedFile.name,
+                    src: `http://${apiUrl}${getSlashedCurrentDirectory()}${filesList[i].url}`,
+                    url: `${getSlashedCurrentDirectory()}` + filesList[i].url,
+                    thisIsLinkedFile: filesList[i].name === (linkedFile === null || linkedFile === void 0 ? void 0 : linkedFile.name),
                 });
             }
         }
@@ -101,9 +117,9 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
         playlist = null;
     }
     paths = {
-        rel: `/${currentDirectory}/`.replace(/\/{2,}/, '/'),
-        abs: `/${contentPath}/${currentDirectory}/`.replace(/\/{2,}/, '/'),
-        lvlUp: (_e = (_d = `/${currentDirectory}/`.replace(/\/{2,}/, '/').match(/.*\/(?=.+$)/)) === null || _d === void 0 ? void 0 : _d[0]) !== null && _e !== void 0 ? _e : null,
+        rel: getSlashedCurrentDirectory(),
+        abs: `/${contentPath}${getSlashedCurrentDirectory()}`,
+        lvlUp: (_e = (_d = getSlashedCurrentDirectory().match(/.*\/(?=.+$)/)) === null || _d === void 0 ? void 0 : _d[0]) !== null && _e !== void 0 ? _e : null,
     };
     const buffResult = paths.rel.split('/').filter((e) => e !== '');
     buffer = [];
@@ -122,30 +138,30 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
         if (filesList)
             for (let i = 0; i < filesList.length; i++) {
                 if (filesList[i].ext === 'mp3') {
-                    filesList[i].metadata = yield getMetaDataFields(`${contentPath}/${currentDirectory}/${filesList[i].name}`);
+                    filesList[i].metadata = yield getMetaDataFields(`public/${contentPath}${getSlashedCurrentDirectory()}${filesList[i].name}`);
                 }
             }
     }
     catch (e) {
-        console.log('Не получилось найти метаданные для файлов');
+        console.error('Не получилось найти метаданные для файлов');
     }
     try {
-        if (typeof linkedFile === 'object') {
-            linkedFile.metadata = yield getMetaDataFields(`${contentPath}/${linkedFile.url}`);
+        if (linkedFile) {
+            linkedFile.metadata = yield getMetaDataFields(`public/${contentPath}/${linkedFile.url}`);
         }
     }
     catch (e) {
-        console.log('Не получилось найти метаданные для привязанного файла');
+        console.error('Не получилось найти метаданные для привязанного файла');
     }
     try {
         if (playlist) {
             for (const elem of playlist) {
-                elem.metadata = yield getMetaDataFields(`${contentPath}/${decodeURI(elem.url)}`);
+                elem.metadata = yield getMetaDataFields(`public/${contentPath}/${decodeURI(elem.url)}`);
             }
         }
     }
     catch (e) {
-        console.log('Не получилось найти метаданные для плейлиста');
+        console.error('Не получилось найти метаданные для плейлиста');
     }
     return {
         linkedFile,

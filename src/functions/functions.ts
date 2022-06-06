@@ -5,62 +5,12 @@ import { Response } from 'express';
 import pkg, { JwtPayload } from 'jsonwebtoken';
 import musMetaData from 'music-metadata';
 
-interface Metadata {
-  bitrate?: number;
-  duration: string;
-  album?: string;
-  artists?: string[];
-  bpm?: number;
-  year?: number;
-}
+import { Metadata, Item, LinkedFile, NavItem, PlaylistItem, Paths, FolderData, ItemAudio, AudioExts } from '@types';
 
-interface Item {
-  name: string;
-  type: string;
-  ext: string | null;
-  url: string;
-  numberOfThisExt: number;
-  birthTime: Date;
-  metadata?: Metadata;
-}
-
-interface LinkedFile {
-  name: string;
-  ext: string;
-  url: string;
-  metadata?: Metadata;
-}
-
-interface NavItem {
-  text: string;
-  link: string;
-}
-
-interface PlaylistItem {
-  name: string;
-  ext: string;
-  url: string;
-  thisIsLinkedFile: boolean;
-  metadata?: Metadata;
-}
-
-interface Paths {
-  rel: string;
-  abs: string;
-  lvlUp: string | null;
-}
-
-interface FolderData {
-  linkedFile: LinkedFile | string;
-  currentDirectory: string;
-  filesList: Item[];
-  playlist: PlaylistItem[] | null;
-  paths: Paths;
-  navigation: NavItem[];
-}
+import { apiUrl } from '../../src/www.js';
 
 export const getFolderData = async (contentPath: string, urlPath: string): Promise<FolderData> => {
-  let linkedFile: LinkedFile | string;
+  let linkedFile: LinkedFile | null;
   let filesList: Item[];
   let playlist: PlaylistItem[] | null;
   let paths: Paths;
@@ -68,68 +18,79 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
   let currentDirectory: string | undefined;
   let buffer;
 
+  const getSlashedCurrentDirectory = () => {
+    console.log(currentDirectory);
+    if (currentDirectory?.startsWith('/') && currentDirectory.endsWith('/')) return currentDirectory;
+    if (currentDirectory === '/') return '/';
+    if (currentDirectory?.startsWith('/')) return `${currentDirectory}/`;
+    if (currentDirectory?.endsWith('/')) return `/${currentDirectory}`;
+    return '/';
+  };
+
   const getMetaDataFields = async (path: string): Promise<Metadata> => {
     const metadata = await musMetaData.parseFile(path);
-    return Promise.resolve({
+    return {
       // native: metadata.native,
       // quality: metadata.quality,
       // common: metadata.common,
       // format: metadata.format,
-      bitrate: metadata.format.bitrate,
-      duration: Number(metadata.format.duration ?? 0).toFixed(2),
+      bitrate: metadata.format.bitrate ? metadata.format.bitrate / 1000 : metadata.format.bitrate,
+      duration: Number((metadata.format.duration ?? 0).toFixed(2)),
       album: metadata.common.album,
       artists: metadata.common.artists,
       bpm: metadata.common.bpm,
       year: metadata.common.year,
-    });
+    };
   };
 
   try {
-    if (statSync(`${contentPath}/${urlPath}`).isFile()) {
+    if (statSync(`public/${contentPath}${urlPath}`).isFile()) {
+      console.log(urlPath);
       // detects full file name in .match[0]
       //        file name without .ext in .match[1]
       //        file extension without "." in .match[2]
-      // eslint-disable-next-line no-useless-escape
       const fileMatch = urlPath.match(/([^\/]*)\.([^\/]*)$/);
       const name = fileMatch?.[0] ?? 'unknown title';
       const ext = fileMatch?.[2] ?? 'unknown extension';
-      const url = `/${urlPath}`;
-      buffer = { name, ext, url };
+      const src = `http://${apiUrl}/${contentPath}${urlPath}`;
+      buffer = { src, name, ext, url: urlPath };
 
       // current directory is location.pathname without `.../name.ext`
-      if (fileMatch?.[0]) currentDirectory = url.replace(fileMatch?.[0], '');
+      if (fileMatch?.[0]) currentDirectory = urlPath.replace(fileMatch?.[0], '');
       linkedFile = buffer;
     } else {
-      buffer = 'none';
+      buffer = null;
       currentDirectory = urlPath || '/';
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
     throw e;
   }
   linkedFile = buffer;
 
-  currentDirectory = currentDirectory ?? '/';
+  currentDirectory = currentDirectory || '/';
 
   const elementsNumbers = {} as { [key: string]: number };
-  filesList = readdirSync(`${contentPath}/${currentDirectory}`, { withFileTypes: true })
+  filesList = readdirSync(`public/${contentPath}/${getSlashedCurrentDirectory()}`, { withFileTypes: true })
     .map((element) => {
       const name = element.name;
       const type = element.isDirectory() ? 'folder' : 'file';
       const ext = element.isDirectory() ? null : element.name.match(/([^.]+)$/g)?.[0] ?? 'unknown extension';
       const url = encodeURI(element.name);
+      const src = `http://${apiUrl}${getSlashedCurrentDirectory()}${encodeURI(element.name)}`;
       const number = -~elementsNumbers[ext ?? 'folder'];
-      const birthTime = statSync(`${contentPath}/${currentDirectory}/${element.name}`).birthtime;
+      const birthTime = statSync(`public/${contentPath}${getSlashedCurrentDirectory()}${element.name}`).birthtime;
       return {
         name,
         type,
         ext,
         url,
+        src,
         numberOfThisExt: number,
         birthTime: birthTime,
       };
     })
-    .sort((a, b) => (a.type === 'folder' && b.type === 'file' ? -1 : 0));
+    .sort((a, b) => (a.type === 'folder' && b.type === 'file' ? -1 : 0)) as Item[];
 
   if (typeof linkedFile === 'object') {
     playlist = [];
@@ -138,8 +99,9 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
         playlist.push({
           name: filesList[i].name,
           ext: filesList[i].ext ?? '',
-          url: '/' + currentDirectory + filesList[i].url,
-          thisIsLinkedFile: filesList[i].name === linkedFile.name,
+          src: `http://${apiUrl}${getSlashedCurrentDirectory()}${filesList[i].url}`,
+          url: `${getSlashedCurrentDirectory()}` + filesList[i].url,
+          thisIsLinkedFile: filesList[i].name === linkedFile?.name,
         });
       }
     }
@@ -148,9 +110,9 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
   }
 
   paths = {
-    rel: `/${currentDirectory}/`.replace(/\/{2,}/, '/'),
-    abs: `/${contentPath}/${currentDirectory}/`.replace(/\/{2,}/, '/'),
-    lvlUp: `/${currentDirectory}/`.replace(/\/{2,}/, '/').match(/.*\/(?=.+$)/)?.[0] ?? null,
+    rel: getSlashedCurrentDirectory(),
+    abs: `/${contentPath}${getSlashedCurrentDirectory()}`,
+    lvlUp: getSlashedCurrentDirectory().match(/.*\/(?=.+$)/)?.[0] ?? null,
   };
 
   const buffResult = paths.rel.split('/').filter((e) => e !== '');
@@ -171,27 +133,29 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
     if (filesList)
       for (let i = 0; i < filesList.length; i++) {
         if (filesList[i].ext === 'mp3') {
-          filesList[i].metadata = await getMetaDataFields(`${contentPath}/${currentDirectory}/${filesList[i].name}`);
+          (filesList[i] as ItemAudio).metadata = await getMetaDataFields(
+            `public/${contentPath}${getSlashedCurrentDirectory()}${filesList[i].name}`,
+          );
         }
       }
   } catch (e) {
-    console.log('Не получилось найти метаданные для файлов');
+    console.error('Не получилось найти метаданные для файлов');
   }
   try {
-    if (typeof linkedFile === 'object') {
-      linkedFile.metadata = await getMetaDataFields(`${contentPath}/${linkedFile.url}`);
+    if (linkedFile) {
+      linkedFile.metadata = await getMetaDataFields(`public/${contentPath}/${linkedFile.url}`);
     }
   } catch (e) {
-    console.log('Не получилось найти метаданные для привязанного файла');
+    console.error('Не получилось найти метаданные для привязанного файла');
   }
   try {
     if (playlist) {
       for (const elem of playlist) {
-        elem.metadata = await getMetaDataFields(`${contentPath}/${decodeURI(elem.url)}`);
+        elem.metadata = await getMetaDataFields(`public/${contentPath}/${decodeURI(elem.url)}`);
       }
     }
   } catch (e) {
-    console.log('Не получилось найти метаданные для плейлиста');
+    console.error('Не получилось найти метаданные для плейлиста');
   }
 
   return {

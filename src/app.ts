@@ -14,7 +14,7 @@ app
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   })
-  .use(express.static(path.join(__dirname, 'public')))
+  .use(express.static(path.join(__dirname, '../public')))
   .use(express.urlencoded({ limit: 1000 * 1024 * 1024, extended: true }))
   .use('/', indexRouter)
   .use((req, res) => {

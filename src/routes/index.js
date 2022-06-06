@@ -12,9 +12,9 @@ import { Router } from 'express';
 import { handleRequestsHandler, Guide } from '../engine/index.js';
 import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData } from '../functions/functions.js';
 const router = Router();
-router.get('/get-folder-data/*', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/get-folder-data*', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        res.send(yield getFolderData('public/content', req.params[0]));
+        res.send(yield getFolderData('content', req.params[0]));
     }));
 }));
 router.get('/happy-norming/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
