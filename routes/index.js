@@ -8,62 +8,44 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Router } from 'express';
-import GetFolderData from '../functions/GetFolderData.js';
-import HappyNorming from '../functions/HappyNorming.js';
-import FunnyAnimals from '../functions/FunnyAnimals.js';
-import RMSHandler from '../functions/RMSHandler.js';
-import Parser from '../functions/Parser.js';
-import YaSearch from '../functions/YaSearch/index.js';
-import ReqResHandler from '../engine/ReqResHandler.js';
-import Auth from '../functions/Auth.js';
+// import RMSHandler from '../functions/RMSHandler.js';
+import { handleRequestsHandler, Guide } from '../engine/index.js';
+import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData } from '../functions/functions.js';
 const router = Router();
 router.get('/get-folder-data/*', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const getFolderData = new GetFolderData('public/content');
-        yield getFolderData.newRequest(req.params[0]);
-        res.send(getFolderData.data);
-    })).init();
+    yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        res.send(yield getFolderData('public/content', req.params[0]));
+    }));
 }));
 router.get('/happy-norming/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const happyNorming = new HappyNorming(req.query.dotw);
-        res.type('image/jpeg').send(happyNorming.getPhoto());
-    })).init();
+    yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        res.type('image/jpeg').send(happyNorming(req.query.dotw));
+    }));
 }));
 router.get('/funny-animals/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const funnyAnimals = new FunnyAnimals();
-        res.type('image/jpeg').send(funnyAnimals.getPhoto());
-    })).init();
-}));
-router.post('/rms-handler/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        res.send(new RMSHandler().fromBuffer(req.body.data.data).getRms().formInfo());
-    })).init();
+    yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        res.type('image/jpeg').send(funnyAnimals());
+    }));
 }));
 router.post('/parser/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const parser = new Parser(req.body.options, req.body.id);
-        yield parser.init();
-        res.json(yield parser.getResults());
-    })).init();
+    yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        res.json(yield parse(req.body.options, req.body.id));
+    }));
 }));
-router.get('/search/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        if (!req.query.q)
-            res.json('nothing to search!');
-        const yaSearch = new YaSearch(req.query.q);
-        yield yaSearch.search();
-        res.json(yaSearch.getResults());
-    })).init();
-}));
+/* router.post('/rms-handler/', async (req, res) => {
+  await handleRequestsHandler(req, res, async (req, res) => {
+    res.send(new RMSHandler().fromBuffer(req.body.data.data).getRms().formInfo());
+  });
+}); */
 router.get('/auth/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield new ReqResHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const login = req.query.login;
-        const password = req.query.password;
-        const token = req.query.token;
-        const auth = new Auth({ login, password, token });
-        auth.tryAuth(res);
-    })).init();
+    yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { login, password, token } = req.query;
+        tryAuth(res, { login, password, token });
+    }));
+}));
+router.get('/guide/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const guideData = yield Guide.test({ modules: [Guide.MODULES.GET_FOLDER_DATA] });
+    console.log(guideData);
+    res.render('guide.pug', guideData);
 }));
 export default router;

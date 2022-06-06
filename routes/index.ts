@@ -1,71 +1,55 @@
 import { Router } from 'express';
 
-import GetFolderData from '../functions/GetFolderData.js';
-import HappyNorming from '../functions/HappyNorming.js';
-import FunnyAnimals from '../functions/FunnyAnimals.js';
-import RMSHandler from '../functions/RMSHandler.js';
-import Parser from '../functions/Parser.js';
-import YaSearch from '../functions/YaSearch/index.js';
-import ReqResHandler from '../engine/ReqResHandler.js';
-import Auth from '../functions/Auth.js';
+// import RMSHandler from '../functions/RMSHandler.js';
+
+import { handleRequestsHandler, Guide } from '../engine/index.js';
+import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData } from '../functions/functions.js';
+
+import { __dirname } from '../app.js';
 
 const router = Router();
 
 router.get('/get-folder-data/*', async (req, res) => {
-  await new ReqResHandler(req, res, async (req, res) => {
-    const getFolderData = new GetFolderData('public/content');
-    await getFolderData.newRequest(req.params[0]);
-    res.send(getFolderData.data);
-  }).init();
+  await handleRequestsHandler(req, res, async (req, res) => {
+    res.send(await getFolderData('public/content', req.params[0]));
+  });
 });
 
 router.get('/happy-norming/', async (req, res) => {
-  await new ReqResHandler(req, res, async (req, res) => {
-    const happyNorming = new HappyNorming(req.query.dotw as string);
-    res.type('image/jpeg').send(happyNorming.getPhoto());
-  }).init();
+  await handleRequestsHandler(req, res, async (req, res) => {
+    res.type('image/jpeg').send(happyNorming(req.query.dotw as string));
+  });
 });
 
 router.get('/funny-animals/', async (req, res) => {
-  await new ReqResHandler(req, res, async (req, res) => {
-    const funnyAnimals = new FunnyAnimals();
-    res.type('image/jpeg').send(funnyAnimals.getPhoto());
-  }).init();
-});
-
-router.post('/rms-handler/', async (req, res) => {
-  await new ReqResHandler(req, res, async (req, res) => {
-    res.send(
-      new RMSHandler().fromBuffer(req.body.data.data).getRms().formInfo(),
-    );
-  }).init();
+  await handleRequestsHandler(req, res, async (req, res) => {
+    res.type('image/jpeg').send(funnyAnimals());
+  });
 });
 
 router.post('/parser/', async (req, res) => {
-  await new ReqResHandler(req, res, async (req, res) => {
-    const parser = new Parser(req.body.options, req.body.id);
-    await parser.init();
-    res.json(await parser.getResults());
-  }).init();
+  await handleRequestsHandler(req, res, async (req, res) => {
+    res.json(await parse(req.body.options, req.body.id));
+  });
 });
 
-router.get('/search/', async (req, res) => {
-  await new ReqResHandler(req, res, async (req, res) => {
-    if (!req.query.q) res.json('nothing to search!');
-    const yaSearch = new YaSearch(req.query.q as string);
-    await yaSearch.search();
-    res.json(yaSearch.getResults());
-  }).init();
-});
+/* router.post('/rms-handler/', async (req, res) => {
+  await handleRequestsHandler(req, res, async (req, res) => {
+    res.send(new RMSHandler().fromBuffer(req.body.data.data).getRms().formInfo());
+  });
+}); */
 
 router.get('/auth/', async (req, res) => {
-  await new ReqResHandler(req, res, async (req, res) => {
-    const login = req.query.login as string;
-    const password = req.query.password as string;
-    const token = req.query.token as string;
-    const auth = new Auth({ login, password, token });
-    auth.tryAuth(res);
-  }).init();
+  await handleRequestsHandler(req, res, async (req, res) => {
+    const { login, password, token } = req.query as { login?: string; password?: string; token?: string };
+    tryAuth(res, { login, password, token });
+  });
+});
+
+router.get('/guide/', async (req, res) => {
+  const guideData = await Guide.test({ modules: [Guide.MODULES.GET_FOLDER_DATA] });
+  console.log(guideData);
+  res.render('guide.pug', guideData);
 });
 
 export default router;
