@@ -180,10 +180,9 @@ export const tryAuth = (res, { login, password, token }) => {
         var _a;
         let login;
         verify(token, (_a = process.env.THE_KEY) !== null && _a !== void 0 ? _a : DEFAULT_KEY, (error, pld) => {
-            var _a;
             if (error)
                 return (verifyIsLost = true);
-            login = (_a = pld) === null || _a === void 0 ? void 0 : _a.login;
+            login = pld === null || pld === void 0 ? void 0 : pld.login;
         });
         return login;
     };
