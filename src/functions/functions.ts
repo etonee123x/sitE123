@@ -5,7 +5,7 @@ import { Response } from 'express';
 import pkg, { JwtPayload } from 'jsonwebtoken';
 import musMetaData from 'music-metadata';
 
-import { Metadata, Item, LinkedFile, NavItem, PlaylistItem, Paths, FolderData, ItemAudio, AudioExts } from '@types';
+import type { Metadata, Item, LinkedFile, NavItem, PlaylistItem, Paths, FolderData, ItemAudio } from '@types';
 
 import { apiUrl } from '../../src/www.js';
 
@@ -19,7 +19,6 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
   let buffer;
 
   const getSlashedCurrentDirectory = () => {
-    console.log(currentDirectory);
     if (currentDirectory?.startsWith('/') && currentDirectory.endsWith('/')) return currentDirectory;
     if (currentDirectory === '/') return '/';
     if (currentDirectory?.startsWith('/')) return `${currentDirectory}/`;
@@ -45,7 +44,6 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
 
   try {
     if (statSync(`public/${contentPath}${urlPath}`).isFile()) {
-      console.log(urlPath);
       // detects full file name in .match[0]
       //        file name without .ext in .match[1]
       //        file extension without "." in .match[2]
@@ -77,7 +75,7 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
       const type = element.isDirectory() ? 'folder' : 'file';
       const ext = element.isDirectory() ? null : element.name.match(/([^.]+)$/g)?.[0] ?? 'unknown extension';
       const url = encodeURI(element.name);
-      const src = `http://${apiUrl}${getSlashedCurrentDirectory()}${encodeURI(element.name)}`;
+      const src = `http://${apiUrl}/content${getSlashedCurrentDirectory()}${encodeURI(element.name)}`;
       const number = -~elementsNumbers[ext ?? 'folder'];
       const birthTime = statSync(`public/${contentPath}${getSlashedCurrentDirectory()}${element.name}`).birthtime;
       return {
@@ -92,14 +90,14 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
     })
     .sort((a, b) => (a.type === 'folder' && b.type === 'file' ? -1 : 0)) as Item[];
 
-  if (typeof linkedFile === 'object') {
+  if (linkedFile) {
     playlist = [];
     for (let i = 0; i < filesList.length; i++) {
       if (filesList[i].ext === 'mp3') {
         playlist.push({
           name: filesList[i].name,
           ext: filesList[i].ext ?? '',
-          src: `http://${apiUrl}${getSlashedCurrentDirectory()}${filesList[i].url}`,
+          src: `http://${apiUrl}/content${getSlashedCurrentDirectory()}${filesList[i].url}`,
           url: `${getSlashedCurrentDirectory()}` + filesList[i].url,
           thisIsLinkedFile: filesList[i].name === linkedFile?.name,
         });
@@ -157,6 +155,10 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
   } catch (e) {
     console.error('Не получилось найти метаданные для плейлиста');
   }
+  filesList = filesList.map((element) => ({
+    ...element,
+    url: `${element.url.startsWith('/') ? '' : '/'}${element.url}`,
+  }));
 
   return {
     linkedFile,

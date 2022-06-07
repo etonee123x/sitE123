@@ -23,7 +23,6 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
     let currentDirectory;
     let buffer;
     const getSlashedCurrentDirectory = () => {
-        console.log(currentDirectory);
         if ((currentDirectory === null || currentDirectory === void 0 ? void 0 : currentDirectory.startsWith('/')) && currentDirectory.endsWith('/'))
             return currentDirectory;
         if (currentDirectory === '/')
@@ -52,7 +51,6 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
     });
     try {
         if (statSync(`public/${contentPath}${urlPath}`).isFile()) {
-            console.log(urlPath);
             // detects full file name in .match[0]
             //        file name without .ext in .match[1]
             //        file extension without "." in .match[2]
@@ -85,7 +83,7 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
         const type = element.isDirectory() ? 'folder' : 'file';
         const ext = element.isDirectory() ? null : (_b = (_a = element.name.match(/([^.]+)$/g)) === null || _a === void 0 ? void 0 : _a[0]) !== null && _b !== void 0 ? _b : 'unknown extension';
         const url = encodeURI(element.name);
-        const src = `http://${apiUrl}${getSlashedCurrentDirectory()}${encodeURI(element.name)}`;
+        const src = `http://${apiUrl}/content${getSlashedCurrentDirectory()}${encodeURI(element.name)}`;
         const number = -~elementsNumbers[ext !== null && ext !== void 0 ? ext : 'folder'];
         const birthTime = statSync(`public/${contentPath}${getSlashedCurrentDirectory()}${element.name}`).birthtime;
         return {
@@ -99,14 +97,14 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
         };
     })
         .sort((a, b) => (a.type === 'folder' && b.type === 'file' ? -1 : 0));
-    if (typeof linkedFile === 'object') {
+    if (linkedFile) {
         playlist = [];
         for (let i = 0; i < filesList.length; i++) {
             if (filesList[i].ext === 'mp3') {
                 playlist.push({
                     name: filesList[i].name,
                     ext: (_c = filesList[i].ext) !== null && _c !== void 0 ? _c : '',
-                    src: `http://${apiUrl}${getSlashedCurrentDirectory()}${filesList[i].url}`,
+                    src: `http://${apiUrl}/content${getSlashedCurrentDirectory()}${filesList[i].url}`,
                     url: `${getSlashedCurrentDirectory()}` + filesList[i].url,
                     thisIsLinkedFile: filesList[i].name === (linkedFile === null || linkedFile === void 0 ? void 0 : linkedFile.name),
                 });
@@ -163,6 +161,7 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
     catch (e) {
         console.error('Не получилось найти метаданные для плейлиста');
     }
+    filesList = filesList.map((element) => (Object.assign(Object.assign({}, element), { url: `${element.url.startsWith('/') ? '' : '/'}${element.url}` })));
     return {
         linkedFile,
         filesList,
