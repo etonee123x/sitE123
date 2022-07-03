@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Router } from 'express';
-// import RMSHandler from '../functions/RMSHandler.js';
 import { handleRequestsHandler, Guide } from '../engine/index.js';
 import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData } from '../functions/functions.js';
+// import RMSHandler from '../functions/RMSHandler.js';
 const router = Router();
 router.get('/get-folder-data*', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,6 +27,16 @@ router.get('/funny-animals/', (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.type('image/jpeg').send(funnyAnimals());
     }));
 }));
+router.get('/auth/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { login, password, token } = req.query;
+        tryAuth(res, { login, password, token });
+    }));
+}));
+router.get('/guide/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const guideData = yield Guide.test({ modules: [Guide.MODULES.GET_FOLDER_DATA] });
+    res.render('guide.pug', guideData);
+}));
 router.post('/parser/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.json(yield parse(req.body.options, req.body.id));
@@ -37,15 +47,4 @@ router.post('/parser/', (req, res) => __awaiter(void 0, void 0, void 0, function
     res.send(new RMSHandler().fromBuffer(req.body.data.data).getRms().formInfo());
   });
 }); */
-router.get('/auth/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield handleRequestsHandler(req, res, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const { login, password, token } = req.query;
-        tryAuth(res, { login, password, token });
-    }));
-}));
-router.get('/guide/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const guideData = yield Guide.test({ modules: [Guide.MODULES.GET_FOLDER_DATA] });
-    console.log(guideData);
-    res.render('guide.pug', guideData);
-}));
 export default router;

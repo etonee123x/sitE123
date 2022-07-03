@@ -2,10 +2,8 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import indexRouter from './routes/index.js';
-const __filename = fileURLToPath(import.meta.url);
-export const __dirname = path.dirname(__filename);
-const app = express();
-app
+export const __dirname = path.dirname(fileURLToPath(import.meta.url));
+export default express()
     .use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -18,4 +16,3 @@ app
     res.sendStatus(404);
 })
     .set('view engine', 'pug');
-export default app;
