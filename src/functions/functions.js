@@ -201,13 +201,13 @@ export const tryAuth = (res, { login, password, token }) => {
     }
 };
 export const funnyAnimals = () => {
-    const PATH_TO_PICTURES = './content/funny-animals';
+    const PATH_TO_PICTURES = './src/content/funny-animals';
     const files = readdirSync(PATH_TO_PICTURES);
     return readFileSync(`${PATH_TO_PICTURES}/${files[Math.floor(Math.random() * files.length)]}`);
 };
 export const happyNorming = (dayOfTheWeek) => {
     const DOTW_TITLES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const PATH_TO_PICTURES = './content/happy-norming';
+    const PATH_TO_PICTURES = './src/content/happy-norming';
     const dotw = (dayOfTheWeek !== null && dayOfTheWeek !== void 0 ? dayOfTheWeek : DOTW_TITLES[new Date().getDay()]).toLowerCase();
     const files = readdirSync(`${PATH_TO_PICTURES}/${dotw}`);
     const file = files[Math.floor(Math.random() * files.length)];

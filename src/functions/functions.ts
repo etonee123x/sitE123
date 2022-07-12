@@ -199,7 +199,7 @@ export const tryAuth = (
 };
 
 export const funnyAnimals = () => {
-  const PATH_TO_PICTURES = './content/funny-animals';
+  const PATH_TO_PICTURES = './src/content/funny-animals';
   const files = readdirSync(PATH_TO_PICTURES);
 
   return readFileSync(`${PATH_TO_PICTURES}/${files[Math.floor(Math.random() * files.length)]}`);
@@ -207,7 +207,7 @@ export const funnyAnimals = () => {
 
 export const happyNorming = (dayOfTheWeek?: string) => {
   const DOTW_TITLES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  const PATH_TO_PICTURES = './content/happy-norming';
+  const PATH_TO_PICTURES = './src/content/happy-norming';
 
   const dotw = (dayOfTheWeek ?? DOTW_TITLES[new Date().getDay()]).toLowerCase();
   const files = readdirSync(`${PATH_TO_PICTURES}/${dotw}`);
