@@ -13,13 +13,12 @@ export default class RMSHandler {
         return this;
     }
     readHeaders() {
-        const riff = this.theBuffer.slice(0, 4);
-        if (riff.toString() !== 'RIFF') {
+        if (this.theBuffer.slice(0, 4).toString() !== 'RIFF') {
             throw new Error('this is not wav file');
         }
         this.headers.channelsNumber = this.theBuffer.readUInt16LE(22);
         if (this.headers.channelsNumber !== 2) {
-            throw new Error('this wav file doesn\'t have 2 channels');
+            throw new Error("this wav file doesn't have 2 channels");
         }
         this.headers.sampleRate = this.theBuffer.readUInt32LE(24);
         this.headers.byteRate = this.theBuffer.readUInt32LE(28);
@@ -51,7 +50,6 @@ export default class RMSHandler {
         }
         this.pointsNumber = this.channels.left.length;
     }
-    ;
     findTheLoudestSegment() {
         const theLoudest = {
             index: 0,

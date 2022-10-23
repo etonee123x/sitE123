@@ -25,24 +25,23 @@ export default class RMSHandler {
   private static readonly M_MILLISECONDS_TO_CHECK = 300;
   private static readonly K_BLOCKS = Math.pow(2, 6);
 
-  public fromFile(pathToFile: string): RMSHandler {
+  public fromFile (pathToFile: string): RMSHandler {
     this.theBuffer = readFileSync(pathToFile);
     return this;
   }
 
-  public fromBuffer(buffer: Buffer): RMSHandler {
+  public fromBuffer (buffer: Buffer): RMSHandler {
     this.theBuffer = Buffer.from(buffer);
     return this;
   }
 
-  private readHeaders() {
-    const riff = this.theBuffer!.slice(0, 4);
-    if (riff.toString() !== 'RIFF') {
+  private readHeaders () {
+    if (this.theBuffer!.slice(0, 4).toString() !== 'RIFF') {
       throw new Error('this is not wav file');
     }
     this.headers.channelsNumber = this.theBuffer!.readUInt16LE(22);
     if (this.headers.channelsNumber !== 2) {
-      throw new Error('this wav file doesn\'t have 2 channels');
+      throw new Error("this wav file doesn't have 2 channels");
     }
     this.headers.sampleRate = this.theBuffer!.readUInt32LE(24);
     this.headers.byteRate = this.theBuffer!.readUInt32LE(28);
@@ -52,13 +51,13 @@ export default class RMSHandler {
     this.theBuffer = this.theBuffer!.slice(44, this.theBuffer!.length);
   }
 
-  private findBlockLengths() {
+  private findBlockLengths () {
     const blocksPerSecondInASingleChannel = this.headers.byteRate / (this.headers.blockAlign * RMSHandler.K_BLOCKS);
     this.blocksPerNSeconds = Math.floor(blocksPerSecondInASingleChannel * RMSHandler.N_SECONDS_TO_CHECK);
     this.blocksPerMMilliSeconds = Math.floor(blocksPerSecondInASingleChannel * RMSHandler.M_MILLISECONDS_TO_CHECK / 1000);
   }
 
-  private parseWavToChannels() {
+  private parseWavToChannels () {
     this.channels = { left: [], right: [] };
     if (this.headers.bitsPerSample === 16) {
       for (let i = 1; i < this.blocksNumber!; i += RMSHandler.K_BLOCKS) {
@@ -74,9 +73,9 @@ export default class RMSHandler {
       }
     }
     this.pointsNumber = this.channels.left.length;
-  };
+  }
 
-  private findTheLoudestSegment() {
+  private findTheLoudestSegment () {
     const theLoudest = {
       index: 0,
       loudness: 0,
@@ -100,7 +99,7 @@ export default class RMSHandler {
     return theLoudest;
   }
 
-  private getRmsInTheLoudestSegment() {
+  private getRmsInTheLoudestSegment () {
     this.segmentRmsDbValues = [];
     for (let i = this.theLoudestSegment!.start!; i < this.theLoudestSegment!.end! - this.blocksPerMMilliSeconds!; i++) {
       let segmentRms = 0;
@@ -118,7 +117,7 @@ export default class RMSHandler {
     }
   }
 
-  public getRms() {
+  public getRms () {
     this.readHeaders();
     this.blocksNumber = this.headers.dataSize / this.headers.blockAlign;
     this.parseWavToChannels();
@@ -128,7 +127,7 @@ export default class RMSHandler {
     return this;
   }
 
-  public formInfo() {
+  public formInfo () {
     const duration = Math.floor(this.headers.dataSize / this.headers.byteRate);
     const audioDuration = { minutes: Math.floor(duration / 60), seconds: duration % 60 };
     const theLoudestSegment = {
@@ -169,16 +168,16 @@ export default class RMSHandler {
     };
   }
 
-  private static toMinutes(time: number): string {
+  private static toMinutes (time: number): string {
     return Math.floor(time / 60).toString();
   }
 
-  private static toSeconds(time: number): string {
+  private static toSeconds (time: number): string {
     const result = Math.floor(time) % 60;
     return result > 10 ? `${result}` : `0${result}`;
   }
 
-  private static getIntervals(arr: number[]) {
+  private static getIntervals (arr: number[]) {
     const SIGMAS = 1;
 
     let avgValue = 0;

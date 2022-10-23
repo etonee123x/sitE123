@@ -12,7 +12,7 @@ const BrowserInstance = Puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
 });
-export const handleRequestsHandler = (req, res, requestHandler) => __awaiter(void 0, void 0, void 0, function* () {
+export const handleRequests = (req, res, requestHandler) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`New request to ${req.route.path}`);
     const qL = Object.keys(req.query).length;
     const bL = Object.keys(req.body).length;
@@ -62,25 +62,3 @@ export const commonParse = (links, method) => __awaiter(void 0, void 0, void 0, 
     }
     return allParsedData;
 });
-var ModuleTitlesEnum;
-(function (ModuleTitlesEnum) {
-    ModuleTitlesEnum["GET_FOLDER_DATA"] = "GET_FOLDER_DATA";
-})(ModuleTitlesEnum || (ModuleTitlesEnum = {}));
-export class Guide {
-    static test({ modules }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(modules);
-            return new Guide();
-        });
-    }
-}
-Guide.MODULES = {
-    GET_FOLDER_DATA: {
-        title: 'get-folder-data',
-        shortDesc: 'returns info about directory structure in content',
-        longDesc: '',
-        method: ['GET'],
-        testUrls: ['/get-folder-data', '/get-folder-data/images'],
-        resultType: 'json',
-    },
-};

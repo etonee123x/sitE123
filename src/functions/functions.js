@@ -7,19 +7,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import('dotenv/config');
-import { readdirSync, statSync, readFileSync, mkdirSync, rmdirSync, writeFileSync } from 'fs';
+import { readdirSync, statSync, readFileSync, mkdirSync, rmdirSync, writeFileSync, existsSync } from 'fs';
 import { commonParse } from '../engine/index.js';
 import pkg from 'jsonwebtoken';
 import musMetaData from 'music-metadata';
 import { apiUrl } from '../../src/www.js';
+import { join } from 'path';
+import('dotenv/config');
+const contentPath = join('.', 'src', 'content');
 export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e;
     let linkedFile;
     let filesList;
     let playlist;
-    let paths;
-    let navigation;
     let currentDirectory;
     let buffer;
     const getSlashedCurrentDirectory = () => {
@@ -54,7 +54,7 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
             // detects full file name in .match[0]
             //        file name without .ext in .match[1]
             //        file extension without "." in .match[2]
-            const fileMatch = urlPath.match(/([^\/]*)\.([^\/]*)$/);
+            const fileMatch = urlPath.match(/([^/]*)\.([^/]*)$/);
             const name = (_a = fileMatch === null || fileMatch === void 0 ? void 0 : fileMatch[0]) !== null && _a !== void 0 ? _a : 'unknown title';
             const ext = (_b = fileMatch === null || fileMatch === void 0 ? void 0 : fileMatch[2]) !== null && _b !== void 0 ? _b : 'unknown extension';
             const src = `http://${apiUrl}/${contentPath}${urlPath}`;
@@ -93,7 +93,7 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
             url,
             src,
             numberOfThisExt: number,
-            birthTime: birthTime,
+            birthTime,
         };
     })
         .sort((a, b) => (a.type === 'folder' && b.type === 'file' ? -1 : 0));
@@ -114,7 +114,7 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
     else {
         playlist = null;
     }
-    paths = {
+    const paths = {
         rel: getSlashedCurrentDirectory(),
         abs: `/${contentPath}${getSlashedCurrentDirectory()}`,
         lvlUp: (_e = (_d = getSlashedCurrentDirectory().match(/.*\/(?=.+$)/)) === null || _d === void 0 ? void 0 : _d[0]) !== null && _e !== void 0 ? _e : null,
@@ -131,14 +131,15 @@ export const getFolderData = (contentPath, urlPath) => __awaiter(void 0, void 0,
             link: buffer[i].link + buffResult[i] + '/',
         };
     }
-    navigation = buffer;
+    const navigation = buffer;
     try {
-        if (filesList)
+        if (filesList) {
             for (let i = 0; i < filesList.length; i++) {
                 if (filesList[i].ext === 'mp3') {
                     filesList[i].metadata = yield getMetaDataFields(`public/${contentPath}${getSlashedCurrentDirectory()}${filesList[i].name}`);
                 }
             }
+        }
     }
     catch (e) {
         console.error('Не получилось найти метаданные для файлов');
@@ -201,24 +202,31 @@ export const tryAuth = (res, { login, password, token }) => {
     }
 };
 export const funnyAnimals = () => {
-    const PATH_TO_PICTURES = './src/content/funny-animals';
-    const files = readdirSync(PATH_TO_PICTURES);
-    return readFileSync(`${PATH_TO_PICTURES}/${files[Math.floor(Math.random() * files.length)]}`);
+    const FUNNY_ANIMALS_FOLDER = 'funny-animals';
+    const picturesPath = join(contentPath, FUNNY_ANIMALS_FOLDER);
+    if (!existsSync(picturesPath))
+        return;
+    const filesTitles = readdirSync(picturesPath);
+    const fileTitle = filesTitles[Math.floor(Math.random() * filesTitles.length)];
+    return readFileSync(join(picturesPath, fileTitle));
 };
 export const happyNorming = (dayOfTheWeek) => {
+    const HAPPY_NORMING_FOLDER = 'happy-norming';
     const DOTW_TITLES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const PATH_TO_PICTURES = './src/content/happy-norming';
+    const picturesPath = join(contentPath, HAPPY_NORMING_FOLDER);
     const dotw = (dayOfTheWeek !== null && dayOfTheWeek !== void 0 ? dayOfTheWeek : DOTW_TITLES[new Date().getDay()]).toLowerCase();
-    const files = readdirSync(`${PATH_TO_PICTURES}/${dotw}`);
-    const file = files[Math.floor(Math.random() * files.length)];
-    return readFileSync(`${PATH_TO_PICTURES}/${dotw}/${file}`);
+    const filesTitles = readdirSync(join(picturesPath, dotw));
+    const fileTitle = filesTitles[Math.floor(Math.random() * filesTitles.length)];
+    return readFileSync(join(picturesPath, dotw, fileTitle));
 };
 export const parse = (bufferedOptions, id) => __awaiter(void 0, void 0, void 0, function* () {
-    const PATH_TO_GENERAL_FOLDER = './content/parser';
-    const pathToFolder = `${PATH_TO_GENERAL_FOLDER}/${id !== null && id !== void 0 ? id : Date.now()}`;
-    mkdirSync(pathToFolder);
-    writeFileSync(`${pathToFolder}/index.cjs`, Buffer.from(bufferedOptions.data));
-    const options = yield import(`${pathToFolder}/index.cjs`);
-    rmdirSync(`${pathToFolder}`, { recursive: true });
+    const FOLDER_TITLE = 'parser';
+    const INDEX_FILE_TITLE = 'index.cjs';
+    const folderPath = join(contentPath, FOLDER_TITLE, String(id !== null && id !== void 0 ? id : Date.now()));
+    const filePath = join(folderPath, INDEX_FILE_TITLE);
+    mkdirSync(folderPath, { recursive: true });
+    writeFileSync(filePath, Buffer.from(bufferedOptions.data));
+    const options = yield import(filePath);
+    rmdirSync(folderPath, { recursive: true });
     return commonParse(options.default.links, options.default.method);
 });

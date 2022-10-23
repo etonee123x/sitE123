@@ -2,24 +2,20 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   env: {
     commonjs: true,
-    es2021: true,
     node: true,
   },
-  extends: ['standard'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'standard',
+  ],
   parserOptions: {
     ecmaVersion: 12,
   },
   rules: {
-    curly: ['error', 'always'],
+    semi: ['error', 'always'],
     'comma-dangle': ['error', 'always-multiline'],
-    semi: [2, 'always'],
-    'space-before-function-paren': [
-      'error',
-      {
-        anonymous: 'never',
-        named: 'never',
-        asyncArrow: 'always',
-      },
-    ],
+    indent: 'off',
+    '@typescript-eslint/indent': ['error', 2],
   },
 };
