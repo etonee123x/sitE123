@@ -5,15 +5,18 @@ import { parseFile } from 'music-metadata';
 import { apiUrl } from '../../src/www.js';
 import { join, dirname, parse as parsePath, sep } from 'path';
 import { BaseItem, AudioItem, FolderItem, PictureItem, PlaylistItem, AudioExts, ItemTypes, PictureExts, FileItem, LinkedFileItem, } from '../../includes/types/index.js';
-const contentPath = join('.', 'src', 'content');
-export const getFolderData = async (_contentPath, urlPath) => {
-    const thePath = join('public', _contentPath, urlPath);
+const CONTENT_FOLDER = 'content';
+const contentPath = join('.', 'src', CONTENT_FOLDER);
+export const getFolderData = async (urlPath, _contentPath = CONTENT_FOLDER) => {
+    const makeInnerPath = (path) => join('public', CONTENT_FOLDER, path);
+    const createFullLink = (path) => new URL(path, `http://${apiUrl}`).href;
+    const pathToFileURL = (path) => path.replaceAll(sep, '/');
+    const outerPath = join(urlPath);
+    const innerPath = makeInnerPath(outerPath);
     let linkedFile = null;
     let playlist = null;
     let currentDirectory;
     const items = [];
-    const createFullLink = (path) => new URL(path, `http://${apiUrl}`).href;
-    const pathToFileURL = (path) => path.replaceAll(sep, '/');
     const getMetaDataFields = async (path) => {
         const metadata = await parseFile(path);
         return {
@@ -29,7 +32,7 @@ export const getFolderData = async (_contentPath, urlPath) => {
             year: metadata.common.year,
         };
     };
-    const stats = statSync(thePath);
+    const stats = statSync(innerPath);
     if (stats.isFile()) {
         const { name, ext } = parsePath(urlPath);
         linkedFile = new LinkedFileItem(new FileItem({
@@ -39,31 +42,32 @@ export const getFolderData = async (_contentPath, urlPath) => {
             birthtime: stats.birthtime,
         }), { ext });
         if (Object.values(AudioExts).includes(ext)) {
-            linkedFile.metadata = await getMetaDataFields(thePath);
+            linkedFile.metadata = await getMetaDataFields(innerPath);
         }
         playlist = [];
-        currentDirectory = dirname(thePath);
+        currentDirectory = dirname(outerPath);
     }
     else {
-        currentDirectory = thePath;
+        currentDirectory = outerPath;
     }
     currentDirectory = currentDirectory || '/';
     const elementsNumbers = {};
-    const elements = readdirSync(currentDirectory, { withFileTypes: true });
+    const elements = readdirSync(makeInnerPath(currentDirectory), { withFileTypes: true });
     for (const element of elements) {
-        const filePath = join(currentDirectory, element.name);
-        const { ext } = parsePath(filePath);
+        const outerFilePath = join(currentDirectory, element.name);
+        const innerFilePath = makeInnerPath(outerFilePath);
+        const { ext } = parsePath(innerFilePath);
         const itemBase = new BaseItem({
             name: element.name,
             url: encodeURI(element.name),
-            src: createFullLink(filePath),
+            src: createFullLink(join(CONTENT_FOLDER, outerFilePath)),
             numberOfThisExt: -~elementsNumbers[ext ?? ItemTypes.FOLDER],
-            birthtime: statSync(filePath).birthtime,
+            birthtime: statSync(innerFilePath).birthtime,
         });
         if (!element.isDirectory()) {
             const fileItem = new FileItem(itemBase);
             if (Object.values(AudioExts).includes(ext)) {
-                const metadata = await getMetaDataFields(filePath);
+                const metadata = await getMetaDataFields(innerFilePath);
                 items.push(new AudioItem(fileItem, { ext: ext, metadata }));
                 continue;
             }

@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/get-folder-data*', async (req, res) => {
   await handleRequests(req, res, async (req, res) => {
-    res.send(await getFolderData('content', req.params[0]));
+    res.send(await getFolderData(req.params[0]));
   });
 });
 
