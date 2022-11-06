@@ -1,18 +1,12 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import Puppeteer from 'puppeteer';
 const BrowserInstance = Puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
 });
-export const handleRequests = (req, res, requestHandler) => __awaiter(void 0, void 0, void 0, function* () {
+const handleRequestError = async (e) => {
+    console.log(e);
+};
+export const handleRequests = async (req, res, requestCb) => {
     console.log(`New request to ${req.route.path}`);
     const qL = Object.keys(req.query).length;
     const bL = Object.keys(req.body).length;
@@ -28,22 +22,22 @@ export const handleRequests = (req, res, requestHandler) => __awaiter(void 0, vo
     else
         console.log('No special params');
     try {
-        yield requestHandler(req, res);
+        await requestCb(req, res);
     }
     catch (e) {
-        console.log(e);
+        await handleRequestError(e);
         res.sendStatus(404);
     }
-});
-export const commonParse = (links, method) => __awaiter(void 0, void 0, void 0, function* () {
-    const browser = yield BrowserInstance;
-    const page = yield browser.newPage();
+};
+export const commonParse = async (links, method) => {
+    const browser = await BrowserInstance;
+    const page = await browser.newPage();
     const allParsedData = [];
     try {
         for (const url of links) {
-            yield page.goto(url, { waitUntil: 'networkidle2' });
+            await page.goto(url, { waitUntil: 'networkidle2' });
             try {
-                const pageData = yield page.evaluate(yield method);
+                const pageData = await page.evaluate(method);
                 allParsedData.push(pageData);
             }
             catch (error) {
@@ -61,4 +55,4 @@ export const commonParse = (links, method) => __awaiter(void 0, void 0, void 0, 
         page.close();
     }
     return allParsedData;
-});
+};

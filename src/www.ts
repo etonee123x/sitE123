@@ -1,6 +1,7 @@
 import app from './app.js';
 import http from 'http';
 import ip from 'ip';
+import('dotenv/config');
 
 const port = process.env.PORT ?? '3001';
 export const apiUrl = `${ip.address()}:${port}`;

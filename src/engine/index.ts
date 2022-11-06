@@ -1,15 +1,20 @@
-import { Request, Response } from 'express';
 import Puppeteer from 'puppeteer';
+import type { Request, Response } from 'express';
+import { ErrorLike } from '../../includes/types';
 
 const BrowserInstance = Puppeteer.launch({
   headless: true,
   args: ['--no-sandbox', '--disable-setuid-sandbox'],
 });
 
+const handleRequestError = async (e: ErrorLike) => {
+  console.log(e);
+};
+
 export const handleRequests = async (
   req: Request,
   res: Response,
-  requestHandler: (req: Request, res: Response) => unknown,
+  requestCb: (req: Request, res: Response) => unknown,
 ) => {
   console.log(`New request to ${req.route.path}`);
   const qL = Object.keys(req.query).length;
@@ -22,14 +27,14 @@ export const handleRequests = async (
   } else console.log('No special params');
 
   try {
-    await requestHandler(req, res);
+    await requestCb(req, res);
   } catch (e) {
-    console.log(e);
+    await handleRequestError(e as ErrorLike);
     res.sendStatus(404);
   }
 };
 
-export const commonParse = async (links: string[], method: any) => {
+export const commonParse = async (links: string[], method: () => Promise<object[]>) => {
   const browser = await BrowserInstance;
   const page = await browser.newPage();
 
@@ -39,7 +44,7 @@ export const commonParse = async (links: string[], method: any) => {
     for (const url of links) {
       await page.goto(url, { waitUntil: 'networkidle2' });
       try {
-        const pageData = await page.evaluate(await method);
+        const pageData = await page.evaluate(method);
         allParsedData.push(pageData);
       } catch (error) {
         allParsedData.push({

@@ -1,44 +1,47 @@
 import { readdirSync, statSync, readFileSync, mkdirSync, rmdirSync, writeFileSync, existsSync } from 'fs';
 import { commonParse } from '../engine/index.js';
 import { Response } from 'express';
-import pkg, { JwtPayload } from 'jsonwebtoken';
-import musMetaData from 'music-metadata';
+import pkg from 'jsonwebtoken';
+import { parseFile } from 'music-metadata';
 import { apiUrl } from '../../src/www.js';
 
-import { join } from 'path';
+import { join, dirname, parse as parsePath, sep } from 'path';
 
-import type {
-  Metadata,
-  Item,
-  LinkedFile,
-  NavItem,
+import {
+  BaseItem,
+  AudioItem,
+  FolderItem,
+  PictureItem,
   PlaylistItem,
+  AudioExts,
+  ItemTypes,
+  PictureExts,
   Paths,
   FolderData,
-  ItemAudio,
-} from '@types';
-
-import('dotenv/config');
+  Metadata,
+  Item,
+  NavItem,
+  TokenOrLoginAndPassword,
+  LoginAndPassword,
+  FileItem,
+  LinkedFileItem,
+} from '../../includes/types/index.js';
 
 const contentPath = join('.', 'src', 'content');
 
-export const getFolderData = async (contentPath: string, urlPath: string): Promise<FolderData> => {
-  let linkedFile: LinkedFile | null;
-  let filesList: Item[];
-  let playlist: PlaylistItem[] | null;
+export const getFolderData = async (_contentPath: string, urlPath: string): Promise<FolderData> => {
+  const thePath = join('public', _contentPath, urlPath);
+  let linkedFile: LinkedFileItem | null = null;
+  let playlist: PlaylistItem[] | null = null;
   let currentDirectory: string | undefined;
-  let buffer;
+  const items: Item[] = [];
 
-  const getSlashedCurrentDirectory = () => {
-    if (currentDirectory?.startsWith('/') && currentDirectory.endsWith('/')) return currentDirectory;
-    if (currentDirectory === '/') return '/';
-    if (currentDirectory?.startsWith('/')) return `${currentDirectory}/`;
-    if (currentDirectory?.endsWith('/')) return `/${currentDirectory}`;
-    return '/';
-  };
+  const createFullLink = (path: string) => new URL(path, `http://${apiUrl}`).href;
+
+  const pathToFileURL = (path: string) => path.replaceAll(sep, '/');
 
   const getMetaDataFields = async (path: string): Promise<Metadata> => {
-    const metadata = await musMetaData.parseFile(path);
+    const metadata = await parseFile(path);
     return {
       // native: metadata.native,
       // quality: metadata.quality,
@@ -53,161 +56,105 @@ export const getFolderData = async (contentPath: string, urlPath: string): Promi
     };
   };
 
-  try {
-    if (statSync(`public/${contentPath}${urlPath}`).isFile()) {
-      // detects full file name in .match[0]
-      //        file name without .ext in .match[1]
-      //        file extension without "." in .match[2]
-      const fileMatch = urlPath.match(/([^/]*)\.([^/]*)$/);
-      const name = fileMatch?.[0] ?? 'unknown title';
-      const ext = fileMatch?.[2] ?? 'unknown extension';
-      const src = `http://${apiUrl}/${contentPath}${urlPath}`;
-      buffer = { src, name, ext, url: urlPath };
-
-      // current directory is location.pathname without `.../name.ext`
-      if (fileMatch?.[0]) currentDirectory = urlPath.replace(fileMatch?.[0], '');
-      linkedFile = buffer;
-    } else {
-      buffer = null;
-      currentDirectory = urlPath || '/';
+  const stats = statSync(thePath);
+  if (stats.isFile()) {
+    const { name, ext } = parsePath(urlPath);
+    linkedFile = new LinkedFileItem(
+      new FileItem({
+        name,
+        src: createFullLink(`${_contentPath}/${urlPath}`),
+        url: urlPath,
+        birthtime: stats.birthtime,
+      }),
+      { ext },
+    );
+    if (Object.values(AudioExts).includes(ext as AudioExts)) {
+      linkedFile.metadata = await getMetaDataFields(thePath);
     }
-  } catch (e) {
-    console.error(e);
-    throw e;
+    playlist = [];
+    currentDirectory = dirname(thePath);
+  } else {
+    currentDirectory = thePath;
   }
-  linkedFile = buffer;
-
   currentDirectory = currentDirectory || '/';
 
   const elementsNumbers = {} as { [key: string]: number };
-  filesList = readdirSync(`public/${contentPath}/${getSlashedCurrentDirectory()}`, { withFileTypes: true })
-    .map((element) => {
-      const name = element.name;
-      const type = element.isDirectory() ? 'folder' : 'file';
-      const ext = element.isDirectory() ? null : element.name.match(/([^.]+)$/g)?.[0] ?? 'unknown extension';
-      const url = encodeURI(element.name);
-      const src = `http://${apiUrl}/content${getSlashedCurrentDirectory()}${encodeURI(element.name)}`;
-      const number = -~elementsNumbers[ext ?? 'folder'];
-      const birthTime = statSync(`public/${contentPath}${getSlashedCurrentDirectory()}${element.name}`).birthtime;
-      return {
-        name,
-        type,
-        ext,
-        url,
-        src,
-        numberOfThisExt: number,
-        birthTime,
-      };
-    })
-    .sort((a, b) => (a.type === 'folder' && b.type === 'file' ? -1 : 0)) as Item[];
-
-  if (linkedFile) {
-    playlist = [];
-    for (let i = 0; i < filesList.length; i++) {
-      if (filesList[i].ext === 'mp3') {
-        playlist.push({
-          name: filesList[i].name,
-          ext: filesList[i].ext ?? '',
-          src: `http://${apiUrl}/content${getSlashedCurrentDirectory()}${filesList[i].url}`,
-          url: `${getSlashedCurrentDirectory()}` + filesList[i].url,
-          thisIsLinkedFile: filesList[i].name === linkedFile?.name,
-        });
+  const elements = readdirSync(currentDirectory, { withFileTypes: true });
+  for (const element of elements) {
+    const filePath = join(currentDirectory, element.name);
+    const { ext } = parsePath(filePath);
+    const itemBase = new BaseItem({
+      name: element.name,
+      url: encodeURI(element.name),
+      src: createFullLink(filePath),
+      numberOfThisExt: -~elementsNumbers[ext ?? ItemTypes.FOLDER],
+      birthtime: statSync(filePath).birthtime,
+    });
+    if (!element.isDirectory()) {
+      const fileItem = new FileItem(itemBase);
+      if (Object.values(AudioExts).includes(ext as AudioExts)) {
+        const metadata = await getMetaDataFields(filePath);
+        items.push(new AudioItem(fileItem, { ext: ext as AudioExts, metadata }));
+        continue;
+      }
+      if (Object.values(PictureExts).includes(ext as PictureExts)) {
+        items.push(new PictureItem(fileItem, { ext: ext as PictureExts }));
+        continue;
       }
     }
-  } else {
-    playlist = null;
+    items.push(new FolderItem(itemBase));
+  }
+  items.sort((a, b) => (a.type === ItemTypes.FOLDER && b.type === ItemTypes.FILE ? -1 : 0));
+
+  if (linkedFile) {
+    (items.filter(item => item instanceof AudioItem) as AudioItem[])
+      .forEach(file => playlist?.push(new PlaylistItem(file, { thisIsLinkedFile: file.name === linkedFile?.name })));
   }
 
   const paths: Paths = {
-    rel: getSlashedCurrentDirectory(),
-    abs: `/${contentPath}${getSlashedCurrentDirectory()}`,
-    lvlUp: getSlashedCurrentDirectory().match(/.*\/(?=.+$)/)?.[0] ?? null,
+    abs: pathToFileURL(currentDirectory),
+    rel: urlPath,
+    lvlUp: dirname(urlPath),
   };
 
-  const buffResult = paths.rel.split('/').filter((e) => e !== '');
-  buffer = [];
-  buffer.unshift({
-    text: 'root',
-    link: '/',
+  const navigation = [{ text: 'root', link: '/' }] as NavItem[];
+  paths.rel.split('/').filter(e => e).forEach((path, i) => {
+    navigation.push({
+      text: path,
+      link: navigation[i].link + path + '/',
+    });
   });
-  for (let i = 0; i < buffResult.length; i++) {
-    buffer[i + 1] = {
-      text: buffResult[i],
-      link: buffer[i].link + buffResult[i] + '/',
-    };
-  }
-  const navigation: NavItem[] = buffer;
-
-  try {
-    if (filesList) {
-      for (let i = 0; i < filesList.length; i++) {
-        if (filesList[i].ext === 'mp3') {
-          (filesList[i] as ItemAudio).metadata = await getMetaDataFields(
-            `public/${contentPath}${getSlashedCurrentDirectory()}${filesList[i].name}`,
-          );
-        }
-      }
-    }
-  } catch (e) {
-    console.error('Не получилось найти метаданные для файлов');
-  }
-  try {
-    if (linkedFile) {
-      linkedFile.metadata = await getMetaDataFields(`public/${contentPath}/${linkedFile.url}`);
-    }
-  } catch (e) {
-    console.error('Не получилось найти метаданные для привязанного файла');
-  }
-  try {
-    if (playlist) {
-      for (const elem of playlist) {
-        elem.metadata = await getMetaDataFields(`public/${contentPath}/${decodeURI(elem.url)}`);
-      }
-    }
-  } catch (e) {
-    console.error('Не получилось найти метаданные для плейлиста');
-  }
-  filesList = filesList.map((element) => ({
-    ...element,
-    url: `${element.url.startsWith('/') ? '' : '/'}${element.url}`,
-  }));
 
   return {
     linkedFile,
-    filesList,
+    items,
     playlist,
     paths,
     navigation,
-    currentDirectory,
+    currentDirectory: pathToFileURL(currentDirectory),
   };
 };
 
 export const tryAuth = (
   res: Response,
-  { login, password, token }: { login?: string; password?: string; token?: string },
+  tokenOrLoginAndPassword: TokenOrLoginAndPassword,
 ) => {
   const DEFAULT_KEY = 'DEFAULT_KEY';
-  const { sign, verify } = pkg;
-  let verifyIsLost;
+  const key = process.env.THE_KEY ?? DEFAULT_KEY;
+  const verifyLoginAndPassword = ({ login, password }: LoginAndPassword) => password === process.env[login];
 
-  const getLoginByToken = (token: string) => {
-    let login;
-    verify(token, process.env.THE_KEY ?? DEFAULT_KEY, (error, pld) => {
-      if (error) return (verifyIsLost = true);
-      login = (pld as JwtPayload)?.login;
+  if ('token' in tokenOrLoginAndPassword) {
+    let verificationWasFailed = false;
+    const { token } = tokenOrLoginAndPassword;
+    pkg.verify(token, key, (error) => {
+      verificationWasFailed = !!error;
     });
-    return login;
-  };
-
-  if (token) {
-    login = getLoginByToken(token);
-    if (!verifyIsLost) return res.json(token);
-    return res.sendStatus(403);
-  } else {
-    if (!(login && password)) return res.sendStatus(403);
-    if (password === process.env[login]) return res.json(sign({ login }, process.env.THE_KEY ?? DEFAULT_KEY));
-    return res.sendStatus(403);
+    return verificationWasFailed ? res.sendStatus(403) : res.json(token);
   }
+  const { login, password } = tokenOrLoginAndPassword;
+  return verifyLoginAndPassword({ login, password })
+    ? res.json(pkg.sign({ login }, key))
+    : res.sendStatus(403);
 };
 
 export const funnyAnimals = () => {

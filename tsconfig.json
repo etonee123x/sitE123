@@ -1,18 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2021",
     "module": "esnext",
     "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {
-      "@types": ["includes/types/index.ts"]
-    },
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
-  },
-  "include": ["src"],
-  "exclude": ["includes/**/*"]
+  }
 }

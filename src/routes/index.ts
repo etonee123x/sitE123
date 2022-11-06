@@ -3,8 +3,6 @@ import { Router } from 'express';
 import { handleRequests } from '../engine/index.js';
 import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData } from '../functions/functions.js';
 
-// import RMSHandler from '../functions/RMSHandler.js';
-
 const router = Router();
 
 router.get('/get-folder-data*', async (req, res) => {
@@ -15,7 +13,7 @@ router.get('/get-folder-data*', async (req, res) => {
 
 router.get('/happy-norming/', async (req, res) => {
   await handleRequests(req, res, async (req, res) => {
-    res.type('image/jpeg').send(happyNorming(req.query.dotw as string));
+    res.type('image/jpeg').send(happyNorming(String(req.query.dotw)));
   });
 });
 
@@ -27,8 +25,13 @@ router.get('/funny-animals/', async (req, res) => {
 
 router.get('/auth/', async (req, res) => {
   await handleRequests(req, res, async (req, res) => {
-    const { login, password, token } = req.query as { login?: string; password?: string; token?: string };
-    tryAuth(res, { login, password, token });
+    const token = req.query.token?.toString();
+    if (token) return tryAuth(res, { token });
+    const login = req.query.login?.toString();
+    const password = req.query.password?.toString();
+    return (login && password)
+      ? tryAuth(res, { login, password })
+      : res.sendStatus(403);
   });
 });
 
@@ -37,11 +40,5 @@ router.post('/parser/', async (req, res) => {
     res.json(await parse(req.body.options, req.body.id));
   });
 });
-
-/* router.post('/rms-handler/', async (req, res) => {
-  await handleRequests(req, res, async (req, res) => {
-    res.send(new RMSHandler().fromBuffer(req.body.data.data).getRms().formInfo());
-  });
-}); */
 
 export default router;
