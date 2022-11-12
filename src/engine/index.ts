@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Puppeteer from 'puppeteer';
 import type { Request, Response } from 'express';
 import { ErrorLike } from '../../includes/types/index.js';

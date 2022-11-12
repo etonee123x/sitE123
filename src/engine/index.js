@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Puppeteer from 'puppeteer';
 import { validationResult } from 'express-validator';
 const BrowserInstance = Puppeteer.launch({
