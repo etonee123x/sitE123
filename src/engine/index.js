@@ -1,4 +1,5 @@
 import Puppeteer from 'puppeteer';
+import { validationResult } from 'express-validator';
 const BrowserInstance = Puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -6,23 +7,26 @@ const BrowserInstance = Puppeteer.launch({
 const handleRequestError = async (e) => {
     console.log(e);
 };
-export const handleRequests = async (req, res, requestCb) => {
+export const handleRequests = async (req, res, cb) => {
     console.log(`New request to ${req.route.path}`);
-    const qL = Object.keys(req.query).length;
-    const bL = Object.keys(req.body).length;
-    const pL = Object.keys(req.params).length;
-    if (qL || bL || pL) {
-        if (qL)
+    const errors = validationResult(req).array();
+    if (errors.length)
+        return res.status(400).send(errors);
+    const hasQuery = Boolean(Object.keys(req.query ?? {}).length);
+    const hasBody = Boolean(Object.keys(req.body).length);
+    const hasParams = Boolean(Object.keys(req.params ?? {}).length);
+    if (hasQuery || hasBody || hasParams) {
+        if (hasQuery)
             console.log('Query:', req.query);
-        if (bL)
+        if (hasBody)
             console.log('Body:', req.body);
-        if (pL)
+        if (hasParams)
             console.log('Params:', req.params);
     }
     else
         console.log('No special params');
     try {
-        await requestCb(req, res);
+        await cb(req, res);
     }
     catch (e) {
         await handleRequestError(e);

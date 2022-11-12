@@ -1,9 +1,10 @@
 import express from 'express';
-import { dirname, join } from 'path';
+import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import indexRouter from './routes/index.js';
 
-export const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const app = express()
   .use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');

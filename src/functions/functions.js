@@ -132,9 +132,8 @@ export const funnyAnimals = () => {
 };
 export const happyNorming = (dayOfTheWeek) => {
     const HAPPY_NORMING_FOLDER = 'happy-norming';
-    const DOTW_TITLES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
     const picturesPath = join(contentPath, HAPPY_NORMING_FOLDER);
-    const dotw = (dayOfTheWeek ?? DOTW_TITLES[new Date().getDay()]).toLowerCase();
+    const dotw = String(dayOfTheWeek ?? new Date().getDay());
     const filesTitles = readdirSync(join(picturesPath, dotw));
     const fileTitle = filesTitles[Math.floor(Math.random() * filesTitles.length)];
     return readFileSync(join(picturesPath, dotw, fileTitle));

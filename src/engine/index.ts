@@ -1,6 +1,7 @@
 import Puppeteer from 'puppeteer';
 import type { Request, Response } from 'express';
-import { ErrorLike } from '../../includes/types';
+import { ErrorLike } from '../../includes/types/index.js';
+import { validationResult } from 'express-validator';
 
 const BrowserInstance = Puppeteer.launch({
   headless: true,
@@ -11,23 +12,33 @@ const handleRequestError = async (e: ErrorLike) => {
   console.log(e);
 };
 
+type ReqAfterMidd = Request<
+Record<string, any> | undefined,
+any,
+any,
+Record<string, any> | undefined,
+Record<string, any>
+>
+
 export const handleRequests = async (
-  req: Request,
+  req: ReqAfterMidd,
   res: Response,
-  requestCb: (req: Request, res: Response) => unknown,
+  cb: (req: ReqAfterMidd, res: Response) => unknown,
 ) => {
   console.log(`New request to ${req.route.path}`);
-  const qL = Object.keys(req.query).length;
-  const bL = Object.keys(req.body).length;
-  const pL = Object.keys(req.params).length;
-  if (qL || bL || pL) {
-    if (qL) console.log('Query:', req.query);
-    if (bL) console.log('Body:', req.body);
-    if (pL) console.log('Params:', req.params);
+  const errors = validationResult(req).array();
+  if (errors.length) return res.status(400).send(errors);
+  const hasQuery = Boolean(Object.keys(req.query ?? {}).length);
+  const hasBody = Boolean(Object.keys(req.body).length);
+  const hasParams = Boolean(Object.keys(req.params ?? {}).length);
+  if (hasQuery || hasBody || hasParams) {
+    if (hasQuery) console.log('Query:', req.query);
+    if (hasBody) console.log('Body:', req.body);
+    if (hasParams) console.log('Params:', req.params);
   } else console.log('No special params');
 
   try {
-    await requestCb(req, res);
+    await cb(req, res);
   } catch (e) {
     await handleRequestError(e as ErrorLike);
     res.sendStatus(404);
