@@ -34,7 +34,7 @@ const contentPath = join('.', 'src', CONTENT_FOLDER);
 export const getFolderData = async (urlPath: string, _contentPath: string = CONTENT_FOLDER): Promise<FolderData> => {
   const makeInnerPath = (path: string) => join('public', CONTENT_FOLDER, path);
   const createFullLink = (path: string) => new URL(path, `http://${apiUrl}`).href;
-  const pathToFileURL = (path: string) => path.replaceAll(sep, '/');
+  const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
 
   const outerPath = join(urlPath);
   const innerPath = makeInnerPath(outerPath);

@@ -10,7 +10,7 @@ const contentPath = join('.', 'src', CONTENT_FOLDER);
 export const getFolderData = async (urlPath, _contentPath = CONTENT_FOLDER) => {
     const makeInnerPath = (path) => join('public', CONTENT_FOLDER, path);
     const createFullLink = (path) => new URL(path, `http://${apiUrl}`).href;
-    const pathToFileURL = (path) => path.replaceAll(sep, '/');
+    const pathToFileURL = (path) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
     const outerPath = join(urlPath);
     const innerPath = makeInnerPath(outerPath);
     let linkedFile = null;
