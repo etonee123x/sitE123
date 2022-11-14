@@ -16,7 +16,6 @@ import {
   AudioExts,
   ItemTypes,
   PictureExts,
-  Paths,
   FolderData,
   Metadata,
   Item,
@@ -89,7 +88,7 @@ export const getFolderData = async (urlPath: string, _contentPath: string = CONT
     const { ext } = parsePath(innerFilePath);
     const itemBase = new BaseItem({
       name: element.name,
-      url: encodeURI(element.name),
+      url: encodeURI(pathToFileURL(join(currentDirectory, element.name))),
       src: createFullLink(join(CONTENT_FOLDER, outerFilePath)),
       numberOfThisExt: -~elementsNumbers[ext ?? ItemTypes.FOLDER],
       birthtime: statSync(innerFilePath).birthtime,
@@ -115,14 +114,13 @@ export const getFolderData = async (urlPath: string, _contentPath: string = CONT
       .forEach(file => playlist?.push(new PlaylistItem(file, { thisIsLinkedFile: file.name === linkedFile?.name })));
   }
 
-  const paths: Paths = {
-    abs: pathToFileURL(currentDirectory),
-    rel: urlPath,
-    lvlUp: dirname(urlPath),
-  };
+  currentDirectory = pathToFileURL(currentDirectory);
+  const lvlUp = currentDirectory === '/'
+    ? null
+    : dirname(currentDirectory);
 
   const navigation = [{ text: 'root', link: '/' }] as NavItem[];
-  paths.rel.split('/').filter(e => e).forEach((path, i) => {
+  currentDirectory.split('/').filter(e => e).forEach((path, i) => {
     navigation.push({
       text: path,
       link: navigation[i].link + path + '/',
@@ -133,9 +131,8 @@ export const getFolderData = async (urlPath: string, _contentPath: string = CONT
     linkedFile,
     items,
     playlist,
-    paths,
+    lvlUp,
     navigation,
-    currentDirectory: pathToFileURL(currentDirectory),
   };
 };
 

@@ -13,7 +13,7 @@ router.get(
   async (req, res) => await handleRequests(
     req,
     res,
-    async (req, res) => res.send(await getFolderData(req.params?.[0])),
+    async (req, res) => res.send(await getFolderData(req.params?.[0] || '/')),
   ),
 );
 
