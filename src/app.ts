@@ -13,6 +13,7 @@ const app = express()
   })
   .use(express.static(join(__dirname, '../public')))
   .use(express.urlencoded({ limit: 1000 * 1024 * 1024, extended: true }))
+  .use(express.json())
   .use('/', indexRouter)
   .use((req, res) => {
     res.sendStatus(404);
