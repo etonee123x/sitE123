@@ -187,14 +187,14 @@ export const parse = async (
   id?: number | string,
 ) => {
   const FOLDER_TITLE = 'parser';
-  const INDEX_FILE_TITLE = 'index.cjs';
+  const INDEX_FILE_TITLE = 'index.js';
 
   const folderPath = join(contentPath, FOLDER_TITLE, String(id ?? Date.now()));
   const filePath = join(folderPath, INDEX_FILE_TITLE);
 
   mkdirSync(folderPath, { recursive: true });
   writeFileSync(filePath, Buffer.from(bufferedOptions.data));
-  const options = await import(filePath);
+  const options = await import(`../../${filePath}`);
   rmdirSync(folderPath, { recursive: true });
   return commonParse(options.default.links, options.default.method);
 };
