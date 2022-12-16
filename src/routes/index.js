@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { handleRequests } from '../engine/index.js';
-import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData } from '../functions/functions.js';
+import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData } from '../handlers/handlers.js';
 import validators from './validators/index.js';
 import { Routes } from '../../includes/types/index.js';
 const router = Router();
@@ -13,9 +13,7 @@ router.get(Routes.AUTH, ...validators[Routes.AUTH], async (req, res) => await ha
         return tryAuth(res, { token });
     const login = req.query?.login;
     const password = req.query?.password;
-    return (login && password)
-        ? tryAuth(res, { login, password })
-        : res.sendStatus(403);
+    return login && password ? tryAuth(res, { login, password }) : res.sendStatus(403);
 }));
 router.post(Routes.PARSER, ...validators[Routes.PARSER], async (req, res) => await handleRequests(req, res, async (req, res) => res.json(await parse(req.body.options, req.body.id))));
 export default router;
