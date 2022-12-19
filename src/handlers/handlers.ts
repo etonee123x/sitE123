@@ -13,9 +13,9 @@ import {
   FolderItem,
   PictureItem,
   PlaylistItem,
-  AudioExts,
-  ItemTypes,
-  PictureExts,
+  AUDIO_EXT,
+  ITEM_TYPE,
+  PICTURE_EXT,
   FolderData,
   Item,
   NavItem,
@@ -57,16 +57,17 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   if (stats.isFile()) {
     currentDirectory = dirname(outerPath);
     const { name, ext } = parsePath(urlPath);
-    const outerFilePath = join(currentDirectory, name);
+    const fullName = name + ext;
+    const outerFilePath = join(currentDirectory, fullName);
     const baseItem = new BaseItem({
-      name: [name, ext].join('.'),
+      name: fullName,
       url: encodeURI(pathToFileURL(outerFilePath)),
       src: createFullLink(join(CONTENT_FOLDER, outerFilePath)),
       birthtime: statSync(makeInnerPath(outerFilePath)).birthtime.toISOString(),
     });
-    if (Object.values(AudioExts).includes(ext as AudioExts)) {
+    if (Object.values(AUDIO_EXT).includes(ext as AUDIO_EXT)) {
       const metadata = await getMetaDataFields(innerPath);
-      linkedFile = new AudioItem(new FileItem(baseItem), { metadata, ext: ext as AudioExts });
+      linkedFile = new AudioItem(new FileItem(baseItem), { metadata, ext: ext as AUDIO_EXT });
       playlist = [];
     }
   } else {
@@ -84,24 +85,24 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       name: element.name,
       url: encodeURI(pathToFileURL(join(currentDirectory, element.name))),
       src: createFullLink(join(CONTENT_FOLDER, outerFilePath)),
-      numberOfThisExt: -~elementsNumbers[ext ?? ItemTypes.FOLDER],
+      numberOfThisExt: -~elementsNumbers[ext ?? ITEM_TYPE.FOLDER],
       birthtime: statSync(innerFilePath).birthtime.toISOString(),
     });
     if (!element.isDirectory()) {
       const fileItem = new FileItem(baseItem);
-      if (Object.values(AudioExts).includes(ext as AudioExts)) {
+      if (Object.values(AUDIO_EXT).includes(ext as AUDIO_EXT)) {
         const metadata = await getMetaDataFields(innerFilePath);
-        items.push(new AudioItem(fileItem, { ext: ext as AudioExts, metadata }));
+        items.push(new AudioItem(fileItem, { ext: ext as AUDIO_EXT, metadata }));
         continue;
       }
-      if (Object.values(PictureExts).includes(ext as PictureExts)) {
-        items.push(new PictureItem(fileItem, { ext: ext as PictureExts }));
+      if (Object.values(PICTURE_EXT).includes(ext as PICTURE_EXT)) {
+        items.push(new PictureItem(fileItem, { ext: ext as PICTURE_EXT }));
         continue;
       }
     }
     items.push(new FolderItem(baseItem));
   }
-  items.sort((a, b) => (a.type === ItemTypes.FOLDER && b.type === ItemTypes.FILE ? -1 : 0));
+  items.sort((a, b) => (a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE ? -1 : 0));
 
   if (linkedFile) {
     (items.filter(item => item instanceof AudioItem) as AudioItem[])
@@ -146,6 +147,7 @@ export const tryAuth = (
     });
     return verificationWasFailed ? res.sendStatus(403) : res.json(token);
   }
+
   const { login, password } = tokenOrLoginAndPassword;
   return verifyLoginAndPassword({ login, password })
     ? res.json(pkg.sign({ login }, key))
@@ -156,6 +158,7 @@ export const funnyAnimals = () => {
   const FUNNY_ANIMALS_FOLDER = 'funny-animals';
   const picturesPath = join(contentPath, FUNNY_ANIMALS_FOLDER);
   if (!existsSync(picturesPath)) return;
+
   const filesTitles = readdirSync(picturesPath);
   const fileTitle = filesTitles[Math.floor(Math.random() * filesTitles.length)];
 

@@ -4,7 +4,7 @@ import pkg from 'jsonwebtoken';
 import { parseFile } from 'music-metadata';
 import { apiUrl } from '../www.js';
 import { join, dirname, parse as parsePath, sep } from 'path';
-import { BaseItem, AudioItem, FolderItem, PictureItem, PlaylistItem, AudioExts, ItemTypes, PictureExts, FileItem, } from '../../includes/types/index.js';
+import { BaseItem, AudioItem, FolderItem, PictureItem, PlaylistItem, AUDIO_EXT, ITEM_TYPE, PICTURE_EXT, FileItem, } from '../../includes/types/index.js';
 const CONTENT_FOLDER = 'content';
 const contentPath = join('.', 'src', CONTENT_FOLDER);
 export const getFolderData = async (urlPath) => {
@@ -33,14 +33,15 @@ export const getFolderData = async (urlPath) => {
     if (stats.isFile()) {
         currentDirectory = dirname(outerPath);
         const { name, ext } = parsePath(urlPath);
-        const outerFilePath = join(currentDirectory, name);
+        const fullName = name + ext;
+        const outerFilePath = join(currentDirectory, fullName);
         const baseItem = new BaseItem({
-            name: [name, ext].join('.'),
+            name: fullName,
             url: encodeURI(pathToFileURL(outerFilePath)),
             src: createFullLink(join(CONTENT_FOLDER, outerFilePath)),
             birthtime: statSync(makeInnerPath(outerFilePath)).birthtime.toISOString(),
         });
-        if (Object.values(AudioExts).includes(ext)) {
+        if (Object.values(AUDIO_EXT).includes(ext)) {
             const metadata = await getMetaDataFields(innerPath);
             linkedFile = new AudioItem(new FileItem(baseItem), { metadata, ext: ext });
             playlist = [];
@@ -60,24 +61,24 @@ export const getFolderData = async (urlPath) => {
             name: element.name,
             url: encodeURI(pathToFileURL(join(currentDirectory, element.name))),
             src: createFullLink(join(CONTENT_FOLDER, outerFilePath)),
-            numberOfThisExt: -~elementsNumbers[ext ?? ItemTypes.FOLDER],
+            numberOfThisExt: -~elementsNumbers[ext ?? ITEM_TYPE.FOLDER],
             birthtime: statSync(innerFilePath).birthtime.toISOString(),
         });
         if (!element.isDirectory()) {
             const fileItem = new FileItem(baseItem);
-            if (Object.values(AudioExts).includes(ext)) {
+            if (Object.values(AUDIO_EXT).includes(ext)) {
                 const metadata = await getMetaDataFields(innerFilePath);
                 items.push(new AudioItem(fileItem, { ext: ext, metadata }));
                 continue;
             }
-            if (Object.values(PictureExts).includes(ext)) {
+            if (Object.values(PICTURE_EXT).includes(ext)) {
                 items.push(new PictureItem(fileItem, { ext: ext }));
                 continue;
             }
         }
         items.push(new FolderItem(baseItem));
     }
-    items.sort((a, b) => (a.type === ItemTypes.FOLDER && b.type === ItemTypes.FILE ? -1 : 0));
+    items.sort((a, b) => (a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE ? -1 : 0));
     if (linkedFile) {
         items.filter(item => item instanceof AudioItem)
             .forEach(file => playlist?.push(new PlaylistItem(file, { thisIsLinkedFile: file.name === linkedFile?.name })));
