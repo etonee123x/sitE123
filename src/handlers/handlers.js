@@ -4,7 +4,7 @@ import pkg from 'jsonwebtoken';
 import { parseFile } from 'music-metadata';
 import { apiUrl } from '../www.js';
 import { join, dirname, parse as parsePath, sep } from 'path';
-import { BaseItem, AudioItem, FolderItem, PictureItem, PlaylistItem, AUDIO_EXT, ITEM_TYPE, PICTURE_EXT, FileItem, } from '../../includes/types/index.js';
+import { BaseItem, AudioItem, FolderItem, PictureItem, AUDIO_EXT, ITEM_TYPE, PICTURE_EXT, FileItem, } from '../../includes/types/index.js';
 const CONTENT_FOLDER = 'content';
 const contentPath = join('.', 'src', CONTENT_FOLDER);
 export const getFolderData = async (urlPath) => {
@@ -24,7 +24,6 @@ export const getFolderData = async (urlPath) => {
         year: metadata.common.year,
     }));
     let linkedFile = null;
-    let playlist = null;
     let currentDirectory;
     const items = [];
     const outerPath = join(urlPath);
@@ -44,7 +43,6 @@ export const getFolderData = async (urlPath) => {
         if (Object.values(AUDIO_EXT).includes(ext)) {
             const metadata = await getMetaDataFields(innerPath);
             linkedFile = new AudioItem(new FileItem(baseItem), { metadata, ext: ext });
-            playlist = [];
         }
     }
     else {
@@ -79,10 +77,6 @@ export const getFolderData = async (urlPath) => {
         items.push(new FolderItem(baseItem));
     }
     items.sort((a, b) => (a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE ? -1 : 0));
-    if (linkedFile) {
-        items.filter(item => item instanceof AudioItem)
-            .forEach(file => playlist?.push(new PlaylistItem(file, { thisIsLinkedFile: file.name === linkedFile?.name })));
-    }
     currentDirectory = pathToFileURL(currentDirectory);
     const lvlUp = currentDirectory === '/'
         ? null
@@ -97,7 +91,6 @@ export const getFolderData = async (urlPath) => {
     return {
         linkedFile,
         items,
-        playlist,
         lvlUp,
         navigation,
     };

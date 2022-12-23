@@ -12,7 +12,6 @@ import {
   AudioItem,
   FolderItem,
   PictureItem,
-  PlaylistItem,
   AUDIO_EXT,
   ITEM_TYPE,
   PICTURE_EXT,
@@ -46,7 +45,6 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   }));
 
   let linkedFile: Item | null = null;
-  let playlist: PlaylistItem[] | null = null;
   let currentDirectory: string;
   const items: Item[] = [];
 
@@ -68,7 +66,6 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     if (Object.values(AUDIO_EXT).includes(ext as AUDIO_EXT)) {
       const metadata = await getMetaDataFields(innerPath);
       linkedFile = new AudioItem(new FileItem(baseItem), { metadata, ext: ext as AUDIO_EXT });
-      playlist = [];
     }
   } else {
     currentDirectory = outerPath;
@@ -104,11 +101,6 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   }
   items.sort((a, b) => (a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE ? -1 : 0));
 
-  if (linkedFile) {
-    (items.filter(item => item instanceof AudioItem) as AudioItem[])
-      .forEach(file => playlist?.push(new PlaylistItem(file, { thisIsLinkedFile: file.name === linkedFile?.name })));
-  }
-
   currentDirectory = pathToFileURL(currentDirectory);
   const lvlUp = currentDirectory === '/'
     ? null
@@ -125,7 +117,6 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   return {
     linkedFile,
     items,
-    playlist,
     lvlUp,
     navigation,
   };
