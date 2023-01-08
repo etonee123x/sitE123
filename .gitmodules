@@ -1,3 +1,6 @@
-[submodule "includes/types"]
+[submodule "types"]
 	path = includes/types
 	url = git@github.com:etonee123x/types.git
+[submodule "cellular-automaton"]
+	path = public/cellular-automaton
+	url = git@github.com:etonee123x/cellular-automaton.git

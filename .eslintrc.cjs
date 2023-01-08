@@ -1,8 +1,6 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
   env: {
-    commonjs: true,
-    node: true,
+    'shared-node-browser': true,
   },
   extends: [
     'eslint:recommended',
@@ -10,15 +8,28 @@ module.exports = {
     'standard',
   ],
   parserOptions: {
-    ecmaVersion: 12,
+    ecmaVersion: 13,
   },
   rules: {
     semi: ['error', 'always'],
     'comma-dangle': ['error', 'always-multiline'],
-    indent: 'off',
-    '@typescript-eslint/indent': ['error', 2],
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'error',
+    'no-unused-vars': 'error',
     'max-len': ['error', 120],
+    'no-void': ['off'],
   },
+  overrides: [
+    {
+      files: ['*.ts'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        tsconfigRootDir: '.',
+        project: ['./tsconfig.json'],
+      },
+      plugins: ['@typescript-eslint'],
+      rules: {
+        '@typescript-eslint/indent': ['error', 2],
+        '@typescript-eslint/no-unused-vars': 'error',
+      },
+    },
+  ],
 };
