@@ -13,7 +13,7 @@ export default express()
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   })
-  .use('/static/', express.static(join(projectDir, 'static')))
+  .use('/content/', express.static(join(projectDir, 'content')))
   .use(express.static(join(projectDir, 'public')))
   .use(api)
   .use((req, res) => void res.sendStatus(404));

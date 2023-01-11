@@ -24,12 +24,12 @@ import {
 } from '../../includes/types/index.js';
 
 const CONTENT_FOLDER = 'content';
-const STATIC_FOLDER = 'static';
+const STATIC_CONTENT_FOLDER = 'content';
 
 const contentPath = join('.', 'src', CONTENT_FOLDER);
 
 export const getFolderData = async (urlPath: string): Promise<FolderData> => {
-  const makeInnerPath = (path: string) => join('static', path);
+  const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
   const createFullLink = (path: string) => decodeURI(new URL(path, fullHttpsApiUrl).href);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
   const getMetaDataFields = async (path: string) => await parseFile(path).then(metadata => ({
@@ -61,7 +61,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     const baseItem = new BaseItem({
       name: fullName,
       url: pathToFileURL(outerFilePath),
-      src: createFullLink(join(STATIC_FOLDER, outerFilePath)),
+      src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
       birthtime: statSync(makeInnerPath(outerFilePath)).birthtime.toISOString(),
     });
     if (Object.values(AUDIO_EXT).includes(ext as AUDIO_EXT)) {
@@ -82,7 +82,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     const baseItem = new BaseItem({
       name: element.name,
       url: pathToFileURL(join(currentDirectory, element.name)),
-      src: createFullLink(join(STATIC_FOLDER, outerFilePath)),
+      src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
       numberOfThisExt: -~elementsNumbers[ext ?? ITEM_TYPE.FOLDER],
       birthtime: statSync(innerFilePath).birthtime.toISOString(),
     });
