@@ -11,7 +11,7 @@ const ports = {
 };
 
 const apiUrl = ip.address();
-export const fullHttpsApiUrl = `https://${apiUrl}:${ports.https}`;
+export const fullHttpsApiUrl = `https://${process.env.DOMAIN_NAME ?? apiUrl}:${ports.https}`;
 
 try {
   const credentials = {
