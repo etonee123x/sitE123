@@ -76,6 +76,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   const elementsNumbers = {} as { [key: string]: number };
   const elements = readdirSync(makeInnerPath(currentDirectory), { withFileTypes: true });
   for (const element of elements) {
+    if (element.name === '.git') { continue; }
     const outerFilePath = join(currentDirectory, element.name);
     const innerFilePath = makeInnerPath(outerFilePath);
     const { ext } = parsePath(innerFilePath);
