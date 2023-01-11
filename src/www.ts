@@ -10,7 +10,7 @@ const ports = {
   http: process.env.PORT_HTTP ?? '8080',
 };
 
-const apiUrl = ip.address('public');
+const apiUrl = ip.address();
 export const fullHttpsApiUrl = `https://${apiUrl}:${ports.https}`;
 
 try {
