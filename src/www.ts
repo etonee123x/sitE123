@@ -15,8 +15,8 @@ export const fullHttpsApiUrl = `https://${apiUrl}:${ports.https}`;
 
 try {
   const credentials = {
-    key: readFileSync('/etc/pki/tls/certs/localhost.crt', 'utf-8'),
-    cert: readFileSync('/etc/pki/tls/private/localhost.key', 'utf-8'),
+    cert: readFileSync('/etc/pki/tls/certs/localhost.crt', 'utf-8'),
+    key: readFileSync('/etc/pki/tls/private/localhost.key', 'utf-8'),
   };
 
   console.log(credentials.key);
