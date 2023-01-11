@@ -19,9 +19,6 @@ try {
     key: readFileSync('/etc/pki/tls/private/localhost.key', 'utf-8'),
   };
 
-  console.log(credentials.key);
-  console.log(credentials.cert);
-
   https
     .createServer(credentials, app)
     .once('listening', () => console.log(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
