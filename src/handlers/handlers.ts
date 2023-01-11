@@ -3,7 +3,7 @@ import { commonParse } from '../engine/index.js';
 import { Response } from 'express';
 import pkg from 'jsonwebtoken';
 import { parseFile } from 'music-metadata';
-import { apiUrl } from '../www.js';
+import { fullHttpsApiUrl } from '../www.js';
 
 import { join, dirname, parse as parsePath, sep } from 'path';
 
@@ -30,7 +30,7 @@ const contentPath = join('.', 'src', CONTENT_FOLDER);
 
 export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   const makeInnerPath = (path: string) => join('static', path);
-  const createFullLink = (path: string) => decodeURI(new URL(path, `http://${apiUrl}`).href);
+  const createFullLink = (path: string) => decodeURI(new URL(path, fullHttpsApiUrl).href);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
   const getMetaDataFields = async (path: string) => await parseFile(path).then(metadata => ({
     // native: metadata.native,
