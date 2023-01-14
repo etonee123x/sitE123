@@ -3,6 +3,7 @@ import Puppeteer from 'puppeteer';
 import type { Request, Response } from 'express';
 import { ErrorLike } from '../../includes/types/index.js';
 import { validationResult } from 'express-validator';
+import { dtConsole } from '../utils/index.js';
 
 const BrowserInstance = Puppeteer.launch({
   headless: true,
@@ -10,7 +11,7 @@ const BrowserInstance = Puppeteer.launch({
 });
 
 const handleRequestError = async (e: ErrorLike) => {
-  console.log(e);
+  dtConsole.error(e);
 };
 
 type ReqAfterMidd = Request<
@@ -26,17 +27,19 @@ export const handleRequests = async (
   res: Response,
   cb: (req: ReqAfterMidd, res: Response) => unknown,
 ) => {
-  console.log(`New request to ${req.route.path}`);
+  dtConsole.log(`New request to ${req.route.path}`);
   const errors = validationResult(req).array();
   if (errors.length) return res.status(400).send(errors);
   const hasQuery = Boolean(Object.keys(req.query ?? {}).length);
   const hasBody = Boolean(Object.keys(req.body).length);
   const hasParams = Boolean(Object.keys(req.params ?? {}).length);
   if (hasQuery || hasBody || hasParams) {
-    if (hasQuery) console.log('Query:', req.query);
-    if (hasBody) console.log('Body:', req.body);
-    if (hasParams) console.log('Params:', req.params);
-  } else console.log('No special params');
+    if (hasQuery) dtConsole.log('Query:', req.query);
+    if (hasBody) dtConsole.log('Body:', req.body);
+    if (hasParams) dtConsole.log('Params:', req.params);
+  } else {
+    dtConsole.log('No special params');
+  }
 
   try {
     await cb(req, res);
@@ -66,7 +69,7 @@ export const commonParse = async (links: string[], method: () => Promise<object[
       }
     }
   } catch (e) {
-    console.log(e);
+    dtConsole.error(e);
   } finally {
     page.close();
   }

@@ -4,6 +4,7 @@ import https from 'https';
 import ip from 'ip';
 import 'dotenv/config';
 import { readFileSync } from 'fs';
+import { dtConsole } from './utils/index.js';
 
 const ports = {
   https: process.env.PORT_HTTPS ?? '8443',
@@ -21,13 +22,13 @@ try {
 
   https
     .createServer(credentials, app)
-    .once('listening', () => console.log(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
+    .once('listening', () => dtConsole.log(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
     .listen(ports.https);
 } catch (e) {
-  console.error('Failed to start HTTPS server due to:', e);
+  dtConsole.error('Failed to start HTTPS server due to:', e);
 }
 
 http
   .createServer(app)
-  .once('listening', () => console.log(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
+  .once('listening', () => dtConsole.log(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
   .listen(ports.http);
