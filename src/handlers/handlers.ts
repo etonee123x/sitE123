@@ -24,12 +24,12 @@ import {
 } from '../../includes/types/index.js';
 
 const CONTENT_FOLDER = 'content';
-const STATIC_CONTENT_FOLDER = 'content';
+const PROHIBITED_ELEMENTS_NAMES = ['.git'];
 
 const contentPath = join('.', 'src', CONTENT_FOLDER);
 
 export const getFolderData = async (urlPath: string): Promise<FolderData> => {
-  const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
+  const makeInnerPath = (path: string) => join(CONTENT_FOLDER, path);
   const createFullLink = (path: string) => decodeURI(new URL(path, fullHttpsApiUrl).href);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
   const getMetaDataFields = async (path: string) => await parseFile(path).then(metadata => ({
@@ -61,7 +61,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     const baseItem = new BaseItem({
       name: fullName,
       url: pathToFileURL(outerFilePath),
-      src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
+      src: createFullLink(join(CONTENT_FOLDER, outerFilePath)),
       birthtime: statSync(makeInnerPath(outerFilePath)).birthtime.toISOString(),
     });
     if (Object.values(AUDIO_EXT).includes(ext as AUDIO_EXT)) {
@@ -73,17 +73,17 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   }
   currentDirectory = currentDirectory || '/';
 
-  const elementsNumbers = {} as { [key: string]: number };
+  const elementsNumbers: { [key: string]: number } = {};
   const elements = readdirSync(makeInnerPath(currentDirectory), { withFileTypes: true });
   for (const element of elements) {
-    if (element.name === '.git') { continue; }
+    if (PROHIBITED_ELEMENTS_NAMES.includes(element.name)) { continue; }
     const outerFilePath = join(currentDirectory, element.name);
     const innerFilePath = makeInnerPath(outerFilePath);
     const { ext } = parsePath(innerFilePath);
     const baseItem = new BaseItem({
       name: element.name,
       url: pathToFileURL(join(currentDirectory, element.name)),
-      src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
+      src: createFullLink(join(CONTENT_FOLDER, outerFilePath)),
       numberOfThisExt: -~elementsNumbers[ext ?? ITEM_TYPE.FOLDER],
       birthtime: statSync(innerFilePath).birthtime.toISOString(),
     });
@@ -101,20 +101,20 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     }
     items.push(new FolderItem(baseItem));
   }
-  items.sort((a, b) => (a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE ? -1 : 0));
+  items.sort((a, b) => -Number(a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE));
 
   currentDirectory = pathToFileURL(currentDirectory);
   const lvlUp = currentDirectory === '/'
     ? null
     : dirname(currentDirectory);
 
-  const navigation = [{ text: 'root', link: '/' }] as NavItem[];
-  currentDirectory.split('/').filter(e => e).forEach((path, i) => {
-    navigation.push({
-      text: path,
-      link: navigation[i].link + path + '/',
-    });
-  });
+  const navigation = currentDirectory
+    .split('/')
+    .filter(Boolean)
+    .reduce<NavItem[]>(
+      (acc, text, index) => (acc.push({ text, link: acc[index].link + text + '/' }), acc)
+      , [{ text: 'root', link: '/' }],
+    );
 
   return {
     linkedFile,

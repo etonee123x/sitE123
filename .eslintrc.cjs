@@ -16,6 +16,7 @@ module.exports = {
     'no-unused-vars': 'error',
     'max-len': ['error', 120],
     'no-void': ['off'],
+    'no-sequences': ['off'],
   },
   overrides: [
     {
@@ -27,7 +28,6 @@ module.exports = {
       },
       plugins: ['@typescript-eslint'],
       rules: {
-        '@typescript-eslint/indent': ['error', 2],
         '@typescript-eslint/no-unused-vars': 'error',
       },
     },

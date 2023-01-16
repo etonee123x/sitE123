@@ -3,7 +3,7 @@ import http from 'http';
 import https from 'https';
 import ip from 'ip';
 import 'dotenv/config';
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { dtConsole } from './utils/index.js';
 
 const ports = {
@@ -14,21 +14,32 @@ const ports = {
 const apiUrl = ip.address();
 export const fullHttpsApiUrl = `https://${process.env.DOMAIN_NAME ?? apiUrl}:${ports.https}`;
 
-try {
-  const credentials = {
-    cert: readFileSync('/etc/pki/tls/certs/localhost.crt', 'utf-8'),
-    key: readFileSync('/etc/pki/tls/private/localhost.key', 'utf-8'),
-  };
+const pathToCert = String(process.env.PATH_TO_CERT);
+const pathToKey = String(process.env.PATH_TO_KEY);
 
-  https
-    .createServer(credentials, app)
-    .once('listening', () => dtConsole.log(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
-    .listen(ports.https);
-} catch (e) {
-  dtConsole.error('Failed to start HTTPS server due to:', e);
+if (existsSync(pathToCert) && existsSync(pathToKey)) {
+  try {
+    const credentials = {
+      cert: String(readFileSync(pathToCert)),
+      key: String(readFileSync(pathToKey)),
+    };
+
+    https
+      .createServer(credentials, app)
+      .once('listening', () => dtConsole.log(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
+      .listen(ports.https);
+  } catch (e) {
+    dtConsole.error('Failed to start HTTPS server due to:', e);
+  }
+} else {
+  dtConsole.error('HTTPS server was not started because SSL certs were not found');
 }
 
-http
-  .createServer(app)
-  .once('listening', () => dtConsole.log(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
-  .listen(ports.http);
+try {
+  http
+    .createServer(app)
+    .once('listening', () => dtConsole.log(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
+    .listen(ports.http);
+} catch (e) {
+  dtConsole.error('Failed to start HTTP server due to:', e);
+}

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Puppeteer from 'puppeteer';
 import type { Request, Response } from 'express';
-import { ErrorLike } from '../../includes/types/index.js';
 import { validationResult } from 'express-validator';
 import { dtConsole } from '../utils/index.js';
 
@@ -10,7 +9,7 @@ const BrowserInstance = Puppeteer.launch({
   args: ['--no-sandbox', '--disable-setuid-sandbox'],
 });
 
-const handleRequestError = async (e: ErrorLike) => {
+const handleRequestError = async (e: unknown) => {
   dtConsole.error(e);
 };
 
@@ -44,7 +43,7 @@ export const handleRequests = async (
   try {
     await cb(req, res);
   } catch (e) {
-    await handleRequestError(e as ErrorLike);
+    await handleRequestError(e);
     res.sendStatus(404);
   }
 };
