@@ -28,14 +28,23 @@ export const handleRequests = async (
 ) => {
   dtConsole.log(`New request to ${req.route.path}`);
   const errors = validationResult(req).array();
-  if (errors.length) return res.status(400).send(errors);
+  if (errors.length) {
+    return res.status(400).send(errors);
+  }
+
   const hasQuery = Boolean(Object.keys(req.query ?? {}).length);
   const hasBody = Boolean(Object.keys(req.body).length);
   const hasParams = Boolean(Object.keys(req.params ?? {}).length);
   if (hasQuery || hasBody || hasParams) {
-    if (hasQuery) dtConsole.log('Query:', req.query);
-    if (hasBody) dtConsole.log('Body:', req.body);
-    if (hasParams) dtConsole.log('Params:', req.params);
+    if (hasQuery) {
+      dtConsole.log('Query:', req.query);
+    }
+    if (hasBody) {
+      dtConsole.log('Body:', req.body);
+    }
+    if (hasParams) {
+      dtConsole.log('Params:', req.params);
+    }
   } else {
     dtConsole.log('No special params');
   }
@@ -48,18 +57,17 @@ export const handleRequests = async (
   }
 };
 
-export const commonParse = async (links: string[], method: () => Promise<object[]>) => {
+export const commonParse = async (links: readonly string[], method: () => Promise<unknown>) => {
   const browser = await BrowserInstance;
   const page = await browser.newPage();
 
-  const allParsedData = [];
+  const allParsedData: unknown[] = [];
 
   try {
     for (const url of links) {
       await page.goto(url, { waitUntil: 'networkidle2' });
       try {
-        const pageData = await page.evaluate(method);
-        allParsedData.push(pageData);
+        allParsedData.push(await page.evaluate(method));
       } catch (error) {
         allParsedData.push({
           caption: `Error occurred during parsing ${url}`,
