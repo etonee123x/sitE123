@@ -14,11 +14,11 @@ const handleRequestError = async (e: unknown) => {
 };
 
 type ReqAfterMidd = Request<
-Record<string, any> | undefined,
-any,
-any,
-Record<string, any> | undefined,
-Record<string, any>
+  Record<string, any> | undefined,
+  any,
+  any,
+  Record<string, any> | undefined,
+  Record<string, any>
 >
 
 export const handleRequests = async (
