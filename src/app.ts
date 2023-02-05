@@ -1,7 +1,7 @@
 import express from 'express';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import api from './routes/index.js';
+import routes from './routes/index.js';
 
 const projectDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -15,5 +15,5 @@ export default express()
   })
   .use('/content/', express.static(join(projectDir, 'content')))
   .use(express.static(join(projectDir, 'public')))
-  .use(api)
+  .use(routes)
   .use((...[, res]) => void res.sendStatus(404));

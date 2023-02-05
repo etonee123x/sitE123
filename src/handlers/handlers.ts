@@ -3,9 +3,10 @@ import { commonParse } from '../engine/index.js';
 import { Response } from 'express';
 import pkg from 'jsonwebtoken';
 import { parseFile } from 'music-metadata';
-import { fullHttpsApiUrl } from '../www.js';
+import { fullApiUrl } from '../www.js';
 
 import { join, dirname, parse as parsePath, sep } from 'path';
+import { fileURLToPath } from 'url';
 
 import {
   BaseItem,
@@ -22,6 +23,7 @@ import {
   LoginAndPassword,
   FileItem,
 } from '../../includes/types/index.js';
+import type { ReqAfterMidd } from '../types/index.js';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const CONTENT_FOLDER = 'content';
@@ -31,7 +33,7 @@ const contentPath = join('.', 'src', CONTENT_FOLDER);
 
 export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
-  const createFullLink = (path: string) => decodeURI(new URL(path, fullHttpsApiUrl).href);
+  const createFullLink = (path: string) => decodeURI(new URL(path, fullApiUrl).href);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
   const getMetaDataFields = async (path: string) => await parseFile(path).then(metadata => ({
     // native: metadata.native,
@@ -191,4 +193,33 @@ export const parse = async (
   const options = await import(`../../${filePath}`);
   rmdirSync(folderPath, { recursive: true });
   return commonParse(options.default.links, options.default.method);
+};
+
+export const resolveMainRouteReq = (req: ReqAfterMidd, res: Response) => {
+  enum PROJECT_NAME {
+    CELLULAR_AUTOMATON = 'cellular-automaton',
+    MAIN_SITE = 'main-site'
+  }
+
+  const ASSETS_EXTS = ['.css', '.js'];
+
+  const projectsDirPath = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'projects');
+
+  const refererPathname = new URL(
+    req.headers.referer
+    ?? `${req.protocol}://${req.get('host')}${req.path}`,
+  ).pathname.substring(1);
+
+  let projectPath: string;
+  switch (true) {
+    case refererPathname.startsWith(PROJECT_NAME.CELLULAR_AUTOMATON):
+      projectPath = join(projectsDirPath, PROJECT_NAME.CELLULAR_AUTOMATON);
+      break;
+    default:
+      projectPath = join(projectsDirPath, PROJECT_NAME.MAIN_SITE);
+  }
+
+  const fileToSendVariant = ASSETS_EXTS.some(ext => req.path.includes(ext)) ? req.path : 'index.html';
+
+  return res.sendFile(join(projectPath, fileToSendVariant));
 };

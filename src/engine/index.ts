@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Puppeteer from 'puppeteer';
-import type { Request, Response } from 'express';
+import type { Response } from 'express';
 import { validationResult } from 'express-validator';
 import { dtConsole } from '../utils/index.js';
+import type { ReqAfterMidd } from '../types/index.js'
 
 const BrowserInstance = Puppeteer.launch({
   headless: true,
@@ -12,14 +13,6 @@ const BrowserInstance = Puppeteer.launch({
 const handleRequestError = async (e: unknown) => {
   dtConsole.error(e);
 };
-
-type ReqAfterMidd = Request<
-  Record<string, any> | undefined,
-  any,
-  any,
-  Record<string, any> | undefined,
-  Record<string, any>
->
 
 export const handleRequests = async (
   req: ReqAfterMidd,

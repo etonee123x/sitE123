@@ -17,6 +17,7 @@ module.exports = {
     'max-len': ['error', 120],
     'no-void': ['off'],
     'no-sequences': ['off'],
+    'operator-linebreak': ['error', 'before'],
   },
   overrides: [
     {
