@@ -1,7 +1,14 @@
 import { Router } from 'express';
 
 import { handleRequests } from '../engine/index.js';
-import { funnyAnimals, happyNorming, parse, tryAuth, getFolderData, resolveMainRouteReq } from '../handlers/handlers.js';
+import {
+  funnyAnimals,
+  happyNorming,
+  parse,
+  tryAuth,
+  getFolderData,
+  resolveMainRouteReq,
+} from '../handlers/handlers.js';
 import validators from './validators/index.js';
 import { ROUTE } from '../../includes/types/index.js';
 const router = Router();
@@ -51,7 +58,7 @@ router.post(
 
 router.get(
   ROUTE.MAIN_ROUTE,
-  resolveMainRouteReq
-)
+  resolveMainRouteReq,
+);
 
 export default router;

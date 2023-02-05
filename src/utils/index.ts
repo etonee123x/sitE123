@@ -11,4 +11,4 @@ export const dtConsole = {
   },
 };
 
-export const envVarToBoolean = (envVar: string | undefined) => String(envVar) === 'true'
+export const envVarToBoolean = (envVar: string | undefined) => String(envVar) === 'true';

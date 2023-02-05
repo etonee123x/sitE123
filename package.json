@@ -14,7 +14,7 @@
     "date-fns": "^2.29.3",
     "dotenv-flow": "^3.2.0",
     "express": "~4.18.2",
-    "express-validator": "^6.14.2",
+    "express-validator": "^6.14.3",
     "ip": "^1.1.8",
     "jsonwebtoken": "^8.5.1",
     "music-metadata": "^7.13.3",
