@@ -32,5 +32,23 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'error',
       },
     },
+    {
+      files: ['test/**.*'],
+      env: {
+        'shared-node-browser': true,
+        mocha: true,
+      },
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        tsconfigRootDir: '.',
+        project: ['./tsconfig.json'],
+      },
+      plugins: ['@typescript-eslint'],
+      rules: {
+        'no-undef': 'off',
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+      },
+    },
   ],
 };

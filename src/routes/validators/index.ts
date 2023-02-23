@@ -5,14 +5,14 @@ const createMessage = (desc: string[]) => `It should be: ${desc.join(', ')}`;
 
 export default {
   [ROUTE.HAPPY_NORMING]: [
-    query('dotw', createMessage(['optional', 'numeric', 'int', 'in [0, 6]']))
+    query('dotw', createMessage(['optional', 'int', 'in [0, 6]']))
       .optional()
-      .isInt({ allow_leading_zeroes: false, gt: -1, lt: 7 }),
+      .isInt({ allow_leading_zeroes: false, min: 0, max: 6 }),
   ],
   [ROUTE.GET_FOLDER_DATA]: [],
   [ROUTE.FUNNY_ANIMALS]: [],
   [ROUTE.AUTH]: [
-    query('token', createMessage(['Optional', 'JWT']))
+    query('token', createMessage(['optional', 'JWT']))
       .optional()
       .isJWT(),
   ],

@@ -11,6 +11,7 @@ import {
 } from '../handlers/handlers.js';
 import validators from './validators/index.js';
 import { ROUTE } from '../../includes/types/index.js';
+
 const router = Router();
 
 router.get(

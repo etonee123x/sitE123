@@ -1,22 +1,9 @@
-import app from './app.js';
+import { app, ports, apiUrl } from './app.js';
 import http from 'http';
 import https from 'https';
-import ip from 'ip';
+
 import { readFileSync, existsSync } from 'fs';
-import { dtConsole, envVarToBoolean } from './utils/index.js';
-
-import { config } from 'dotenv-flow';
-config();
-
-const ports = {
-  https: process.env.PORT_HTTPS ?? '8443',
-  http: process.env.PORT_HTTP ?? '8080',
-};
-
-const apiUrl = ip.address();
-export const fullApiUrl = envVarToBoolean(process.env.SHOULD_USE_HTTP_ONLY)
-  ? `http://${apiUrl}:${ports.http}`
-  : `https://${process.env.DOMAIN_NAME ?? apiUrl}:${ports.https}`;
+import { dtConsole } from './utils/index.js';
 
 const pathToCert = String(process.env.PATH_TO_CERT);
 const pathToKey = String(process.env.PATH_TO_KEY);
