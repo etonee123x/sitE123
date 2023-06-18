@@ -15,7 +15,7 @@ import { ROUTE } from '../../includes/types/index.js';
 const router = Router();
 
 router.get(
-  ROUTE.GET_FOLDER_DATA,
+  `${ROUTE.GET_FOLDER_DATA}*`,
   ...validators[ROUTE.GET_FOLDER_DATA],
   async (req, res) =>
     await handleRequests(req, res, async (req, res) => res.send(await getFolderData(req.params?.[0] || '/'))),
@@ -58,7 +58,7 @@ router.post(
 );
 
 router.get(
-  ROUTE.MAIN_ROUTE,
+  `${ROUTE.MAIN}*`,
   resolveMainRouteReq,
 );
 
