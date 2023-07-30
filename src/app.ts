@@ -2,11 +2,11 @@ import express from 'express';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import ip from 'ip';
+import { config } from 'dotenv-flow';
 
 import routes from './routes/index.js';
 import { envVarToBoolean } from './utils/index.js';
 
-import { config } from 'dotenv-flow';
 config();
 
 const projectDir = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -18,7 +18,7 @@ export const ports = {
 
 export const apiUrl = ip.address();
 
-export const fullApiUrl = envVarToBoolean(process.env.SHOULD_USE_HTTP_ONLY)
+export const fullApiUrl = envVarToBoolean(process.env.SHOULD_USE_HTTP_API_URL)
   ? `http://${apiUrl}:${ports.http}`
   : `https://${process.env.DOMAIN_NAME ?? apiUrl}:${ports.https}`;
 
@@ -33,4 +33,6 @@ export const app = express()
   .use('/content/', express.static(join(projectDir, 'content')))
   .use(express.static(join(projectDir, 'public')))
   .use(routes)
-  .use((...[, res]) => void res.sendStatus(404));
+  .use((...[, res]) => {
+    res.sendStatus(404)
+  });

@@ -1,8 +1,8 @@
-import { app, ports, apiUrl } from './app.js';
+import { readFileSync, existsSync } from 'fs';
 import http from 'http';
 import https from 'https';
 
-import { readFileSync, existsSync } from 'fs';
+import { app, ports, apiUrl } from './app.js';
 import { dtConsole } from './utils/index.js';
 
 const pathToCert = String(process.env.PATH_TO_CERT);

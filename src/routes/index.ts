@@ -31,7 +31,7 @@ router.get(
 router.get(
   ROUTE.FUNNY_ANIMALS,
   ...validators[ROUTE.FUNNY_ANIMALS],
-  async (req, res) => await handleRequests(req, res, async (req, res) => res.type('image/jpeg').send(funnyAnimals())),
+  async (req, res) => await handleRequests(req, res, async (...[, res]) => res.type('image/jpeg').send(funnyAnimals())),
 );
 
 router.get(

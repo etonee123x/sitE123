@@ -4,10 +4,10 @@ const DEFAULT_DATE_FORMAT = 'yyyy-MM-dd/HH:mm:ss';
 
 export const dtConsole = {
   error (...args: unknown[]) {
-    envVarToBoolean(process.env.IS_TESTING) && console.error(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
+    console.error(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
   },
   log (...args: unknown[]) {
-    envVarToBoolean(process.env.IS_TESTING) && console.log(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
+    console.log(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
   },
 };
 
