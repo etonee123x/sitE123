@@ -61,15 +61,6 @@ context('INTEGRATION', () => {
     requester.close();
   });
 
-  describe(`/GET ${ROUTE.MAIN}`, () => {
-    it(`it should get ${ROUTE.MAIN}`, (done) => {
-      requester.get(ROUTE.MAIN).then((res) => {
-        res.should.have.status(200);
-        done();
-      });
-    });
-  });
-
   describe(`/GET ${ROUTE.FUNNY_ANIMALS}`, () => {
     it(`it should get ${ROUTE.FUNNY_ANIMALS}`, (done) => {
       requester.get(ROUTE.FUNNY_ANIMALS).then((res) => {

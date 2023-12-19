@@ -1,12 +1,8 @@
-import { readdirSync, statSync, readFileSync, mkdirSync, rmdirSync, writeFileSync, existsSync } from 'fs';
-import { Response } from 'express';
-import pkg from 'jsonwebtoken';
+import { readdirSync, statSync, readFileSync, existsSync } from 'fs';
 import { parseFile } from 'music-metadata';
 import { join, dirname, parse as parsePath, sep } from 'path';
-import { fileURLToPath } from 'url';
 
 import { fullApiUrl } from '../app.js';
-import { commonParse } from '../engine/index.js';
 
 import {
   BaseItem,
@@ -19,11 +15,8 @@ import {
   FolderData,
   Item,
   NavItem,
-  TokenOrLoginAndPassword,
-  LoginAndPassword,
   FileItem,
 } from '../../includes/types/index.js';
-import type { ReqAfterMidd } from '../types/index.js';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const CONTENT_FOLDER = 'content';
@@ -130,29 +123,6 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   };
 };
 
-export const tryAuth = (
-  res: Response,
-  tokenOrLoginAndPassword: TokenOrLoginAndPassword,
-) => {
-  const DEFAULT_KEY = 'DEFAULT_KEY';
-  const key = process.env.THE_KEY ?? DEFAULT_KEY;
-  const verifyLoginAndPassword = ({ login, password }: LoginAndPassword) => password === process.env[login];
-
-  if ('token' in tokenOrLoginAndPassword) {
-    let verificationWasFailed = false;
-    const { token } = tokenOrLoginAndPassword;
-    pkg.verify(token, key, (error) => {
-      verificationWasFailed = !!error;
-    });
-    return verificationWasFailed ? res.sendStatus(403) : res.json(token);
-  }
-
-  const { login, password } = tokenOrLoginAndPassword;
-  return verifyLoginAndPassword({ login, password })
-    ? res.json(pkg.sign({ login }, key))
-    : res.sendStatus(403);
-};
-
 export const funnyAnimals = () => {
   const FUNNY_ANIMALS_FOLDER = 'funny-animals';
   const picturesPath = join(contentPath, FUNNY_ANIMALS_FOLDER);
@@ -173,53 +143,4 @@ export const happyNorming = (dayOfTheWeek?: string) => {
   const fileTitle = filesTitles[Math.floor(Math.random() * filesTitles.length)];
 
   return readFileSync(join(picturesPath, dotw, fileTitle));
-};
-
-export const parse = async (
-  bufferedOptions: {
-    type: 'Buffer';
-    data: number[];
-  },
-  id?: number | string,
-) => {
-  const FOLDER_TITLE = 'parser';
-  const INDEX_FILE_TITLE = 'index.js';
-
-  const folderPath = join(contentPath, FOLDER_TITLE, String(id ?? Date.now()));
-  const filePath = join(folderPath, INDEX_FILE_TITLE);
-
-  mkdirSync(folderPath, { recursive: true });
-  writeFileSync(filePath, Buffer.from(bufferedOptions.data));
-  const options = await import(`../../${filePath}`);
-  rmdirSync(folderPath, { recursive: true });
-  return commonParse(options.default.links, options.default.method);
-};
-
-export const resolveMainRouteReq = (req: ReqAfterMidd, res: Response) => {
-  enum PROJECT_NAME {
-    CELLULAR_AUTOMATON = 'cellular-automaton',
-    MAIN_SITE = 'main-site'
-  }
-
-  const ASSETS_EXTS = ['.css', '.js'];
-
-  const projectsDirPath = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'projects');
-
-  const refererPathname = new URL(
-    req.headers.referer
-    ?? `${req.protocol}://${req.get('host')}${req.path}`,
-  ).pathname.substring(1);
-
-  let projectPath: string;
-  switch (true) {
-    case refererPathname.startsWith(PROJECT_NAME.CELLULAR_AUTOMATON):
-      projectPath = join(projectsDirPath, PROJECT_NAME.CELLULAR_AUTOMATON);
-      break;
-    default:
-      projectPath = join(projectsDirPath, PROJECT_NAME.MAIN_SITE);
-  }
-
-  const fileToSendVariant = ASSETS_EXTS.some(ext => req.path.includes(ext)) ? req.path : 'index.html';
-
-  return res.sendFile(join(projectPath, fileToSendVariant));
 };
