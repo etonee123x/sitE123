@@ -44,10 +44,6 @@ context('UNIT', () => {
       });
     });
   });
-
-  context('functions', () => {
-    describe('', () => {});
-  });
 });
 
 context('INTEGRATION', () => {
@@ -59,15 +55,6 @@ context('INTEGRATION', () => {
 
   after(() => {
     requester.close();
-  });
-
-  describe(`/GET ${ROUTE.MAIN}`, () => {
-    it(`it should get ${ROUTE.MAIN}`, (done) => {
-      requester.get(ROUTE.MAIN).then((res) => {
-        res.should.have.status(200);
-        done();
-      });
-    });
   });
 
   describe(`/GET ${ROUTE.FUNNY_ANIMALS}`, () => {

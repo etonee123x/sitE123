@@ -34,5 +34,5 @@ export const app = express()
   .use(express.static(join(projectDir, 'public')))
   .use(routes)
   .use((...[, res]) => {
-    res.sendStatus(404)
+    res.sendStatus(404);
   });

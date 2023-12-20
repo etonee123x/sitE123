@@ -15,15 +15,12 @@
     "express": "~4.18.2",
     "express-validator": "^6.14.3",
     "ip": "^1.1.8",
-    "jsonwebtoken": "^8.5.1",
-    "music-metadata": "^7.13.3",
-    "puppeteer": "^13.0.1"
+    "music-metadata": "^7.13.3"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.2.0",
     "@types/express": "^4.17.15",
     "@types/ip": "^1.1.0",
-    "@types/jsonwebtoken": "^8.5.9",
     "@types/mocha": "^10.0.1",
     "@types/node": "^17.0.45",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
@@ -34,7 +31,7 @@
     "eslint": "^8.31.0",
     "eslint-config-standard": "^17.0.0",
     "mocha": "^10.2.0",
-    "nodemon": "^2.0.20",
-    "typescript": "^4.9.4"
+    "nodemon": "^3.0.2",
+    "typescript": "^4.9.5"
   }
 }

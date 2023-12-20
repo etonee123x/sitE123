@@ -11,10 +11,4 @@ export default {
   ],
   [ROUTE.GET_FOLDER_DATA]: [],
   [ROUTE.FUNNY_ANIMALS]: [],
-  [ROUTE.AUTH]: [
-    query('token', createMessage(['optional', 'JWT']))
-      .optional()
-      .isJWT(),
-  ],
-  [ROUTE.PARSER]: [],
 };
