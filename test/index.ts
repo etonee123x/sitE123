@@ -44,10 +44,6 @@ context('UNIT', () => {
       });
     });
   });
-
-  context('functions', () => {
-    describe('', () => {});
-  });
 });
 
 context('INTEGRATION', () => {
