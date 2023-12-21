@@ -18,6 +18,8 @@ export const ports = {
 
 export const apiUrl = ip.address();
 
+console.log(123);
+
 export const fullApiUrl = envVarToBoolean(process.env.SHOULD_USE_HTTP_API_URL)
   ? `http://${apiUrl}:${ports.http}`
   : `https://${process.env.DOMAIN_NAME ?? apiUrl}:${ports.https}`;

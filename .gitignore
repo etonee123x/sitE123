@@ -3,3 +3,4 @@ reqs.http
 **/*.js
 .env.local
 projects
+dist

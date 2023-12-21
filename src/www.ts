@@ -8,6 +8,8 @@ import { dtConsole } from './utils/index.js';
 const pathToCert = String(process.env.PATH_TO_CERT);
 const pathToKey = String(process.env.PATH_TO_KEY);
 
+console.log(456);
+
 if (existsSync(pathToCert) && existsSync(pathToKey)) {
   try {
     const credentials = {

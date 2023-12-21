@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "esbuild src/app.ts --platform=node --outfile=dist/app.cjs --define:import.meta.url=import_meta_url --bundle --format=cjs",
-    "start": "npm run build -- --servedir=www",
-    "watch": "node build.mjs --watch",
+    "build": "esbuild --platform=node --format=cjs --outfile=dist/app.ts src/www.ts",
+    "watch": "esbuild src/www.ts --platform=node --outfile=dist/www.ts --watch",
+    "serve": "npm run build -- --servedir=dist", 
     "test": "npm run compile && mocha --exit"
   },
   "dependencies": {
