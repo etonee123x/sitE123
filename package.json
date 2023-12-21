@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run compile && node src/www.js",
-    "dev": "npm run compile && concurrently --kill-others \"tsc -w\" \"nodemon src/www.js\"",
-    "compile": "tsc",
+    "build": "esbuild src/app.ts --platform=node --outfile=dist/app.cjs --define:import.meta.url=import_meta_url --bundle --format=cjs",
+    "start": "npm run build -- --servedir=www",
+    "watch": "node build.mjs --watch",
     "test": "npm run compile && mocha --exit"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
     "concurrently": "^7.6.0",
+    "esbuild": "0.19.10",
     "eslint": "^8.31.0",
     "eslint-config-standard": "^17.0.0",
     "mocha": "^10.2.0",
