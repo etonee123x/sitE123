@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "esbuild src/www.ts --platform=node --outfile=dist/www.js --format=esm --bundle --packages=external",
-    "watch": "esbuild src/www.ts --platform=node --outfile=dist/www.js --watch",
-    "start": "node dist/www.js",
+    "build": "node esbuild.config.build.js",
+    "serve": "concurrently --kill-others \"node esbuild.config.watch.js\" \"nodemon dist\"",
+    "start": "node dist",
     "test": "mocha"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "eslint": "^8.31.0",
     "eslint-config-standard": "^17.0.0",
     "mocha": "^10.2.0",
+    "nodemon": "^3.0.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }

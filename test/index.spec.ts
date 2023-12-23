@@ -1,13 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import assert from 'assert';
 
-import { app } from '../src/app.ts';
+import { app } from '@/app';
+import { envVarToBoolean } from '@/utils';
 
 // TODO resolve mocha aliases
-import { ROUTE } from '@/includes/types/index.ts';
-import { envVarToBoolean } from '@/utils/index.ts';
-
-import assert from 'assert';
+import { ROUTE } from '@includes/types';
 
 chai.use(chaiHttp);
 const should = chai.should();

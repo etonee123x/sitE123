@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -10,16 +10,10 @@
     "allowImportingTsExtensions": true,
     "strict": true,
     "skipLibCheck": true,
+    "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
-      "@handlers/*": ["./src/handlers/*"],
-      "@validators/*": ["./src/routes/validators/*"],
-      "@routes/*": ["./src/routes/*"],
-      "@/includes/types/*": ["./includes/types/*"]
-
+      "@includes/*": ["./includes/*"] 
     }
-  },
-  "ts-node": {
-    "files": true
   },
 }

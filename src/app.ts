@@ -1,14 +1,14 @@
 import express from 'express';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { join } from 'path';
 import ip from 'ip';
 import { config } from 'dotenv-flow';
-import routes from './routes/index.ts';
-import { envVarToBoolean } from './utils/index.ts';
+
+import routes from '@/routes';
+import { envVarToBoolean } from '@/utils';
 
 config();
 
-const projectDir = join(dirname(fileURLToPath(import.meta.url)), '..');
+const projectDir = process.cwd();
 
 export const ports = {
   https: process.env.PORT_HTTPS ?? '8443',

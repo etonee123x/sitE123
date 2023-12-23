@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Response } from 'express';
 import { validationResult } from 'express-validator';
-import { dtConsole } from '@/utils/index.ts';
-import type { ReqAfterMidd } from '@/types/index.ts';
+
+import { dtConsole } from '@/utils';
+import type { ReqAfterMidd } from '@/types';
 
 const handleRequestError = async (e: unknown) => {
   dtConsole.error(e);
