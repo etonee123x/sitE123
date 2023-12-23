@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import { handleRequests } from '../engine/index.ts';
+import { handleRequests } from '@/engine/index.ts';
 import {
   funnyAnimals,
   happyNorming,
   getFolderData,
-} from '../handlers/handlers.ts';
-import validators from './validators/index.ts';
-import { ROUTE } from '../../includes/types/index.ts';
+} from '@/handlers/index.ts';
+import validators from '@/routes/validators/index.ts';
+import { ROUTE } from '@/includes/types/index.ts';
 
 const router = Router();
 

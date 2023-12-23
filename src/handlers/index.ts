@@ -2,7 +2,7 @@ import { readdirSync, statSync, readFileSync, existsSync } from 'fs';
 import { parseFile } from 'music-metadata';
 import { join, dirname, parse as parsePath, sep } from 'path';
 
-import { fullApiUrl } from '../app.ts';
+import { fullApiUrl } from '@/app.ts';
 
 import {
   BaseItem,
@@ -16,7 +16,7 @@ import {
   Item,
   NavItem,
   FileItem,
-} from '../../includes/types/index.ts';
+} from '@/includes/types/index.ts';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const CONTENT_FOLDER = 'content';
