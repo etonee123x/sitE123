@@ -3,9 +3,8 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import ip from 'ip';
 import { config } from 'dotenv-flow';
-
-import routes from './routes/index.js';
-import { envVarToBoolean } from './utils/index.js';
+import routes from './routes/index.ts';
+import { envVarToBoolean } from './utils/index.ts';
 
 config();
 

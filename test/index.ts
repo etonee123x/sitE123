@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
-import { app } from '../src/app.js';
+import { app } from '../src/app.ts';
 
-import { ROUTE } from '../includes/types/index.js';
+import { ROUTE } from '../includes/types/index.ts';
 
-import { envVarToBoolean } from '../src/utils/index.js';
+import { envVarToBoolean } from '../src/utils/index.ts';
 import assert from 'assert';
 
 chai.use(chaiHttp);

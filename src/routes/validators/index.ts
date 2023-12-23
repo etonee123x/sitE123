@@ -1,5 +1,5 @@
 import { query } from 'express-validator';
-import { ROUTE } from '../../../includes/types/index.js';
+import { ROUTE } from '../../../includes/types/index.ts';
 
 const createMessage = (desc: string[]) => `It should be: ${desc.join(', ')}`;
 

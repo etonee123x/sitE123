@@ -2,8 +2,8 @@ import { readFileSync, existsSync } from 'fs';
 import http from 'http';
 import https from 'https';
 
-import { app, ports, apiUrl } from './app.js';
-import { dtConsole } from './utils/index.js';
+import { app, ports, apiUrl } from './app.ts';
+import { dtConsole } from './utils/index.ts';
 
 const pathToCert = String(process.env.PATH_TO_CERT);
 const pathToKey = String(process.env.PATH_TO_KEY);
