@@ -16,7 +16,7 @@ import {
   Item,
   NavItem,
   FileItem,
-} from '@includes/types/index.ts';
+} from '@includes/types';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const CONTENT_FOLDER = 'content';
