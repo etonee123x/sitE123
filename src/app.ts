@@ -22,6 +22,7 @@ export const fullApiUrl = envVarToBoolean(process.env.SHOULD_USE_HTTP_API_URL)
   : `https://${process.env.DOMAIN_NAME ?? apiUrl}:${ports.https}`;
 
 export const app = express()
+  // посмотреть на что влияет и удалить по возможности
   .use(express.urlencoded({ limit: 1000 * 1024 * 1024, extended: true }))
   .use(express.json())
   .use((...[, res, next]) => {

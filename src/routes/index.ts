@@ -9,6 +9,13 @@ import {
 import validators from '@/routes/validators';
 import { ROUTE } from '@includes/types';
 
+// Вот эту шляпу надо будет переделать основательно на мидлварах
+// какой порядок:
+// 0. Валидация
+// 1. Логгирование
+// 2. Исполнение, основные функции
+// 3. Перехват ошибок
+
 const router = Router();
 
 router.get(

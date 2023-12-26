@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Response } from 'express';
 import { validationResult } from 'express-validator';
 
@@ -16,10 +15,12 @@ export const handleRequests = async (
 ) => {
   dtConsole.log(`New request to ${req.route.path}`);
   const errors = validationResult(req).array();
+  // Везде, где есть проверка на длину массива, надо сделать через утилиту isNotEmptyArray(), которую ещё надо написать
   if (errors.length) {
     return res.status(400).send(errors);
   }
 
+  // Вынести логгирование в мидлвару логгирования
   const hasQuery = Boolean(Object.keys(req.query ?? {}).length);
   const hasBody = Boolean(Object.keys(req.body).length);
   const hasParams = Boolean(Object.keys(req.params ?? {}).length);

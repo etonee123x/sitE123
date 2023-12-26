@@ -8,6 +8,7 @@ import { dtConsole } from '@/utils';
 const pathToCert = String(process.env.PATH_TO_CERT);
 const pathToKey = String(process.env.PATH_TO_KEY);
 
+// Здесь надо параллельную проверку
 if (existsSync(pathToCert) && existsSync(pathToKey)) {
   try {
     const credentials = {
