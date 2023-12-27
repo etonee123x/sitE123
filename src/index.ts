@@ -3,7 +3,7 @@ import http from 'http';
 import https from 'https';
 
 import { app, ports, apiUrl } from '@/app';
-import { dtConsole } from '@/utils';
+import { logger } from '@/utils';
 
 const pathToCert = String(process.env.PATH_TO_CERT);
 const pathToKey = String(process.env.PATH_TO_KEY);
@@ -18,20 +18,20 @@ if (existsSync(pathToCert) && existsSync(pathToKey)) {
 
     https
       .createServer(credentials, app)
-      .once('listening', () => dtConsole.log(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
+      .once('listening', () => logger(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
       .listen(ports.https);
   } catch (e) {
-    dtConsole.error('Failed to start HTTPS server due to:', e);
+    logger.error('Failed to start HTTPS server due to:', e);
   }
 } else {
-  dtConsole.error('HTTPS server was not started because SSL certs were not found');
+  logger.error('HTTPS server was not started because SSL certs were not found');
 }
 
 try {
   http
     .createServer(app)
-    .once('listening', () => dtConsole.log(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
+    .once('listening', () => logger(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
     .listen(ports.http);
 } catch (e) {
-  dtConsole.error('Failed to start HTTP server due to:', e);
+  logger.error('Failed to start HTTP server due to:', e);
 }
