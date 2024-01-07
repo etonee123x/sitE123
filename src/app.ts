@@ -3,8 +3,9 @@ import { join } from 'path';
 import ip from 'ip';
 import { config } from 'dotenv-flow';
 
-import routes from '@/routes';
+import { router } from '@/router';
 import { envVarToBoolean } from '@/utils';
+import { logger, errorHandler, cors, send404 } from '@/middleware';
 
 config();
 
@@ -22,16 +23,11 @@ export const fullApiUrl = envVarToBoolean(process.env.SHOULD_USE_HTTP_API_URL)
   : `https://${process.env.DOMAIN_NAME ?? apiUrl}:${ports.https}`;
 
 export const app = express()
-  .use(express.urlencoded({ limit: 1000 * 1024 * 1024, extended: true }))
   .use(express.json())
-  .use((...[, res, next]) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  })
+  .use(cors)
   .use('/content/', express.static(join(projectDir, 'content')))
   .use(express.static(join(projectDir, 'public')))
-  .use(routes)
-  .use((...[, res]) => {
-    res.sendStatus(404);
-  });
+  .use(logger)
+  .use(router)
+  .use(errorHandler)
+  .use(send404);

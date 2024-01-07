@@ -1,14 +1,27 @@
 import { format } from 'date-fns';
 
-const DEFAULT_DATE_FORMAT = 'yyyy-MM-dd/HH:mm:ss';
+import { DEFAULT_DATE_FORMAT, PROCESS_MODE } from '@/constants';
 
-export const dtConsole = {
-  error (...args: unknown[]) {
-    console.error(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
-  },
-  log (...args: unknown[]) {
-    console.log(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
-  },
+type ConsoleFunctionParameters = Parameters<typeof console.log>
+
+const logger = (...args: ConsoleFunctionParameters) => {
+  if (isTest()) {
+    return;
+  }
+
+  console.log(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
 };
 
-export const envVarToBoolean = (envVar: string | undefined) => String(envVar).toLowerCase() === 'true';
+logger.error = (...args: ConsoleFunctionParameters) => {
+  if (isTest()) {
+    return;
+  }
+
+  console.error(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
+};
+
+export { logger };
+
+export const envVarToBoolean = (envVar: typeof process.env[string]) => String(envVar).toLowerCase() === 'true';
+
+export const isTest = () => process.env.MODE === PROCESS_MODE.TEST;

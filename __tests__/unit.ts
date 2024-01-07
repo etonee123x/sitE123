@@ -1,6 +1,11 @@
 import { describe, beforeAll, afterAll, test, expect } from '@jest/globals';
 
 import { envVarToBoolean } from '@/utils';
+import { PROCESS_MODE } from '@/constants';
+
+beforeAll(() => {
+  process.env.MODE = PROCESS_MODE.TEST;
+});
 
 describe('utils', () => {
   describe('envVarToBoolean', () => {

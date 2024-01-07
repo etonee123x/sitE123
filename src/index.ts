@@ -1,36 +1,28 @@
-import { readFileSync, existsSync } from 'fs';
+import { readFile, access } from 'fs/promises';
 import http from 'http';
 import https from 'https';
 
 import { app, ports, apiUrl } from '@/app';
-import { dtConsole } from '@/utils';
+import { logger } from '@/utils';
 
 const pathToCert = String(process.env.PATH_TO_CERT);
 const pathToKey = String(process.env.PATH_TO_KEY);
 
-if (existsSync(pathToCert) && existsSync(pathToKey)) {
-  try {
-    const credentials = {
-      cert: String(readFileSync(pathToCert)),
-      key: String(readFileSync(pathToKey)),
-    };
+Promise.all([
+  access(pathToCert).then(() => String(readFile(pathToCert))),
+  access(pathToKey).then(() => String(readFile(pathToKey))),
+]).then(async ([cert, key]) => {
+  https
+    .createServer({ key, cert }, app)
+    .once('listening', () => logger(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
+    .listen(ports.https)
+    .on('error', (error) => logger.error('Failed to start HTTPS server due to:', error));
+}).catch(() => {
+  logger.error('HTTPS server was not started because SSL certs were not found or not accessable');
+});
 
-    https
-      .createServer(credentials, app)
-      .once('listening', () => dtConsole.log(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
-      .listen(ports.https);
-  } catch (e) {
-    dtConsole.error('Failed to start HTTPS server due to:', e);
-  }
-} else {
-  dtConsole.error('HTTPS server was not started because SSL certs were not found');
-}
-
-try {
-  http
-    .createServer(app)
-    .once('listening', () => dtConsole.log(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
-    .listen(ports.http);
-} catch (e) {
-  dtConsole.error('Failed to start HTTP server due to:', e);
-}
+http
+  .createServer(app)
+  .once('listening', () => logger(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
+  .listen(ports.http)
+  .on('error', (error) => logger.error('Failed to start HTTP server due to:', error));

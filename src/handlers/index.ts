@@ -9,14 +9,14 @@ import {
   AudioItem,
   FolderItem,
   PictureItem,
-  AUDIO_EXT,
   ITEM_TYPE,
-  PICTURE_EXT,
-  FolderData,
-  Item,
-  NavItem,
   FileItem,
+  type FolderData,
+  type Item,
+  type NavItem,
 } from '@includes/types';
+
+import { extIsAudio, extIsPicture } from '@includes/types/utils';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const CONTENT_FOLDER = 'content';
@@ -28,17 +28,13 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
   const createFullLink = (path: string) => decodeURI(new URL(path, fullApiUrl).href);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
-  const getMetaDataFields = async (path: string) => await parseFile(path).then(metadata => ({
-    // native: metadata.native,
-    // quality: metadata.quality,
-    // common: metadata.common,
-    // format: metadata.format,
-    bitrate: metadata.format.bitrate ? metadata.format.bitrate / 1000 : metadata.format.bitrate,
-    duration: Number((metadata.format.duration ?? 0).toFixed(2)),
-    album: metadata.common.album,
-    artists: metadata.common.artists,
-    bpm: metadata.common.bpm,
-    year: metadata.common.year,
+  const getMetaDataFields = async (path: string) => await parseFile(path).then(({ common, format }) => ({
+    bitrate: format.bitrate && format.bitrate / 1000,
+    duration: Number((format.duration ?? 0).toFixed(2)),
+    album: common.album,
+    artists: common.artists,
+    bpm: common.bpm,
+    year: common.year,
   }));
 
   let linkedFile: Item | null = null;
@@ -60,9 +56,9 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
       birthtime: statSync(makeInnerPath(outerFilePath)).birthtime.toISOString(),
     });
-    if (Object.values(AUDIO_EXT).includes(ext as AUDIO_EXT)) {
+    if (extIsAudio(ext)) {
       const metadata = await getMetaDataFields(innerPath);
-      linkedFile = new AudioItem(new FileItem(baseItem), { metadata, ext: ext as AUDIO_EXT });
+      linkedFile = new AudioItem(new FileItem(baseItem), { metadata, ext });
     }
   } else {
     currentDirectory = outerPath;
@@ -88,13 +84,13 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     });
     if (!element.isDirectory()) {
       const fileItem = new FileItem(baseItem);
-      if (Object.values(AUDIO_EXT).includes(ext as AUDIO_EXT)) {
+      if (extIsAudio(ext)) {
         const metadata = await getMetaDataFields(innerFilePath);
-        items.push(new AudioItem(fileItem, { ext: ext as AUDIO_EXT, metadata }));
+        items.push(new AudioItem(fileItem, { ext, metadata }));
         continue;
       }
-      if (Object.values(PICTURE_EXT).includes(ext as PICTURE_EXT)) {
-        items.push(new PictureItem(fileItem, { ext: ext as PICTURE_EXT }));
+      if (extIsPicture(ext)) {
+        items.push(new PictureItem(fileItem, { ext }));
         continue;
       }
     }
@@ -111,8 +107,8 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     .split('/')
     .filter(Boolean)
     .reduce<NavItem[]>(
-      (acc, text, index) => (acc.push({ text, link: acc[index].link + text + '/' }), acc)
-      , [{ text: 'root', link: '/' }],
+      (acc, text, index) => (acc.push({ text, link: acc[index].link + text + '/' }), acc),
+      [{ text: 'root', link: '/' }],
     );
 
   return {
@@ -126,7 +122,9 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
 export const funnyAnimals = () => {
   const FUNNY_ANIMALS_FOLDER = 'funny-animals';
   const picturesPath = join(contentPath, FUNNY_ANIMALS_FOLDER);
-  if (!existsSync(picturesPath)) return;
+  if (!existsSync(picturesPath)) {
+    return;
+  }
 
   const filesTitles = readdirSync(picturesPath);
   const fileTitle = filesTitles[Math.floor(Math.random() * filesTitles.length)];

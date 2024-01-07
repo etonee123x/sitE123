@@ -1,10 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Request } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 
-export type ReqAfterMidd = Request<
-  Record<string, any> | undefined,
-  any,
-  any,
-  Record<string, any> | undefined,
-  Record<string, any>
->
+export type Middleware = (req: Request, res: Response, next: NextFunction) => void;
