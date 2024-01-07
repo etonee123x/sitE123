@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import { describe, beforeAll, afterAll, test, expect } from '@jest/globals';
 
 import { envVarToBoolean } from '@/utils';

@@ -13,3 +13,5 @@ export enum PROCESS_MODE {
   PROD = 'PROD',
   TEST = 'TEST'
 }
+
+export const CONTENT_FOLDER = 'content';

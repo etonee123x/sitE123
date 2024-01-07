@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "date-fns": "^2.29.3",
-    "dotenv-flow": "^3.2.0",
+    "dotenv": "^16.3.1",
     "express": "~4.18.2",
     "express-validator": "^6.14.3",
     "ip": "^1.1.8",
@@ -20,7 +20,7 @@
     "@types/dotenv-flow": "^3.2.0",
     "@types/express": "^4.17.15",
     "@types/ip": "^1.1.0",
-    "@types/node": "^17.0.45",
+    "@types/node": "^20.10.7",
     "@types/supertest": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",

@@ -1,8 +1,10 @@
+import 'dotenv/config';
+
 import { readFile, access } from 'fs/promises';
 import http from 'http';
 import https from 'https';
 
-import { app, ports, apiUrl } from '@/app';
+import { app } from '@/app';
 import { logger } from '@/utils';
 
 const pathToCert = String(process.env.PATH_TO_CERT);
@@ -14,8 +16,10 @@ Promise.all([
 ]).then(async ([cert, key]) => {
   https
     .createServer({ key, cert }, app)
-    .once('listening', () => logger(`HTTPS server is listening on https://${apiUrl}:${ports.https}`))
-    .listen(ports.https)
+    .once('listening',
+      () => logger(`HTTPS server is listening on https://${process.env.DOMAIN_NAME}:${process.env.PORT_HTTPS}`),
+    )
+    .listen(process.env.PORT_HTTPS)
     .on('error', (error) => logger.error('Failed to start HTTPS server due to:', error));
 }).catch(() => {
   logger.error('HTTPS server was not started because SSL certs were not found or not accessable');
@@ -23,6 +27,8 @@ Promise.all([
 
 http
   .createServer(app)
-  .once('listening', () => logger(`HTTP server is listening on http://${apiUrl}:${ports.http}`))
-  .listen(ports.http)
+  .once('listening',
+    () => logger(`HTTP server is listening on http://${process.env.DOMAIN_NAME}:${process.env.PORT_HTTP}`),
+  )
+  .listen(process.env.PORT_HTTP)
   .on('error', (error) => logger.error('Failed to start HTTP server due to:', error));

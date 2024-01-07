@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import { describe, expect, test, beforeAll } from '@jest/globals';
 import request from 'supertest';
 

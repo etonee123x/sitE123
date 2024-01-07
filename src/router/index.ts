@@ -13,9 +13,13 @@ import { HANDLER_NAME_TO_ROUTE } from '@/constants';
 const router = Router();
 
 router.get(
-  `${HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]}:path?`,
+  `${HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]}/:path?`,
   ...HANDLER_NAME_TO_VALIDATORS[HANDLER_NAME.GET_FOLDER_DATA],
-  async (req, res) => res.send(await getFolderData(req.params.path || '/')),
+  async (req, res, next) => {
+    await getFolderData(req.params.path || '/')
+      .then((r) => res.send(r))
+      .catch(next);
+  },
 ).get(
   HANDLER_NAME_TO_ROUTE[HANDLER_NAME.HAPPY_NORMING],
   ...HANDLER_NAME_TO_VALIDATORS[HANDLER_NAME.HAPPY_NORMING],
