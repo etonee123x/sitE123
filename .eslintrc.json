@@ -11,23 +11,42 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "semi": ["error", "always"],
-    "comma-dangle": ["error", "always-multiline"],
-    "no-unused-vars": "error",
-    "max-len": ["error", 120],
-    "no-void": ["off"],
-    "no-sequences": ["off"],
-    "operator-linebreak": ["error", "before"]
+    "semi": [
+      "error",
+      "always"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "no-unused-vars": "off",
+    "max-len": [
+      "error",
+      120
+    ],
+    "no-undef": "off",
+    "no-void": "off",
+    "no-sequences": "off",
+    "operator-linebreak": [
+      "error",
+      "before"
+    ]
   },
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "tsconfigRootDir": ".",
-        "project": ["./tsconfig.json"]
+        "project": [
+          "./tsconfig.json"
+        ]
       },
-      "plugins": ["@typescript-eslint"],
+      "plugins": [
+        "@typescript-eslint"
+      ],
       "rules": {
         "@typescript-eslint/no-unused-vars": "error"
       }

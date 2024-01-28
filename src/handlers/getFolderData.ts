@@ -27,14 +27,15 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
   const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
   const createFullLink = (path: string) => decodeURI(new URL(path, fullApiUrl).href);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
-  const getMetaDataFields = async (path: string) => await parseFile(path).then(({ common, format }) => ({
-    bitrate: format.bitrate && format.bitrate / 1000,
-    duration: Number((format.duration ?? 0).toFixed(2)),
-    album: common.album,
-    artists: common.artists,
-    bpm: common.bpm,
-    year: common.year,
-  }));
+  const getMetaDataFields = async (path: string) => await parseFile(path)
+    .then(({ common: { album, artists = [], bpm, year }, format: { bitrate, duration } }) => ({
+      bitrate: bitrate && bitrate / 1000,
+      duration: Number((duration ?? 0).toFixed(2)),
+      album,
+      artists,
+      bpm,
+      year,
+    }));
 
   let linkedFile: Item | null = null;
   let currentDirectory: string;

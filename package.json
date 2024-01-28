@@ -5,12 +5,13 @@
   "scripts": {
     "serve": "nodemon",
     "start": "ts-node src",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint . --fix"
   },
   "dependencies": {
-    "date-fns": "^2.29.3",
+    "date-fns": "^3.3.1",
     "dotenv": "^16.3.1",
-    "express": "~4.18.2",
+    "express": "^4.18.2",
     "express-validator": "^6.14.3",
     "ip": "^1.1.8",
     "music-metadata": "^7.13.3"
@@ -22,8 +23,8 @@
     "@types/ip": "^1.1.0",
     "@types/node": "^20.10.7",
     "@types/supertest": "^6.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
     "eslint": "^8.31.0",
     "eslint-config-standard": "^17.0.0",
     "nodemon": "^3.0.2",
