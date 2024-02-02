@@ -4,12 +4,12 @@ import { parseFile } from 'music-metadata';
 import { join, dirname, parse as parsePath, sep } from 'path';
 
 import {
-  BaseItem,
-  AudioItem,
-  FolderItem,
-  PictureItem,
+  ItemBase,
+  ItemAudio,
+  ItemFolder,
+  ItemPicture,
   ITEM_TYPE,
-  FileItem,
+  ItemFile,
   type FolderData,
   type Item,
   type NavItem,
@@ -37,7 +37,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       year,
     }));
 
-  let linkedFile: FileItem | null = null;
+  let linkedFile: ItemFile | null = null;
   let currentDirectory: string;
 
   const outerPath = join(urlPath);
@@ -53,7 +53,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     const { name, ext } = parsePath(urlPath);
     const fullName = [name, ext].join('');
     const outerFilePath = join(currentDirectory, fullName);
-    const baseItem = new BaseItem({
+    const baseItem = new ItemBase({
       name: fullName,
       url: pathToFileURL(outerFilePath),
       src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
@@ -61,7 +61,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     });
 
     if (extIsAudio(ext)) {
-      linkedFile = new AudioItem(new FileItem(baseItem, ext), await getMetaDataFields(innerPath));
+      linkedFile = new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerPath));
     }
   } else {
     currentDirectory = outerPath;
@@ -80,7 +80,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       const outerFilePath = join(currentDirectory, element.name);
       const innerFilePath = makeInnerPath(outerFilePath);
       const { ext } = parsePath(innerFilePath);
-      const baseItem = new BaseItem({
+      const baseItem = new ItemBase({
         name: element.name,
         url: pathToFileURL(join(currentDirectory, element.name)),
         src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
@@ -89,24 +89,24 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       });
 
       if (element.isDirectory()) {
-        return [...acc, new FolderItem(baseItem)];
+        return [...acc, new ItemFolder(baseItem)];
       }
 
       if (extIsAudio(ext)) {
         return [
           ...acc,
-          new AudioItem(new FileItem(baseItem, ext), await getMetaDataFields(innerFilePath)),
+          new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerFilePath)),
         ];
       }
 
       if (extIsPicture(ext)) {
         return [
           ...acc,
-          new PictureItem(new FileItem(baseItem, ext)),
+          new ItemPicture(new ItemFile(baseItem, ext)),
         ];
       }
 
-      return [...acc, new FileItem(baseItem, ext)];
+      return [...acc, new ItemFile(baseItem, ext)];
     }, Promise.resolve([]))
     .then(_items => _items.toSorted((a, b) => -Number(a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE)));
 
