@@ -37,7 +37,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       year,
     }));
 
-  let linkedFile: Item | null = null;
+  let linkedFile: FileItem | null = null;
   let currentDirectory: string;
 
   const outerPath = join(urlPath);
