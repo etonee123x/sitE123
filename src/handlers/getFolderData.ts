@@ -108,7 +108,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
 
       return [...acc, new ItemFile(baseItem, ext)];
     }, Promise.resolve([]))
-    .then(_items => _items.toSorted((a, b) => -Number(a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE)));
+    .then(_items => _items.sort((a, b) => -Number(a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE)));
 
   currentDirectory = pathToFileURL(currentDirectory);
   const lvlUp = currentDirectory === '/'

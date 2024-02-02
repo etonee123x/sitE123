@@ -13,10 +13,10 @@ import { HANDLER_NAME_TO_ROUTE } from '@/constants';
 const router = Router();
 
 router.get(
-  `${HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]}/:path?`,
+  new RegExp(`${HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]}((/[^/]+)+)*`),
   ...HANDLER_NAME_TO_VALIDATORS[HANDLER_NAME.GET_FOLDER_DATA],
   async (req, res, next) => {
-    await getFolderData(req.params.path || '/')
+    await getFolderData(req.params[0] || '/')
       .then((r) => res.send(r))
       .catch(next);
   },
