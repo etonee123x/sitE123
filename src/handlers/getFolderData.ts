@@ -10,6 +10,7 @@ import {
   PictureItem,
   ITEM_TYPE,
   FileItem,
+  FileWithKnownType,
   type FolderData,
   type Item,
   type NavItem,
@@ -37,7 +38,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       year,
     }));
 
-  let linkedFile: FileItem | null = null;
+  let linkedFile: FileWithKnownType | null = null;
   let currentDirectory: string;
 
   const outerPath = join(urlPath);
