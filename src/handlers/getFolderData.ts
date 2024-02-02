@@ -10,7 +10,6 @@ import {
   PictureItem,
   ITEM_TYPE,
   FileItem,
-  FileWithKnownType,
   type FolderData,
   type Item,
   type NavItem,
@@ -38,7 +37,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       year,
     }));
 
-  let linkedFile: FileWithKnownType | null = null;
+  let linkedFile: FileItem | null = null;
   let currentDirectory: string;
 
   const outerPath = join(urlPath);
@@ -62,7 +61,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     });
 
     if (extIsAudio(ext)) {
-      linkedFile = new AudioItem(new FileItem(baseItem), { metadata: await getMetaDataFields(innerPath), ext });
+      linkedFile = new AudioItem(new FileItem(baseItem, ext), await getMetaDataFields(innerPath));
     }
   } else {
     currentDirectory = outerPath;
@@ -93,23 +92,21 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
         return [...acc, new FolderItem(baseItem)];
       }
 
-      const fileItem = new FileItem(baseItem);
-
       if (extIsAudio(ext)) {
         return [
           ...acc,
-          new AudioItem(fileItem, { ext, metadata: await getMetaDataFields(innerFilePath) }),
+          new AudioItem(new FileItem(baseItem, ext), await getMetaDataFields(innerFilePath)),
         ];
       }
 
       if (extIsPicture(ext)) {
         return [
           ...acc,
-          new PictureItem(fileItem, { ext }),
+          new PictureItem(new FileItem(baseItem, ext)),
         ];
       }
 
-      return [...acc, fileItem];
+      return [...acc, new FileItem(baseItem, ext)];
     }, Promise.resolve([]))
     .then(_items => _items.toSorted((a, b) => -Number(a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE)));
 
