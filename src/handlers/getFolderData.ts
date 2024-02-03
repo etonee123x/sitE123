@@ -12,7 +12,7 @@ import {
   ItemFile,
   type FolderData,
   type Item,
-  type NavItem,
+  type NavigationItem,
 } from '@includes/types';
 
 import { createError, extIsAudio, extIsPicture, isTruthy } from '@includes/types/utils';
@@ -115,10 +115,10 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     ? null
     : dirname(currentDirectory);
 
-  const navigation = currentDirectory
+  const navigationItems = currentDirectory
     .split('/')
     .filter(isTruthy)
-    .reduce<NavItem[]>(
+    .reduce<Array<NavigationItem>>(
       (acc, text, index) => (acc.push({ text, link: acc[index].link + text + '/' }), acc),
       [{ text: 'root', link: '/' }],
     );
@@ -127,6 +127,6 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     linkedFile,
     items,
     lvlUp,
-    navigation,
+    navigationItems,
   };
 };

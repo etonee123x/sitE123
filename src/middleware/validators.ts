@@ -3,7 +3,7 @@ import { HANDLER_NAME } from '@includes/types';
 
 import { validationCheck } from '@/middleware/validationCheck';
 
-const createMessage = (desc: string[]) => `It should be: ${desc.join(', ')}`;
+const createMessage = (desc: Array<string>) => `It should be: ${desc.join(', ')}`;
 
 export const HANDLER_NAME_TO_VALIDATORS = Object.freeze({
   [HANDLER_NAME.HAPPY_NORMING]: [
