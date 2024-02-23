@@ -1,6 +1,6 @@
 import { Middleware } from '@/types';
 import { logger } from '@/utils';
-import { isCustomError, isCustomErrorUnknown } from '@includes/types/utils';
+import { isCustomError, isCustomErrorUnknown } from '@shared/src/types';
 
 type MiddlewareParams = Parameters<Middleware>
 

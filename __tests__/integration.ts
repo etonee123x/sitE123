@@ -5,7 +5,7 @@ import request from 'supertest';
 
 import { app } from '@/app';
 
-import { HANDLER_NAME } from '@includes/types';
+import { HANDLER_NAME } from '@/types';
 import { HANDLER_NAME_TO_ROUTE, PROCESS_MODE } from '@/constants';
 
 beforeAll(() => {

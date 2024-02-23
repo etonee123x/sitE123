@@ -13,9 +13,10 @@ import {
   type FolderData,
   type Item,
   type NavigationItem,
-} from '@includes/types';
+} from '@shared/src/types';
 
-import { createError, extIsAudio, extIsPicture, isTruthy } from '@includes/types/utils';
+import { createError, extIsAudio, extIsPicture } from '@shared/src/types';
+import { isTruthy } from '@shared/src/utils';
 import { getFullApiUrl } from '@/utils';
 
 const STATIC_CONTENT_FOLDER = 'content';

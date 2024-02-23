@@ -1,4 +1,4 @@
-import { HANDLER_NAME } from '@includes/types';
+import { HANDLER_NAME } from '@/types';
 
 export const DEFAULT_DATE_FORMAT = 'yyyy-MM-dd/HH:mm:ss';
 

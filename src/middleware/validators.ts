@@ -1,5 +1,5 @@
 import { query } from 'express-validator';
-import { HANDLER_NAME } from '@includes/types';
+import { HANDLER_NAME } from '@/types';
 
 import { validationCheck } from '@/middleware/validationCheck';
 

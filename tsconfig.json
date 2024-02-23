@@ -11,8 +11,8 @@
       "@/*": [
         "./src/*"
       ],
-      "@includes/*": [
-        "./includes/*"
+      "@shared/*": [
+        "./submodules/shared/*"
       ]
     }
   },

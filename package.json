@@ -6,6 +6,7 @@
     "serve": "nodemon",
     "start": "ts-node src",
     "test": "jest",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --fix"
   },
   "dependencies": {

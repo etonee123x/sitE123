@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { HANDLER_NAME } from '@includes/types';
+import { HANDLER_NAME } from '@/types';
 
 import {
   funnyAnimals,
