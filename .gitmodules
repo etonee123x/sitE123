@@ -1,6 +1,6 @@
-[submodule "types"]
-	path = includes/types
-	url = git@github.com:etonee123x/types.git
 [submodule "content"]
 	path = content
 	url = git@github.com:etonee123x/content.git
+[submodule "submodules/shared"]
+	path = submodules/shared
+	url = git@github.com:etonee123x/shared.git
