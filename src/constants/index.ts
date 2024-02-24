@@ -6,6 +6,10 @@ export const HANDLER_NAME_TO_ROUTE = Object.freeze({
   [HANDLER_NAME.GET_FOLDER_DATA]: '/get-folder-data',
   [HANDLER_NAME.HAPPY_NORMING]: '/happy-norming',
   [HANDLER_NAME.FUNNY_ANIMALS]: '/funny-animals',
+  [HANDLER_NAME.POSTS]: Object.freeze({
+    ALL: '/posts',
+    BY_ID: '/posts/:id',
+  }),
 });
 
 export enum PROCESS_MODE {
