@@ -56,7 +56,7 @@ router.put(
   (req, res) => res.send(blogHandlers.put(toId(req.params.id), req.body)),
 );
 
-router.put(
+router.patch(
   HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].BY_ID,
   (req, res) => res.send(blogHandlers.patch(toId(req.params.id), req.body)),
 );
