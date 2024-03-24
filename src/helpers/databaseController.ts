@@ -1,7 +1,19 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { toId, type Id, createErrorClient, areIdsEqual, type Post, ForPost, ForPut, ForPatch } from '@shared/src/types';
+import {
+  toId,
+  type Id,
+  createErrorClient,
+  areIdsEqual,
+  type Post,
+  type ForPost,
+  type ForPut,
+  type ForPatch,
+  type PaginationMeta,
+  WithMeta,
+  WithIsEnd,
+} from '@shared/src/types';
 import { jsonParse, arrayToSpliced } from '@shared/src/utils';
 
 interface TableNameToType {
@@ -17,8 +29,21 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     this.rows = jsonParse<Array<T>>(readFileSync(this.absolutePath, { encoding: 'utf-8' }));
   }
 
-  get (): Array<T> {
-    return this.rows;
+  get ({ perPage = 10, page = 0 }: PaginationMeta = { perPage: 10, page: 0 }):
+    WithMeta<WithIsEnd> & { data: Array<T> } {
+    const lastRowIndex = this.rows.length - 1;
+
+    const indexInitial = page * perPage;
+    const indexLast = indexInitial + perPage;
+
+    const isEnd = indexLast >= lastRowIndex;
+
+    return {
+      meta: {
+        isEnd,
+      },
+      data: this.rows.slice(indexInitial, indexLast),
+    };
   }
 
   getById (id: Id): T {
