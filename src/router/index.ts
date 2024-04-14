@@ -8,7 +8,7 @@ import {
   blogHandlers,
 } from '@/handlers';
 
-import { HANDLER_NAME_TO_VALIDATORS } from '@/middleware';
+import { ROUTE_TO_VALIDATORS } from '@/middleware';
 import { HANDLER_NAME_TO_ROUTE } from '@/constants';
 import { toId } from '@shared/src/types';
 
@@ -16,7 +16,7 @@ const router = Router();
 
 router.get(
   new RegExp(`${HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]}((/[^/]+)+)*`),
-  ...HANDLER_NAME_TO_VALIDATORS[HANDLER_NAME.GET_FOLDER_DATA],
+  ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]],
   async (req, res, next) => {
     await getFolderData(req.params[0] || '/')
       .then((r) => res.send(r))
@@ -26,19 +26,21 @@ router.get(
 
 router.get(
   HANDLER_NAME_TO_ROUTE[HANDLER_NAME.HAPPY_NORMING],
-  ...HANDLER_NAME_TO_VALIDATORS[HANDLER_NAME.HAPPY_NORMING],
+  ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.HAPPY_NORMING]],
   (req, res) => res.type('image/jpeg').send(happyNorming(req.query?.dotw && String(req.query?.dotw))),
 );
 
 router.get(
   HANDLER_NAME_TO_ROUTE[HANDLER_NAME.FUNNY_ANIMALS],
-  ...HANDLER_NAME_TO_VALIDATORS[HANDLER_NAME.FUNNY_ANIMALS],
+  ...ROUTE_TO_VALIDATORS[HANDLER_NAME.FUNNY_ANIMALS],
   (...[, res]) => res.type('image/jpeg').send(funnyAnimals()),
 );
 
 router.get(
   HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].ALL,
-  (...[, res]) => res.send(blogHandlers.get()),
+  ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].ALL],
+  (req, res) =>
+    res.send(blogHandlers.get({ page: Number(req.query?.page), perPage: Number(req.query?.perPage) })).end(),
 );
 
 router.get(

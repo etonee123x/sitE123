@@ -18,7 +18,7 @@ logger.error = (...args: ConsoleFunctionParameters) => {
     return;
   }
 
-  console.error(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
+  console.error(`[error] ${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
 };
 
 export { logger };
