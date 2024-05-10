@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
+import { dirname, join } from 'path';
 
 import {
   toId,
@@ -26,10 +26,16 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
 
   constructor (tableTitle: TTableTiltle) {
     this.absolutePath = join(process.cwd(), 'db', `${tableTitle}.json`);
+
+    if (!existsSync(this.absolutePath)) {
+      mkdirSync(dirname(this.absolutePath), { recursive: true });
+      writeFileSync(this.absolutePath, JSON.stringify([]));
+    }
+
     this.rows = jsonParse<Array<T>>(readFileSync(this.absolutePath, { encoding: 'utf-8' }));
   }
 
-  get ({ perPage = 10, page = 0 }: PaginationMeta = { perPage: 10, page: 0 }):
+  get ({ perPage = 10, page = 0 }: Partial<PaginationMeta> = { perPage: 10, page: 0 }):
     WithMeta<WithIsEnd> & { data: Array<T> } {
     const lastRowIndex = this.rows.length - 1;
 
