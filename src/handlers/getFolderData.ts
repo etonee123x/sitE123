@@ -17,16 +17,13 @@ import {
 
 import { createError, extIsAudio, extIsPicture } from '@shared/src/types';
 import { isTruthy } from '@shared/src/utils';
-import { getFullApiUrl } from '@/utils';
+import { createFullLink } from '@/utils';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const PROHIBITED_ELEMENTS_NAMES = ['.git'];
 
 export const getFolderData = async (urlPath: string): Promise<FolderData> => {
-  const fullApiUrl = getFullApiUrl();
-
   const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
-  const createFullLink = (path: string) => decodeURI(new URL(path, fullApiUrl).href);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
   const getMetaDataFields = async (path: string) => await parseFile(path)
     .then(({ common: { album, artists = [], bpm, year }, format: { bitrate, duration } }) => ({

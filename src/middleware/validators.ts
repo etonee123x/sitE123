@@ -24,7 +24,7 @@ export const ROUTE_TO_VALIDATORS = Object.freeze({
   ],
   [HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]]: [],
   [HANDLER_NAME.FUNNY_ANIMALS]: [],
-  [HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].ALL]: [
+  [HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS]]: [
     ...paginationValidations,
     validationCheck,
   ],

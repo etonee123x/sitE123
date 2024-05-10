@@ -33,6 +33,12 @@ export const getFullApiUrl = () => isModeProd()
   ? `https://${process.env.DOMAIN_NAME}:${process.env.PORT_HTTPS}`
   : `http://${process.env.DOMAIN_NAME}:${process.env.PORT_HTTP}`;
 
+export const createFullLink = (path: string) => {
+  const fullApiUrl = getFullApiUrl();
+
+  return decodeURI(new URL(path, fullApiUrl).href);
+};
+
 export const getContentPath = () => join('.', 'src', CONTENT_FOLDER);
 
 export const _sleep = async (time = 5 * 1000) => new Promise<void>(resolve => setTimeout(resolve, time));

@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { dirname, join } from 'path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync, createWriteStream } from 'fs';
+import { dirname, join, extname } from 'path';
 
 import {
   toId,
@@ -11,16 +11,19 @@ import {
   type ForPut,
   type ForPatch,
   type PaginationMeta,
-  WithMeta,
-  WithIsEnd,
+  type WithMeta,
+  type WithIsEnd,
 } from '@shared/src/types';
 import { jsonParse, arrayToSpliced } from '@shared/src/utils';
+import busboy from 'busboy';
+import { randomUUID } from 'crypto';
+import { createFullLink } from '@/utils';
 
 interface TableNameToType {
   'posts': Post
 }
 
-export class TableController<TTableTiltle extends keyof TableNameToType, T extends TableNameToType[TTableTiltle]> {
+export class DatabaseController<TTableTiltle extends keyof TableNameToType, T extends TableNameToType[TTableTiltle]> {
   private rows: Array<T> = [];
   private absolutePath: string;
 
@@ -59,9 +62,9 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
   post (row: ForPost<T>): T {
     const _row = {
       ...row,
-      id: TableController.getId(),
-      createdAt: TableController.getCreatedAt(),
-      updatedAt: TableController.getUpdatedAt(),
+      id: DatabaseController.getId(),
+      createdAt: DatabaseController.getCreatedAt(),
+      updatedAt: DatabaseController.getUpdatedAt(),
     } as T;
     this.rows = [_row, ...this.rows];
     this.save();
@@ -71,7 +74,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
 
   put (id: Id, row: ForPut<T>): T {
     const index = this.getIndexById(id);
-    const _row = { ...row, updatedAt: TableController.getUpdatedAt() } as T;
+    const _row = { ...row, updatedAt: DatabaseController.getUpdatedAt() } as T;
 
     this.rows = arrayToSpliced(this.rows, index, 1, _row);
     this.save();
@@ -82,7 +85,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
   patch (id: Id, row: ForPatch<T>): T {
     const index = this.getIndexById(id);
 
-    const _row = { ...this.rows[index], ...row, updatedAt: TableController.getUpdatedAt() } as T;
+    const _row = { ...this.rows[index], ...row, updatedAt: DatabaseController.getUpdatedAt() } as T;
 
     this.rows = arrayToSpliced(this.rows, index, 1, _row);
     this.save();
@@ -99,6 +102,21 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     this.save();
 
     return row;
+  }
+
+  static uploadFile (...[, stream, { filename }]: Parameters<busboy.BusboyEvents['file']>): string {
+    const PATH_UPLOADS = 'uploads';
+    const pathUploads = join(process.cwd(), 'db', PATH_UPLOADS);
+
+    if (!existsSync(pathUploads)) {
+      mkdirSync(pathUploads);
+    }
+
+    const fileName = [randomUUID(), extname(filename)].join('');
+
+    stream.pipe(createWriteStream(join(pathUploads, fileName)));
+
+    return createFullLink([PATH_UPLOADS, fileName].join('/'));
   }
 
   private save (): void {

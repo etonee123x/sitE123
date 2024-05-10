@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import { HANDLER_NAME } from '@/types';
+import { routerPosts } from '@/router/posts';
+import { routerUpload } from '@/router/upload';
 
 import {
   funnyAnimals,
   happyNorming,
   getFolderData,
-  blogHandlers,
 } from '@/handlers';
 
 import { ROUTE_TO_VALIDATORS } from '@/middleware';
 import { HANDLER_NAME_TO_ROUTE } from '@/constants';
-import { toId } from '@shared/src/types';
 
 const router = Router();
 
@@ -36,36 +36,7 @@ router.get(
   (...[, res]) => res.type('image/jpeg').send(funnyAnimals()),
 );
 
-router.get(
-  HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].ALL,
-  ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].ALL],
-  (req, res) =>
-    res.send(blogHandlers.get({ page: Number(req.query?.page), perPage: Number(req.query?.perPage) })).end(),
-);
-
-router.get(
-  HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].BY_ID,
-  (req, res) => res.send(blogHandlers.getById(toId(req.params.id))),
-);
-
-router.post(
-  HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].ALL,
-  (req, res) => res.send(blogHandlers.post(req.body)),
-);
-
-router.put(
-  HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].BY_ID,
-  (req, res) => res.send(blogHandlers.put(toId(req.params.id), req.body)),
-);
-
-router.patch(
-  HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].BY_ID,
-  (req, res) => res.send(blogHandlers.patch(toId(req.params.id), req.body)),
-);
-
-router.delete(
-  HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS].BY_ID,
-  (req, res) => res.send(blogHandlers.delete(toId(req.params.id))),
-);
+router.use(HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS], routerPosts);
+router.use(HANDLER_NAME_TO_ROUTE[HANDLER_NAME.UPLOAD], routerUpload);
 
 export { router };
