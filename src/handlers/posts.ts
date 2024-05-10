@@ -1,3 +1,3 @@
-import { DatabaseController } from '@/helpers/databaseController';
+import { TableController } from '@/helpers/databaseController';
 
-export const postsHandlers = new DatabaseController('posts');
+export const postsHandlers = new TableController('posts');

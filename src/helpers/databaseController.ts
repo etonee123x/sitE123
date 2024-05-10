@@ -23,12 +23,18 @@ interface TableNameToType {
   'posts': Post
 }
 
-export class DatabaseController<TTableTiltle extends keyof TableNameToType, T extends TableNameToType[TTableTiltle]> {
+export class DatabaseController {
+  protected static pathDataBase = join(process.cwd(), 'database');
+}
+
+export class TableController<TTableTiltle extends keyof TableNameToType, T extends TableNameToType[TTableTiltle]>
+  extends DatabaseController {
   private rows: Array<T> = [];
   private absolutePath: string;
 
   constructor (tableTitle: TTableTiltle) {
-    this.absolutePath = join(process.cwd(), 'db', `${tableTitle}.json`);
+    super();
+    this.absolutePath = join(DatabaseController.pathDataBase, `${tableTitle}.json`);
 
     if (!existsSync(this.absolutePath)) {
       mkdirSync(dirname(this.absolutePath), { recursive: true });
@@ -62,9 +68,9 @@ export class DatabaseController<TTableTiltle extends keyof TableNameToType, T ex
   post (row: ForPost<T>): T {
     const _row = {
       ...row,
-      id: DatabaseController.getId(),
-      createdAt: DatabaseController.getCreatedAt(),
-      updatedAt: DatabaseController.getUpdatedAt(),
+      id: TableController.getId(),
+      createdAt: TableController.getCreatedAt(),
+      updatedAt: TableController.getUpdatedAt(),
     } as T;
     this.rows = [_row, ...this.rows];
     this.save();
@@ -74,7 +80,7 @@ export class DatabaseController<TTableTiltle extends keyof TableNameToType, T ex
 
   put (id: Id, row: ForPut<T>): T {
     const index = this.getIndexById(id);
-    const _row = { ...row, updatedAt: DatabaseController.getUpdatedAt() } as T;
+    const _row = { ...row, updatedAt: TableController.getUpdatedAt() } as T;
 
     this.rows = arrayToSpliced(this.rows, index, 1, _row);
     this.save();
@@ -85,7 +91,7 @@ export class DatabaseController<TTableTiltle extends keyof TableNameToType, T ex
   patch (id: Id, row: ForPatch<T>): T {
     const index = this.getIndexById(id);
 
-    const _row = { ...this.rows[index], ...row, updatedAt: DatabaseController.getUpdatedAt() } as T;
+    const _row = { ...this.rows[index], ...row, updatedAt: TableController.getUpdatedAt() } as T;
 
     this.rows = arrayToSpliced(this.rows, index, 1, _row);
     this.save();
@@ -102,21 +108,6 @@ export class DatabaseController<TTableTiltle extends keyof TableNameToType, T ex
     this.save();
 
     return row;
-  }
-
-  static uploadFile (...[, stream, { filename }]: Parameters<busboy.BusboyEvents['file']>): string {
-    const PATH_UPLOADS = 'uploads';
-    const pathUploads = join(process.cwd(), 'db', PATH_UPLOADS);
-
-    if (!existsSync(pathUploads)) {
-      mkdirSync(pathUploads);
-    }
-
-    const fileName = [randomUUID(), extname(filename)].join('');
-
-    stream.pipe(createWriteStream(join(pathUploads, fileName)));
-
-    return createFullLink([PATH_UPLOADS, fileName].join('/'));
   }
 
   private save (): void {
@@ -142,5 +133,22 @@ export class DatabaseController<TTableTiltle extends keyof TableNameToType, T ex
 
   private static getId (): Id {
     return toId(Date.now());
+  }
+}
+
+export class UploadController extends DatabaseController {
+  static uploadFile (...[, stream, { filename }]: Parameters<busboy.BusboyEvents['file']>): string {
+    const PATH_UPLOADS = 'uploads';
+    const pathUploads = join(DatabaseController.pathDataBase, PATH_UPLOADS);
+
+    if (!existsSync(pathUploads)) {
+      mkdirSync(pathUploads, { recursive: true });
+    }
+
+    const fileName = [randomUUID(), extname(filename)].join('');
+
+    stream.pipe(createWriteStream(join(pathUploads, fileName)));
+
+    return createFullLink([PATH_UPLOADS, fileName].join('/'));
   }
 }

@@ -1,3 +1,3 @@
-import { DatabaseController } from '@/helpers/databaseController';
+import { UploadController } from '@/helpers/databaseController';
 
-export const upload = DatabaseController.uploadFile;
+export const upload = UploadController.uploadFile;
