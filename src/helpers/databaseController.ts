@@ -24,7 +24,7 @@ interface TableNameToType {
 }
 
 export class DatabaseController {
-  protected static pathDataBase = join(process.cwd(), 'database');
+  static pathDataBase = join(process.cwd(), 'database');
 }
 
 export class TableController<TTableTiltle extends keyof TableNameToType, T extends TableNameToType[TTableTiltle]>
@@ -137,18 +137,19 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
 }
 
 export class UploadController extends DatabaseController {
-  static uploadFile (...[, stream, { filename }]: Parameters<busboy.BusboyEvents['file']>): string {
-    const PATH_UPLOADS = 'uploads';
-    const pathUploads = join(DatabaseController.pathDataBase, PATH_UPLOADS);
+  static PATH_UPLOADS = 'uploads';
 
-    if (!existsSync(pathUploads)) {
-      mkdirSync(pathUploads, { recursive: true });
+  static pathUploadsFull = join(DatabaseController.pathDataBase, UploadController.PATH_UPLOADS);
+
+  static uploadFile (...[, stream, { filename }]: Parameters<busboy.BusboyEvents['file']>): string {
+    if (!existsSync(UploadController.pathUploadsFull)) {
+      mkdirSync(UploadController.pathUploadsFull, { recursive: true });
     }
 
     const fileName = [randomUUID(), extname(filename)].join('');
 
-    stream.pipe(createWriteStream(join(pathUploads, fileName)));
+    stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, fileName)));
 
-    return createFullLink([PATH_UPLOADS, fileName].join('/'));
+    return createFullLink([UploadController.PATH_UPLOADS, fileName].join('/'));
   }
 }
