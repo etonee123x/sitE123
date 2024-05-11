@@ -7,7 +7,7 @@ import {
   ItemBase,
   ItemAudio,
   ItemFolder,
-  ItemPicture,
+  ItemImage,
   ITEM_TYPE,
   ItemFile,
   type FolderData,
@@ -15,7 +15,7 @@ import {
   type NavigationItem,
 } from '@shared/src/types';
 
-import { createError, extIsAudio, extIsPicture } from '@shared/src/types';
+import { createError, isExtAudio, isExtImage } from '@shared/src/types';
 import { isTruthy } from '@shared/src/utils';
 import { createFullLink } from '@/utils';
 
@@ -58,7 +58,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       birthtime: statSync(makeInnerPath(outerFilePath)).birthtime.toISOString(),
     });
 
-    if (extIsAudio(ext)) {
+    if (isExtAudio(ext)) {
       linkedFile = new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerPath));
     }
   } else {
@@ -90,17 +90,17 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
         return [...acc, new ItemFolder(baseItem)];
       }
 
-      if (extIsAudio(ext)) {
+      if (isExtAudio(ext)) {
         return [
           ...acc,
           new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerFilePath)),
         ];
       }
 
-      if (extIsPicture(ext)) {
+      if (isExtImage(ext)) {
         return [
           ...acc,
-          new ItemPicture(new ItemFile(baseItem, ext)),
+          new ItemImage(new ItemFile(baseItem, ext)),
         ];
       }
 
