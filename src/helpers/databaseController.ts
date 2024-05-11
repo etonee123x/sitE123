@@ -1,5 +1,15 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync, createWriteStream } from 'fs';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+  createWriteStream,
+  readdirSync,
+  rmSync,
+  statSync,
+} from 'fs';
 import { dirname, join, extname } from 'path';
+import { filesize } from 'filesize';
 
 import {
   toId,
@@ -151,5 +161,40 @@ export class UploadController extends DatabaseController {
     stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, fileName)));
 
     return createFullLink([UploadController.PATH_UPLOADS, fileName].join('/'));
+  }
+
+  static clearUnusedUploads () {
+    const deepExists = (obj: object, query: string): boolean =>
+      Object.values(obj ?? {}).some(v => typeof v === 'object'
+        ? deepExists(v, query)
+        : v.includes?.(query),
+      );
+
+    const uploadsNames = readdirSync(UploadController.pathUploadsFull);
+
+    const tables = readdirSync(DatabaseController.pathDataBase, { withFileTypes: true })
+      .filter((databaseItem) => databaseItem.isFile())
+      .map((table) => JSON.parse(String(readFileSync(join(table.path, table.name)))));
+
+    let clearedSpace = 0;
+
+    uploadsNames.forEach(uploadName => {
+      if (deepExists(tables, uploadName)) {
+        return;
+      }
+
+      const path = join(UploadController.pathUploadsFull, uploadName);
+
+      const stat = statSync(path);
+      clearedSpace += stat.size;
+
+      rmSync(path);
+    });
+
+    if (clearedSpace > 0) {
+      console.log('Cleared space:', filesize(clearedSpace));
+    } else {
+      console.log('Nothing to clear!');
+    }
   }
 }
