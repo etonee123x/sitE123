@@ -9,7 +9,7 @@ import {
   getFolderData,
 } from '@/handlers';
 
-import { ROUTE_TO_VALIDATORS } from '@/middleware';
+import { ROUTE_TO_VALIDATORS, checkAuth } from '@/middleware';
 import { HANDLER_NAME_TO_ROUTE } from '@/constants';
 
 const router = Router();
@@ -38,5 +38,7 @@ router.get(
 
 router.use(HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS], routerPosts);
 router.use(HANDLER_NAME_TO_ROUTE[HANDLER_NAME.UPLOAD], routerUpload);
+
+router.get(HANDLER_NAME_TO_ROUTE[HANDLER_NAME.CHECK_AUTH], checkAuth, (req, res) => res.end(req.headers.tokenPayload));
 
 export { router };

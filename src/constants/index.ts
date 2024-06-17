@@ -8,6 +8,7 @@ export const HANDLER_NAME_TO_ROUTE = Object.freeze({
   [HANDLER_NAME.FUNNY_ANIMALS]: '/funny-animals',
   [HANDLER_NAME.POSTS]: '/posts',
   [HANDLER_NAME.UPLOAD]: '/upload',
+  [HANDLER_NAME.CHECK_AUTH]: '/auth',
 });
 
 export enum PROCESS_MODE {
