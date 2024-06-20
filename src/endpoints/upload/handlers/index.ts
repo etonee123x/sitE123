@@ -1,3 +1,3 @@
 import { UploadController } from '@/helpers/databaseController';
 
-export const upload = UploadController.uploadFile;
+export const handler = UploadController.uploadFile;

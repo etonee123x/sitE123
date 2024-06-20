@@ -5,7 +5,7 @@ import http from 'http';
 import https from 'https';
 
 import { app } from '@/app';
-import { logger } from '@/utils';
+import { logger } from '@/helpers/logger';
 
 const pathToCert = String(process.env.PATH_TO_CERT);
 const pathToKey = String(process.env.PATH_TO_KEY);

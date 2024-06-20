@@ -17,12 +17,12 @@ import {
 
 import { createError, isExtAudio, isExtImage } from '@shared/src/types';
 import { isTruthy } from '@shared/src/utils';
-import { createFullLink } from '@/utils';
+import { formFullApiUrl } from '@/helpers/fullApiUrl';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const PROHIBITED_ELEMENTS_NAMES = ['.git'];
 
-export const getFolderData = async (urlPath: string): Promise<FolderData> => {
+export const handler = async (urlPath: string): Promise<FolderData> => {
   const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
   const getMetaDataFields = async (path: string) => await parseFile(path)
@@ -54,7 +54,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
     const baseItem = new ItemBase({
       name: fullName,
       url: pathToFileURL(outerFilePath),
-      src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
+      src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
       birthtime: statSync(makeInnerPath(outerFilePath)).birthtime.toISOString(),
     });
 
@@ -81,7 +81,7 @@ export const getFolderData = async (urlPath: string): Promise<FolderData> => {
       const baseItem = new ItemBase({
         name: element.name,
         url: pathToFileURL(join(currentDirectory, element.name)),
-        src: createFullLink(join(STATIC_CONTENT_FOLDER, outerFilePath)),
+        src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
         numberOfThisExt: -~elementsNumbers[ext ?? ITEM_TYPE.FOLDER],
         birthtime: statSync(innerFilePath).birthtime.toISOString(),
       });

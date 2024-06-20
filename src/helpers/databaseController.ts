@@ -27,7 +27,7 @@ import {
 import { jsonParse, arrayToSpliced } from '@shared/src/utils';
 import busboy from 'busboy';
 import { randomUUID } from 'crypto';
-import { createFullLink } from '@/utils';
+import { formFullApiUrl } from '@/helpers/fullApiUrl';
 
 interface TableNameToType {
   'posts': Post
@@ -160,7 +160,7 @@ export class UploadController extends DatabaseController {
 
     stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, fileName)));
 
-    return createFullLink([UploadController.PATH_UPLOADS, fileName].join('/'));
+    return formFullApiUrl([UploadController.PATH_UPLOADS, fileName].join('/'));
   }
 
   static clearUnusedUploads () {

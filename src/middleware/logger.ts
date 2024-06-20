@@ -1,5 +1,5 @@
 import type { Middleware } from '@/types';
-import { logger as _logger } from '@/utils';
+import { logger as _logger } from '@/helpers/logger';
 import { isNotNil, isNotEmptyObject, isTruthy } from '@shared/src/utils';
 
 export const logger: Middleware = (...[req, , next]) => {
