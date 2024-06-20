@@ -13,7 +13,7 @@ router.use(checkAuth);
 router.use(funnyAnimals);
 router.use(getFolderData);
 router.use(happyNorming);
-router.use(posts);
-router.use(upload);
+router.use('/posts', posts);
+router.use('/upload', upload);
 
 export { router };
