@@ -150,6 +150,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
 
 export class UploadController extends DatabaseController {
   static PATH_UPLOADS = 'uploads';
+  static IS_ADDING_DATE_TIME_ENABLED = false;
 
   static pathUploadsFull = join(DatabaseController.pathDataBase, UploadController.PATH_UPLOADS);
 
@@ -159,12 +160,19 @@ export class UploadController extends DatabaseController {
     }
 
     const addDateTime = (fileName: string) => [fileName, format(new Date(), 'yyyy-MM-dd_HH-mm-ss')].join('_');
-    const addIndex = (fileName: string) => [fileName, randomUUID().split('-', 1)[0]].join('_');
+    const addHash = (fileName: string) => [fileName, randomUUID().split('-', 1)[0]].join('_');
 
     const { name, ext } = parse(Buffer.from(filename, 'latin1').toString('utf8'));
 
-    const fileName
-      = [addIndex(addDateTime(slugify(name, { lower: true, strict: true, locale: 'ru' }))), ext].join('');
+    let fileName = slugify(name, { lower: true, strict: true, locale: 'ru' });
+
+    if (UploadController.IS_ADDING_DATE_TIME_ENABLED) {
+      fileName = addDateTime(fileName);
+    }
+
+    fileName = addHash(fileName);
+
+    fileName = [fileName, ext].join('');
 
     stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, fileName)));
 
