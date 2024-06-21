@@ -201,8 +201,7 @@ export class UploadController extends DatabaseController {
 
       const path = join(UploadController.pathUploadsFull, uploadName);
 
-      const stat = statSync(path);
-      clearedSpace += stat.size;
+      clearedSpace += statSync(path).size;
 
       rmSync(path);
     });
