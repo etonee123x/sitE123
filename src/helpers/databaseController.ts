@@ -10,6 +10,7 @@ import {
 } from 'fs';
 import { dirname, join, parse } from 'path';
 import { filesize } from 'filesize';
+import { randomUUID } from 'crypto';
 
 import {
   toId,
@@ -157,20 +158,8 @@ export class UploadController extends DatabaseController {
       mkdirSync(UploadController.pathUploadsFull, { recursive: true });
     }
 
-    const addDateTime = (fileName: string) => {
-      const dateTime = format(new Date(), 'yyyy-MM-dd_HH-mm-ss');
-      return `${fileName}_${dateTime}`;
-    };
-
-    const addIndex = (fileName: string) => {
-      let index = 0;
-      let newFileName = fileName;
-      while (existsSync(join(UploadController.pathUploadsFull, newFileName))) {
-        index++;
-        newFileName = `${fileName}_${index}`;
-      }
-      return newFileName;
-    };
+    const addDateTime = (fileName: string) => [fileName, format(new Date(), 'yyyy-MM-dd_HH-mm-ss')].join('_');
+    const addIndex = (fileName: string) => [fileName, randomUUID().split('-', 1)[0]].join('_');
 
     const { name, ext } = parse(Buffer.from(filename, 'latin1').toString('utf8'));
 
