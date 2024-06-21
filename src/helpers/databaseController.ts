@@ -25,6 +25,7 @@ import {
   type WithIsEnd,
 } from '@shared/src/types';
 import { jsonParse, arrayToSpliced } from '@shared/src/utils';
+import { format } from 'date-fns';
 import slugify from 'slugify';
 import busboy from 'busboy';
 import { formFullApiUrl } from '@/helpers/fullApiUrl';
@@ -156,7 +157,11 @@ export class UploadController extends DatabaseController {
       mkdirSync(UploadController.pathUploadsFull, { recursive: true });
     }
 
-    const addDateTime = (fileName: string) => fileName;
+    const addDateTime = (fileName: string) => {
+      const dateTime = format(new Date(), 'yyyy-MM-dd_HH-mm-ss');
+      return `${fileName}_${dateTime}`;
+    };
+
     const addIndex = (fileName: string) => fileName;
 
     const { name, ext } = parse(Buffer.from(filename, 'latin1').toString('utf8'));
