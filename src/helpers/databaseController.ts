@@ -155,12 +155,18 @@ export class UploadController extends DatabaseController {
     if (!existsSync(UploadController.pathUploadsFull)) {
       mkdirSync(UploadController.pathUploadsFull, { recursive: true });
     }
-    const { name, ext } = parse(filename);
-    const slugifiedFileName = slugify(name, { lower: true, remove: /[*+~.()'"!:@]/g, strict: true }) + ext;
 
-    stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, slugifiedFileName)));
+    const addDateTime = (fileName: string) => fileName;
+    const addIndex = (fileName: string) => fileName;
 
-    return formFullApiUrl([UploadController.PATH_UPLOADS, slugifiedFileName].join('/'));
+    const { name, ext } = parse(Buffer.from(filename, 'latin1').toString('utf8'));
+
+    const fileName
+      = addIndex(addDateTime([slugify(name, { lower: true, strict: true, locale: 'ru' }), ext].join('')));
+
+    stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, fileName)));
+
+    return formFullApiUrl([UploadController.PATH_UPLOADS, fileName].join('/'));
   }
 
   static clearUnusedUploads () {
