@@ -8,7 +8,7 @@ import {
   rmSync,
   statSync,
 } from 'fs';
-import { dirname, join, extname } from 'path';
+import { dirname, join, parse } from 'path';
 import { filesize } from 'filesize';
 
 import {
@@ -25,8 +25,8 @@ import {
   type WithIsEnd,
 } from '@shared/src/types';
 import { jsonParse, arrayToSpliced } from '@shared/src/utils';
+import slugify from 'slugify';
 import busboy from 'busboy';
-import { randomUUID } from 'crypto';
 import { formFullApiUrl } from '@/helpers/fullApiUrl';
 
 interface TableNameToType {
@@ -155,12 +155,12 @@ export class UploadController extends DatabaseController {
     if (!existsSync(UploadController.pathUploadsFull)) {
       mkdirSync(UploadController.pathUploadsFull, { recursive: true });
     }
+    const { name, ext } = parse(filename);
+    const slugifiedFileName = slugify(name, { lower: true, remove: /[*+~.()'"!:@]/g, strict: true }) + ext;
 
-    const fileName = [randomUUID(), extname(filename)].join('');
+    stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, slugifiedFileName)));
 
-    stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, fileName)));
-
-    return formFullApiUrl([UploadController.PATH_UPLOADS, fileName].join('/'));
+    return formFullApiUrl([UploadController.PATH_UPLOADS, slugifiedFileName].join('/'));
   }
 
   static clearUnusedUploads () {
