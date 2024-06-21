@@ -162,7 +162,15 @@ export class UploadController extends DatabaseController {
       return `${fileName}_${dateTime}`;
     };
 
-    const addIndex = (fileName: string) => fileName;
+    const addIndex = (fileName: string) => {
+      let index = 0;
+      let newFileName = fileName;
+      while (existsSync(join(UploadController.pathUploadsFull, newFileName))) {
+        index++;
+        newFileName = `${fileName}_${index}`;
+      }
+      return newFileName;
+    };
 
     const { name, ext } = parse(Buffer.from(filename, 'latin1').toString('utf8'));
 
