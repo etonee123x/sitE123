@@ -162,7 +162,7 @@ export class UploadController extends DatabaseController {
     const { name, ext } = parse(Buffer.from(filename, 'latin1').toString('utf8'));
 
     const fileName
-      = addIndex(addDateTime([slugify(name, { lower: true, strict: true, locale: 'ru' }), ext].join('')));
+      = [addIndex(addDateTime(slugify(name, { lower: true, strict: true, locale: 'ru' }))), ext].join('');
 
     stream.pipe(createWriteStream(join(UploadController.pathUploadsFull, fileName)));
 
