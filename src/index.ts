@@ -21,8 +21,8 @@ Promise.all([
     )
     .listen(process.env.PORT_HTTPS)
     .on('error', (error) => logger.error('Failed to start HTTPS server due to:', error));
-}).catch(() => {
-  logger.error('HTTPS server was not started because SSL certs were not found or not accessable');
+}).catch((e) => {
+  logger.error('Failed to start HTTPS server due to:', e);
 });
 
 http
