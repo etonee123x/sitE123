@@ -78,13 +78,17 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
   }
 
   post (row: ForPost<T>): T {
+    const createdAt = TableController.getCreatedAt();
+
     const _row = {
       ...row,
       id: TableController.getId(),
       createdAt: TableController.getCreatedAt(),
-      updatedAt: TableController.getUpdatedAt(),
+      updatedAt: createdAt,
     } as T;
+
     this.rows = [_row, ...this.rows];
+
     this.save();
 
     return _row;
