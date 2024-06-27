@@ -15,7 +15,6 @@ import { randomUUID } from 'crypto';
 import {
   toId,
   type Id,
-  createErrorClient,
   areIdsEqual,
   type Post,
   type ForPost,
@@ -24,6 +23,7 @@ import {
   type PaginationMeta,
   type WithMeta,
   type WithIsEnd,
+  createError,
 } from '@shared/src/types';
 import { jsonParse, arrayToSpliced } from '@shared/src/utils';
 import { format } from 'date-fns';
@@ -133,7 +133,10 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
   private getIndexById (id: Id): number {
     const index = this.rows.findIndex(({ id: _id }) => areIdsEqual(id, _id));
     if (index === -1) {
-      throw createErrorClient('Row not found');
+      throw createError({
+        data: 'Row not found',
+        statusCode: 404,
+      });
     }
 
     return index;
