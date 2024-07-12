@@ -13,6 +13,8 @@ import {
   type FolderData,
   type Item,
   type NavigationItem,
+  isExtVideo,
+  ItemVideo,
 } from '@shared/src/types';
 
 import { createError, isExtAudio, isExtImage } from '@shared/src/types';
@@ -101,6 +103,13 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
         return [
           ...acc,
           new ItemImage(new ItemFile(baseItem, ext)),
+        ];
+      }
+
+      if (isExtVideo(ext)) {
+        return [
+          ...acc,
+          new ItemVideo(new ItemFile(baseItem, ext)),
         ];
       }
 
