@@ -83,7 +83,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     const _row = {
       ...row,
       id: TableController.getId(),
-      createdAt: TableController.getCreatedAt(),
+      createdAt,
       updatedAt: createdAt,
     } as T;
 
