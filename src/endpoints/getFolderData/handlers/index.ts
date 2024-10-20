@@ -18,7 +18,6 @@ import {
 } from '@shared/src/types';
 
 import { createError, isExtAudio, isExtImage } from '@shared/src/types';
-import { isTruthy } from '@shared/src/utils';
 import { formFullApiUrl } from '@/helpers/fullApiUrl';
 
 const STATIC_CONTENT_FOLDER = 'content';
@@ -124,7 +123,7 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
 
   const navigationItems = currentDirectory
     .split('/')
-    .filter(isTruthy)
+    .filter(Boolean)
     .reduce<Array<NavigationItem>>(
       (acc, text, index) => (acc.push({ text, link: acc[index].link + text + '/' }), acc),
       [{ text: 'root', link: '/' }],
