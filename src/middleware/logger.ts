@@ -1,6 +1,7 @@
 import type { Middleware } from '@/types';
 import { logger as _logger } from '@/helpers/logger';
-import { isNotNil, isNotEmptyObject } from '@shared/src/utils';
+import { isNotNil } from '@shared/src/utils/isNotNil';
+import { isNotEmptyObject } from '@shared/src/utils/isNotEmptyObject';
 
 export const logger: Middleware = (...[req, , next]) => {
   const messages = [`New request to ${req.originalUrl}`];

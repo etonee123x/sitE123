@@ -25,7 +25,7 @@ import {
   type WithIsEnd,
   createError,
 } from '@shared/src/types';
-import { jsonParse, arrayToSpliced } from '@shared/src/utils';
+import { jsonParse } from '@shared/src/utils/jsonParse';
 import { format } from 'date-fns';
 import slugify from 'slugify';
 import busboy from 'busboy';
@@ -53,7 +53,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
       writeFileSync(this.absolutePath, JSON.stringify([]));
     }
 
-    this.rows = jsonParse<Array<T>>(readFileSync(this.absolutePath, { encoding: 'utf-8' }));
+    this.rows = jsonParse.unsafe<Array<T>>(readFileSync(this.absolutePath, { encoding: 'utf-8' }));
   }
 
   get ({ perPage = 10, page = 0 }: Partial<PaginationMeta> = { perPage: 10, page: 0 }):
@@ -98,7 +98,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     const index = this.getIndexById(id);
     const _row = { ...row, updatedAt: TableController.getUpdatedAt() } as T;
 
-    this.rows = arrayToSpliced(this.rows, index, 1, _row);
+    this.rows = this.rows.toSpliced(index, 1, _row);
     this.save();
 
     return _row;
@@ -109,7 +109,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
 
     const _row = { ...this.rows[index], ...row, updatedAt: TableController.getUpdatedAt() } as T;
 
-    this.rows = arrayToSpliced(this.rows, index, 1, _row);
+    this.rows = this.rows.toSpliced(index, 1, _row);
     this.save();
 
     return _row;
@@ -120,7 +120,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
 
     const row = this.rows[index];
 
-    this.rows = arrayToSpliced(this.rows, index, 1);
+    this.rows = this.rows.toSpliced(index, 1);
     this.save();
 
     return row;
