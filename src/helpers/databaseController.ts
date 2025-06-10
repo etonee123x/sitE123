@@ -215,9 +215,9 @@ export class UploadController extends DatabaseController {
     });
 
     if (clearedSpace > 0) {
-      console.log('Cleared space:', filesize(clearedSpace));
+      console.info('Cleared space:', filesize(clearedSpace));
     } else {
-      console.log('Nothing to clear!');
+      console.info('Nothing to clear!');
     }
   }
 }

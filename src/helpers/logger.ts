@@ -10,7 +10,7 @@ const logger = (...args: ConsoleFunctionParameters) => {
     return;
   }
 
-  console.log(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
+  console.info(`${format(new Date(), DEFAULT_DATE_FORMAT)}:`, ...args);
 };
 
 logger.error = (...args: ConsoleFunctionParameters) => {
