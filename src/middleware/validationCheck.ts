@@ -1,11 +1,11 @@
 import { validationResult } from 'express-validator';
 
-import type { Middleware } from '@/types';
 import { createErrorClient } from '@shared/src/types';
 import { isNotEmptyArray } from '@shared/src/utils/isNotEmptyArray';
+import { RequestHandler } from 'express';
 
-export const validationCheck: Middleware = (...[req, , next]) => {
+export const validationCheck: RequestHandler = (...[req, , next]) => {
   const errors = validationResult(req).array();
 
-  isNotEmptyArray(errors) ? next(createErrorClient(errors)) : next();
+  return isNotEmptyArray(errors) ? next(createErrorClient(errors)) : next();
 };

@@ -9,7 +9,7 @@ const router = Router();
 router.get(
   HANDLER_NAME_TO_ROUTE[HANDLER_NAME.FUNNY_ANIMALS],
   ...ROUTE_TO_VALIDATORS[HANDLER_NAME.FUNNY_ANIMALS],
-  (...[, res]) => res.type('image/jpeg').send(handler()),
+  (...[, res]) => void res.type('image/jpeg').send(handler()),
 );
 
 export { router as funnyAnimals };

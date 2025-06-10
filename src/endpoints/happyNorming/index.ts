@@ -9,7 +9,7 @@ const router = Router();
 router.get(
   HANDLER_NAME_TO_ROUTE[HANDLER_NAME.HAPPY_NORMING],
   ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.HAPPY_NORMING]],
-  (req, res) => res.type('image/jpeg').send(handler(req.query?.dotw && String(req.query?.dotw))),
+  (req, res) => void res.type('image/jpeg').send(handler(req.query?.dotw && String(req.query?.dotw))),
 );
 
 export { router as happyNorming };

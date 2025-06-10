@@ -1,8 +1,8 @@
-import { Middleware } from '@/types';
 import { createError } from '@shared/src/types';
+import { RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 
-export const checkAuth: Middleware = (req, res, next) => {
+export const checkAuth: RequestHandler = (req, res, next) => {
   try {
     const payload = jwt.verify(String(req.headers.authorization), String(process.env.SECRET_KEY));
 

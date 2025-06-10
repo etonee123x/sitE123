@@ -1,9 +1,9 @@
-import type { Middleware } from '@/types';
 import { logger as _logger } from '@/helpers/logger';
 import { isNotNil } from '@shared/src/utils/isNotNil';
 import { isNotEmptyObject } from '@shared/src/utils/isNotEmptyObject';
+import { RequestHandler } from 'express';
 
-export const logger: Middleware = (...[req, , next]) => {
+export const logger: RequestHandler = (...[req, , next]) => {
   const messages = [`New request to ${req.originalUrl}`];
 
   const hasQuery = isNotNil(req.query) && isNotEmptyObject(req.query);
