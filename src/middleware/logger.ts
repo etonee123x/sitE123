@@ -9,6 +9,7 @@ export const logger: Middleware = (...[req, , next]) => {
   const hasQuery = isNotNil(req.query) && isNotEmptyObject(req.query);
   const hasBody = isNotEmptyObject(req.body);
   const hasParams = isNotNil(req.params) && isNotEmptyObject(req.params);
+
   if (hasQuery || hasBody || hasParams) {
     if (hasQuery) {
       messages.push(`Query: ${JSON.stringify(req.query)}`);

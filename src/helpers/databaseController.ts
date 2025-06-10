@@ -32,19 +32,21 @@ import busboy from 'busboy';
 import { formFullApiUrl } from '@/helpers/fullApiUrl';
 
 interface TableNameToType {
-  'posts': Post
+  posts: Post;
 }
 
 export class DatabaseController {
   static pathDataBase = join(process.cwd(), 'database');
 }
 
-export class TableController<TTableTiltle extends keyof TableNameToType, T extends TableNameToType[TTableTiltle]>
-  extends DatabaseController {
+export class TableController<
+  TTableTiltle extends keyof TableNameToType,
+  T extends TableNameToType[TTableTiltle],
+> extends DatabaseController {
   private rows: Array<T> = [];
   private absolutePath: string;
 
-  constructor (tableTitle: TTableTiltle) {
+  constructor(tableTitle: TTableTiltle) {
     super();
     this.absolutePath = join(DatabaseController.pathDataBase, `${tableTitle}.json`);
 
@@ -56,8 +58,9 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     this.rows = jsonParse.unsafe<Array<T>>(readFileSync(this.absolutePath, { encoding: 'utf-8' }));
   }
 
-  get ({ perPage = 10, page = 0 }: Partial<PaginationMeta> = { perPage: 10, page: 0 }):
-    WithMeta<WithIsEnd> & { data: Array<T> } {
+  get(
+    { perPage = 10, page = 0 }: Partial<PaginationMeta> = { perPage: 10, page: 0 },
+  ): WithMeta<WithIsEnd> & { data: Array<T> } {
     const lastRowIndex = this.rows.length - 1;
 
     const indexInitial = page * perPage;
@@ -73,11 +76,11 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     };
   }
 
-  getById (id: Id): T {
+  getById(id: Id): T {
     return this.rows[this.getIndexById(id)];
   }
 
-  post (row: ForPost<T>): T {
+  post(row: ForPost<T>): T {
     const createdAt = TableController.getCreatedAt();
 
     const _row = {
@@ -94,7 +97,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     return _row;
   }
 
-  put (id: Id, row: ForPut<T>): T {
+  put(id: Id, row: ForPut<T>): T {
     const index = this.getIndexById(id);
     const _row = { ...row, updatedAt: TableController.getUpdatedAt() } as T;
 
@@ -104,7 +107,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     return _row;
   }
 
-  patch (id: Id, row: ForPatch<T>): T {
+  patch(id: Id, row: ForPatch<T>): T {
     const index = this.getIndexById(id);
 
     const _row = { ...this.rows[index], ...row, updatedAt: TableController.getUpdatedAt() } as T;
@@ -115,7 +118,7 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     return _row;
   }
 
-  delete (id: Id): T {
+  delete(id: Id): T {
     const index = this.getIndexById(id);
 
     const row = this.rows[index];
@@ -126,12 +129,13 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     return row;
   }
 
-  private save (): void {
+  private save(): void {
     writeFileSync(this.absolutePath, JSON.stringify(this.rows));
   }
 
-  private getIndexById (id: Id): number {
+  private getIndexById(id: Id): number {
     const index = this.rows.findIndex(({ id: _id }) => areIdsEqual(id, _id));
+
     if (index === -1) {
       throw createError({
         data: 'Row not found',
@@ -142,15 +146,15 @@ export class TableController<TTableTiltle extends keyof TableNameToType, T exten
     return index;
   }
 
-  private static getUpdatedAt (): number {
+  private static getUpdatedAt(): number {
     return Date.now();
   }
 
-  private static getCreatedAt (): number {
+  private static getCreatedAt(): number {
     return Date.now();
   }
 
-  private static getId (): Id {
+  private static getId(): Id {
     return toId(Date.now());
   }
 }
@@ -161,7 +165,7 @@ export class UploadController extends DatabaseController {
 
   static pathUploadsFull = join(DatabaseController.pathDataBase, UploadController.PATH_UPLOADS);
 
-  static uploadFile (...[, stream, { filename }]: Parameters<busboy.BusboyEvents['file']>): string {
+  static uploadFile(...[, stream, { filename }]: Parameters<busboy.BusboyEvents['file']>): string {
     if (!existsSync(UploadController.pathUploadsFull)) {
       mkdirSync(UploadController.pathUploadsFull, { recursive: true });
     }
@@ -186,12 +190,9 @@ export class UploadController extends DatabaseController {
     return formFullApiUrl([UploadController.PATH_UPLOADS, fileName].join('/'));
   }
 
-  static clearUnusedUploads () {
+  static clearUnusedUploads() {
     const deepExists = (obj: object, query: string): boolean =>
-      Object.values(obj ?? {}).some(v => typeof v === 'object'
-        ? deepExists(v, query)
-        : v.includes?.(query),
-      );
+      Object.values(obj ?? {}).some((v) => (typeof v === 'object' ? deepExists(v, query) : v.includes?.(query)));
 
     const uploadsNames = readdirSync(UploadController.pathUploadsFull);
 
@@ -201,7 +202,7 @@ export class UploadController extends DatabaseController {
 
     let clearedSpace = 0;
 
-    uploadsNames.forEach(uploadName => {
+    uploadsNames.forEach((uploadName) => {
       if (deepExists(tables, uploadName)) {
         return;
       }

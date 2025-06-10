@@ -14,5 +14,5 @@ export const HANDLER_NAME_TO_ROUTE = Object.freeze({
 export enum PROCESS_MODE {
   DEV = 'DEV',
   PROD = 'PROD',
-  TEST = 'TEST'
+  TEST = 'TEST',
 }

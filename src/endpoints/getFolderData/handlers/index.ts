@@ -26,8 +26,8 @@ const PROHIBITED_ELEMENTS_NAMES = ['.git'];
 export const handler = async (urlPath: string): Promise<FolderData> => {
   const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
-  const getMetaDataFields = async (path: string) => await parseFile(path)
-    .then(({ common: { album, artists = [], bpm, year }, format: { bitrate, duration } }) => ({
+  const getMetaDataFields = async (path: string) =>
+    await parseFile(path).then(({ common: { album, artists = [], bpm, year }, format: { bitrate, duration } }) => ({
       bitrate: bitrate && bitrate / 1000,
       duration: Number((duration ?? 0).toFixed(2)),
       album,
@@ -47,6 +47,7 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
   });
 
   const stats = statSync(innerPath);
+
   if (stats.isFile()) {
     currentDirectory = dirname(outerPath);
     const { name, ext } = parsePath(urlPath);
@@ -92,34 +93,23 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
       }
 
       if (isExtAudio(ext)) {
-        return [
-          ...acc,
-          new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerFilePath)),
-        ];
+        return [...acc, new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerFilePath))];
       }
 
       if (isExtImage(ext)) {
-        return [
-          ...acc,
-          new ItemImage(new ItemFile(baseItem, ext)),
-        ];
+        return [...acc, new ItemImage(new ItemFile(baseItem, ext))];
       }
 
       if (isExtVideo(ext)) {
-        return [
-          ...acc,
-          new ItemVideo(new ItemFile(baseItem, ext)),
-        ];
+        return [...acc, new ItemVideo(new ItemFile(baseItem, ext))];
       }
 
       return [...acc, new ItemFile(baseItem, ext)];
     }, Promise.resolve([]))
-    .then(_items => _items.sort((a, b) => -Number(a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE)));
+    .then((_items) => _items.sort((a, b) => -Number(a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE)));
 
   currentDirectory = pathToFileURL(currentDirectory);
-  const lvlUp = currentDirectory === '/'
-    ? null
-    : dirname(currentDirectory);
+  const lvlUp = currentDirectory === '/' ? null : dirname(currentDirectory);
 
   const navigationItems = currentDirectory
     .split('/')

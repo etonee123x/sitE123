@@ -2,7 +2,7 @@ import { Middleware } from '@/types';
 import { logger } from '@/helpers/logger';
 import { isCustomError, isCustomErrorUnknown } from '@shared/src/types';
 
-type MiddlewareParams = Parameters<Middleware>
+type MiddlewareParams = Parameters<Middleware>;
 
 export const errorHandler = (
   err: unknown,

@@ -1,1 +1,1 @@
-export const envVarToBoolean = (envVar: typeof process.env[string]) => String(envVar).toLowerCase() === 'true';
+export const envVarToBoolean = (envVar: (typeof process.env)[string]) => String(envVar).toLowerCase() === 'true';

@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { DEFAULT_DATE_FORMAT } from '@/constants';
 import { isModeTest } from './mode';
 
-type ConsoleFunctionParameters = Parameters<typeof console.log>
+type ConsoleFunctionParameters = Parameters<typeof console.log>;
 
 const logger = (...args: ConsoleFunctionParameters) => {
   if (isModeTest()) {
