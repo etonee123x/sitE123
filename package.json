@@ -11,7 +11,9 @@
     "lint:fix": "eslint . --fix",
     "script:clearUnusedUploads": "ts-node src/scripts/clearUnusedUploads"
   },
+  "type": "module",
   "dependencies": {
+    "@etonee123x/shared": "github:etonee123x/shared",
     "busboy": "^1.6.0",
     "date-fns": "^4.1.0",
     "dotenv": "^16.5.0",

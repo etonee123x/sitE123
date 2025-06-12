@@ -3,22 +3,22 @@ import { readdirSync, statSync } from 'fs';
 import { parseFile } from 'music-metadata';
 import { join, dirname, parse as parsePath, sep } from 'path';
 
+import { formFullApiUrl } from '@/helpers/fullApiUrl';
+
+import { Item, NavigationItem, FolderData, ITEM_TYPE } from '@etonee123x/shared/dist/types/folderData';
 import {
-  ItemBase,
+  isExtAudio,
+  isExtImage,
+  isExtVideo,
   ItemAudio,
+  ItemBase,
+  ItemFile,
   ItemFolder,
   ItemImage,
-  ITEM_TYPE,
-  ItemFile,
-  type FolderData,
-  type Item,
-  type NavigationItem,
-  isExtVideo,
   ItemVideo,
-} from '@shared/src/types';
-
-import { createError, isExtAudio, isExtImage } from '@shared/src/types';
-import { formFullApiUrl } from '@/helpers/fullApiUrl';
+} from '@etonee123x/shared/dist/helpers/folderData';
+import { isNil } from '@etonee123x/shared/dist/utils/isNil';
+import { createError } from '@etonee123x/shared/dist/helpers/error';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const PROHIBITED_ELEMENTS_NAMES = ['.git'];
@@ -80,11 +80,19 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
       const outerFilePath = join(currentDirectory, element.name);
       const innerFilePath = makeInnerPath(outerFilePath);
       const { ext } = parsePath(innerFilePath);
+
+      let numberOfThisExt = elementsNumbers[ext ?? ITEM_TYPE.FOLDER];
+
+      if (isNil(numberOfThisExt)) {
+        elementsNumbers[ext ?? ITEM_TYPE.FOLDER] = 1;
+        numberOfThisExt = 1;
+      }
+
       const baseItem = new ItemBase({
         name: element.name,
         url: pathToFileURL(join(currentDirectory, element.name)),
         src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
-        numberOfThisExt: -~elementsNumbers[ext ?? ITEM_TYPE.FOLDER],
+        numberOfThisExt,
         birthtime: statSync(innerFilePath).birthtime.toISOString(),
       });
 
@@ -115,7 +123,7 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
     .split('/')
     .filter(Boolean)
     .reduce<Array<NavigationItem>>(
-      (acc, text, index) => (acc.push({ text, link: acc[index].link + text + '/' }), acc),
+      (acc, text, index) => (acc.push({ text, link: acc[index]?.link + text + '/' }), acc),
       [{ text: 'root', link: '/' }],
     );
 

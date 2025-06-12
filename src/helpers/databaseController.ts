@@ -12,20 +12,20 @@ import { dirname, join, parse } from 'path';
 import { filesize } from 'filesize';
 import { randomUUID } from 'crypto';
 
+import { toId, areIdsEqual } from '@etonee123x/shared/dist/helpers/id';
+import { type Id } from '@etonee123x/shared/dist/types/id';
+import { type Post } from '@etonee123x/shared/dist/types/blog';
+import { throwError } from '@etonee123x/shared/dist/utils/throwError';
 import {
-  toId,
-  type Id,
-  areIdsEqual,
-  type Post,
   type ForPost,
   type ForPut,
   type ForPatch,
   type PaginationMeta,
   type WithMeta,
   type WithIsEnd,
-  createError,
-} from '@shared/src/types';
-import { jsonParse } from '@shared/src/utils/jsonParse';
+} from '@etonee123x/shared/dist/types/database';
+import { createError } from '@etonee123x/shared/dist/helpers/error';
+import { jsonParse } from '@etonee123x/shared/dist/utils/jsonParse';
 import { format } from 'date-fns';
 import slugify from 'slugify';
 import busboy from 'busboy';
@@ -77,7 +77,7 @@ export class TableController<
   }
 
   getById(id: Id): T {
-    return this.rows[this.getIndexById(id)];
+    return this.rows[this.getIndexById(id)] ?? throwError('Не найдено.');
   }
 
   post(row: ForPost<T>): T {
@@ -126,7 +126,7 @@ export class TableController<
     this.rows = this.rows.toSpliced(index, 1);
     this.save();
 
-    return row;
+    return row ?? throwError('Не найдено.');
   }
 
   private save(): void {

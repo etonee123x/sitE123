@@ -6,6 +6,7 @@
     "noEmit": true,
     "strict": true,
     "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
     "lib": [
       "ESNext"
     ],

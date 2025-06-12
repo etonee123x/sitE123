@@ -1,4 +1,4 @@
-import { createError } from '@shared/src/types';
+import { createError } from '@etonee123x/shared/dist/helpers/error';
 import { RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 

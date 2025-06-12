@@ -1,5 +1,5 @@
 import { logger } from '@/helpers/logger';
-import { isCustomError, isCustomErrorUnknown } from '@shared/src/types';
+import { isCustomError, isCustomErrorUnknown } from '@etonee123x/shared/dist/helpers/error';
 import { ErrorRequestHandler } from 'express';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
