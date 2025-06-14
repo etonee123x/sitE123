@@ -12,10 +12,10 @@ import { dirname, join, parse } from 'path';
 import { filesize } from 'filesize';
 import { randomUUID } from 'crypto';
 
-import { toId, areIdsEqual } from '@etonee123x/shared/dist/helpers/id';
-import { type Id } from '@etonee123x/shared/dist/types/id';
-import { type Post } from '@etonee123x/shared/dist/types/blog';
-import { throwError } from '@etonee123x/shared/dist/utils/throwError';
+import { toId, areIdsEqual } from '@etonee123x/shared/helpers/id';
+import { type Id } from '@etonee123x/shared/types/id';
+import { type Post } from '@etonee123x/shared/types/blog';
+import { throwError } from '@etonee123x/shared/utils/throwError';
 import {
   type ForPost,
   type ForPut,
@@ -23,9 +23,9 @@ import {
   type PaginationMeta,
   type WithMeta,
   type WithIsEnd,
-} from '@etonee123x/shared/dist/types/database';
-import { createError } from '@etonee123x/shared/dist/helpers/error';
-import { jsonParse } from '@etonee123x/shared/dist/utils/jsonParse';
+} from '@etonee123x/shared/types/database';
+import { createError } from '@etonee123x/shared/helpers/error';
+import { jsonParse } from '@etonee123x/shared/utils/jsonParse';
 import { format } from 'date-fns';
 import slugify from 'slugify';
 import busboy from 'busboy';

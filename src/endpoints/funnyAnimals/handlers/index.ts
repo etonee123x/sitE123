@@ -1,4 +1,4 @@
-import { throwError } from '@etonee123x/shared/dist/utils/throwError';
+import { throwError } from '@etonee123x/shared/utils/throwError';
 import { readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 

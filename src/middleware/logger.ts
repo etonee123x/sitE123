@@ -1,6 +1,6 @@
-import { logger as _logger } from '@/helpers/logger.js';
-import { isNotNil } from '@etonee123x/shared/dist/utils/isNotNil';
-import { isNotEmptyObject } from '@etonee123x/shared/dist/utils/isNotEmptyObject';
+import { logger as _logger } from '@/helpers/logger';
+import { isNotNil } from '@etonee123x/shared/utils/isNotNil';
+import { isNotEmptyObject } from '@etonee123x/shared/utils/isNotEmptyObject';
 import { RequestHandler } from 'express';
 
 export const logger: RequestHandler = (...[req, , next]) => {

@@ -5,20 +5,21 @@ import { join, dirname, parse as parsePath, sep } from 'path';
 
 import { formFullApiUrl } from '@/helpers/fullApiUrl';
 
-import { Item, NavigationItem, FolderData, ITEM_TYPE } from '@etonee123x/shared/dist/types/folderData';
 import {
-  isExtAudio,
-  isExtImage,
-  isExtVideo,
-  ItemAudio,
-  ItemBase,
+  Item,
+  NavigationItem,
+  FolderData,
+  ITEM_TYPE,
   ItemFile,
+  ItemBase,
   ItemFolder,
+  ItemAudio,
   ItemImage,
   ItemVideo,
-} from '@etonee123x/shared/dist/helpers/folderData';
-import { isNil } from '@etonee123x/shared/dist/utils/isNil';
-import { createError } from '@etonee123x/shared/dist/helpers/error';
+} from '@etonee123x/shared/types/folderData';
+import { isExtAudio, isExtImage, isExtVideo } from '@etonee123x/shared/helpers/folderData';
+import { isNil } from '@etonee123x/shared/utils/isNil';
+import { createError } from '@etonee123x/shared/helpers/error';
 
 const STATIC_CONTENT_FOLDER = 'content';
 const PROHIBITED_ELEMENTS_NAMES = ['.git'];

@@ -1,12 +1,12 @@
 import { Router } from 'express';
 
 import { handlers } from './handlers';
-import { toId } from '@etonee123x/shared/dist/helpers/id';
+import { toId } from '@etonee123x/shared/helpers/id';
 
 import { ROUTE_TO_VALIDATORS, checkAuth } from '@/middleware';
 import { HANDLER_NAME_TO_ROUTE } from '@/constants';
 import { HANDLER_NAME } from '@/types';
-import { throwError } from '@etonee123x/shared/dist/utils/throwError';
+import { throwError } from '@etonee123x/shared/utils/throwError';
 
 const router = Router();
 
