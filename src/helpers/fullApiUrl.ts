@@ -1,7 +1,7 @@
 import { isModeProd } from './mode';
 
 export const getOrigin = () =>
-  isModeProd()
+  isModeProd
     ? `https://${process.env.DOMAIN_NAME}:${process.env.PORT_HTTPS}`
     : `http://${process.env.DOMAIN_NAME}:${process.env.PORT_HTTP}`;
 

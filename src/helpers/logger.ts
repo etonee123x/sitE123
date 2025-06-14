@@ -6,7 +6,7 @@ import { isModeTest } from './mode';
 type ConsoleFunctionParameters = Parameters<typeof console.log>;
 
 const logger = (...args: ConsoleFunctionParameters) => {
-  if (isModeTest()) {
+  if (isModeTest) {
     return;
   }
 
@@ -14,7 +14,7 @@ const logger = (...args: ConsoleFunctionParameters) => {
 };
 
 logger.error = (...args: ConsoleFunctionParameters) => {
-  if (isModeTest()) {
+  if (isModeTest) {
     return;
   }
 
