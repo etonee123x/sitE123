@@ -30,4 +30,4 @@ router.patch(
 
 router.delete('/:id', checkAuth, (req, res) => void res.send(handlers.delete(toId(req.params.id ?? throwError()))));
 
-export { router as posts };
+export { router };

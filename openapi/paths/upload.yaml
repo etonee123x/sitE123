@@ -1,0 +1,26 @@
+post:
+  summary: Загрузить файл
+  security:
+    - bearerAuth: []
+  operationId: uploadFile
+  requestBody:
+    required: true
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            file:
+              type: array
+              items:
+                type: string
+                format: binary
+  responses:
+    '200':
+      description: Файл успешно загружен
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas/UploadResponse.yaml'
+    '401':
+      $ref: '../components/responses/401.yaml'

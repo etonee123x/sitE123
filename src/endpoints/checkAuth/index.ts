@@ -6,9 +6,9 @@ import { Router } from 'express';
 const router = Router();
 
 router.get(
-  HANDLER_NAME_TO_ROUTE[HANDLER_NAME.CHECK_AUTH],
+  '/',
   checkAuth,
   (req, res) => void res.end(req.headers.tokenPayload),
 );
 
-export { router as checkAuth };
+export { router };

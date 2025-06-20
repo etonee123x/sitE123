@@ -7,7 +7,7 @@ import { handler } from './handlers';
 const router = Router();
 
 router.get(
-  new RegExp(`${HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]}((/[^/]+)+)*`),
+  new RegExp('((/[^/]+)+)*'),
   ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]],
   async (req, res, next) => {
     await handler(req.params[0] || '/')
@@ -16,4 +16,4 @@ router.get(
   },
 );
 
-export { router as getFolderData };
+export { router };

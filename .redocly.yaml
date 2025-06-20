@@ -1,0 +1,10 @@
+extends:
+  - recommended
+
+rules:
+  no-server-example.com: off
+  info-license: off
+
+apis:
+  main:
+    root: ./openapi/openapi.yaml

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import busboy from 'busboy';
-import { handler } from './handlers';
 import { checkAuth } from '@/middleware';
+import { UploadController } from '@/helpers/databaseController';
 
 const router = Router();
 
@@ -10,9 +10,9 @@ router.post('/', checkAuth, (req, res) => {
 
   req.pipe(
     busboy({ headers: req.headers })
-      .on('file', (...args) => paths.push(handler(...args)))
+      .on('file', (...args) => paths.push(UploadController.uploadFile(...args)))
       .on('close', () => res.send(paths)),
   );
 });
 
-export { router as upload };
+export { router };

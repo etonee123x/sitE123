@@ -4,10 +4,12 @@ import { join } from 'path';
 import { router } from '@/router';
 import { logger, errorHandler, cors, send404 } from '@/middleware';
 import { UploadController } from '@/helpers/databaseController';
+import { apiDocs } from '@/middleware/apiDocs';
 
 const projectDir = process.cwd();
 
 export const app = express()
+  .use('/api-docs', ...apiDocs)
   .use(express.json())
   .use(cors)
   .use('/content', express.static(join(projectDir, 'content')))
