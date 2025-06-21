@@ -16,7 +16,7 @@ import {
   ItemAudio,
   ItemImage,
   ItemVideo,
-} from '@etonee123x/shared/types/folderData';
+} from '@etonee123x/shared/helpers/folderData';
 import { isExtAudio, isExtImage, isExtVideo } from '@etonee123x/shared/helpers/folderData';
 import { isNil } from '@etonee123x/shared/utils/isNil';
 import { createError } from '@etonee123x/shared/helpers/error';

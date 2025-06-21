@@ -13,7 +13,7 @@ import { filesize } from 'filesize';
 import { randomUUID } from 'crypto';
 
 import { toId, areIdsEqual } from '@etonee123x/shared/helpers/id';
-import { type Id } from '@etonee123x/shared/types/id';
+import { type Id } from '@etonee123x/shared/helpers/id';
 import { type Post } from '@etonee123x/shared/types/blog';
 import { throwError } from '@etonee123x/shared/utils/throwError';
 import {
