@@ -1,22 +1,39 @@
 import { isModeDev } from '@/helpers/mode';
+import { isString } from '@etonee123x/shared';
 import { createError } from '@etonee123x/shared/helpers/error';
+import { isRealObject } from '@etonee123x/shared/utils/isRealObject';
 import { RequestHandler } from 'express';
-import jwt from 'jsonwebtoken';
+import jsonWebToken from 'jsonwebtoken';
 
-export const checkAuth: RequestHandler = (req, res, next) => {
-  const authToken = String(req.headers.authorization);
+const JWT_COOKIE_KEY = 'jwt';
+const DEV_JWT_VALUE = 'dev-jwt';
 
-  if (isModeDev && authToken === 'dev-jwt') {
-    req.headers.tokenPayload = JSON.stringify({ role: 'Admin' });
+const shouldBypassAsDev = (jwt: string) => isModeDev && jwt === DEV_JWT_VALUE;
+
+export const checkAuth: RequestHandler = (request, response, next) => {
+  const jwt = request.cookies[JWT_COOKIE_KEY] || request.query.jwt;
+
+  if (!isString(jwt)) {
+    response.clearCookie(JWT_COOKIE_KEY);
+    throw createError({ statusCode: 401 });
+  }
+
+  if (shouldBypassAsDev(jwt)) {
+    response.cookie(JWT_COOKIE_KEY, jwt, {
+      maxAge: 1 * 60 * 60 * 1000,
+    });
 
     return next();
   }
 
   try {
-    const payload = jwt.verify(authToken, String(process.env.SECRET_KEY));
+    const payload = jsonWebToken.verify(jwt, String(process.env.SECRET_KEY));
 
-    req.headers.tokenPayload = JSON.stringify(payload);
+    response.cookie(JWT_COOKIE_KEY, jwt, {
+      expires: isRealObject(payload) && payload.exp ? new Date(payload.exp * 1000) : undefined,
+    });
   } catch (e) {
+    response.clearCookie(JWT_COOKIE_KEY);
     throw createError({ data: e, statusCode: 401 });
   }
 
