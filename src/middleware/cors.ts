@@ -10,6 +10,6 @@ export const cors: RequestHandler = (...[, res, next]) => {
   res.header('Access-Control-Allow-Origin', allowedOrigins);
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
-  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD');
   next();
 };
