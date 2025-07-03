@@ -1,31 +1,27 @@
 import { isModeDev } from '@/helpers/mode';
+import { isString } from '@etonee123x/shared';
 import { createError } from '@etonee123x/shared/helpers/error';
-import { isNil } from '@etonee123x/shared/utils/isNil';
+import { isRealObject } from '@etonee123x/shared/utils/isRealObject';
 import { RequestHandler } from 'express';
 import jsonWebToken from 'jsonwebtoken';
 
+const JWT_COOKIE_KEY = 'jwt';
+const DEV_JWT_VALUE = 'dev-jwt';
+
+const shouldBypassAsDev = (jwt: string) => isModeDev && jwt === DEV_JWT_VALUE;
+
 export const checkAuth: RequestHandler = (request, response, next) => {
-  const jwt = request.cookies.jwt || request.query.jwt;
+  const jwt = request.cookies[JWT_COOKIE_KEY] || request.query.jwt;
 
-  console.log('coockei', request.cookies.jwt);
-  console.log('request', request.query.jwt);
-
-  if (isNil(jwt)) {
-    response.clearCookie('jwt');
+  if (!isString(jwt)) {
+    response.clearCookie(JWT_COOKIE_KEY);
     throw createError({ statusCode: 401 });
   }
 
-  console.log('ставим куку');
-  response.cookie('jwt', jwt, {
-    httpOnly: true,
-    maxAge: 1 * 60 * 60 * 1000,
-    sameSite: 'lax',
-    secure: false,
-  });
-  console.log('поставили куку');
-
-  if (isModeDev && jwt === 'dev-jwt') {
-    request.headers.tokenPayload = JSON.stringify({ role: 'Admin' });
+  if (shouldBypassAsDev(jwt)) {
+    response.cookie(JWT_COOKIE_KEY, jwt, {
+      maxAge: 1 * 60 * 60 * 1000,
+    });
 
     return next();
   }
@@ -33,9 +29,11 @@ export const checkAuth: RequestHandler = (request, response, next) => {
   try {
     const payload = jsonWebToken.verify(jwt, String(process.env.SECRET_KEY));
 
-    request.headers.tokenPayload = JSON.stringify(payload);
+    response.cookie(JWT_COOKIE_KEY, jwt, {
+      expires: isRealObject(payload) && payload.exp ? new Date(payload.exp * 1000) : undefined,
+    });
   } catch (e) {
-    response.clearCookie('jwt');
+    response.clearCookie(JWT_COOKIE_KEY);
     throw createError({ data: e, statusCode: 401 });
   }
 
