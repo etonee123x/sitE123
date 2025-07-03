@@ -1,5 +1,5 @@
 import { isModeDev } from '@/helpers/mode';
-import { isString } from '@etonee123x/shared';
+import { isString } from '@etonee123x/shared/utils/isString';
 import { createError } from '@etonee123x/shared/helpers/error';
 import { isRealObject } from '@etonee123x/shared/utils/isRealObject';
 import { RequestHandler } from 'express';
