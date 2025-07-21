@@ -7,27 +7,37 @@ import { ROUTE_TO_VALIDATORS, checkAuth } from '@/middleware';
 import { HANDLER_NAME_TO_ROUTE } from '@/constants';
 import { HANDLER_NAME } from '@/types';
 import { throwError } from '@etonee123x/shared/utils/throwError';
+import { addSinceToDatabaseRow } from '@/helpers/addSinceToDatabaseRow';
 
-const router = Router();
+export const router = Router();
 
-router.get(
-  '/',
-  ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS]],
-  (req, res) => void res.send(handlers.get({ page: Number(req.query?.page), perPage: Number(req.query?.perPage) })),
+router.get('/', ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS]], (req, res) => {
+  const { rows, _meta } = handlers.get({ page: Number(req.query?.page), perPage: Number(req.query?.perPage) });
+
+  res.send({
+    _meta,
+    rows: rows.map(addSinceToDatabaseRow),
+  });
+});
+
+router.get('/:id', (req, res) => void res.send(addSinceToDatabaseRow(handlers.getById(toId(req.params.id)))));
+
+router.post('/', checkAuth, (req, res) => void res.send(addSinceToDatabaseRow(handlers.post(req.body))));
+
+router.put(
+  '/:id',
+  checkAuth,
+  (req, res) => void res.send(addSinceToDatabaseRow(handlers.put(toId(req.params.id ?? throwError()), req.body))),
 );
-
-router.get('/:id', (req, res) => void res.send(handlers.getById(toId(req.params.id))));
-
-router.post('/', checkAuth, (req, res) => void res.send(handlers.post(req.body)));
-
-router.put('/:id', checkAuth, (req, res) => void res.send(handlers.put(toId(req.params.id ?? throwError()), req.body)));
 
 router.patch(
   '/:id',
   checkAuth,
-  (req, res) => void res.send(handlers.patch(toId(req.params.id ?? throwError()), req.body)),
+  (req, res) => void res.send(addSinceToDatabaseRow(handlers.patch(toId(req.params.id ?? throwError()), req.body))),
 );
 
-router.delete('/:id', checkAuth, (req, res) => void res.send(handlers.delete(toId(req.params.id ?? throwError()))));
-
-export { router as posts };
+router.delete(
+  '/:id',
+  checkAuth,
+  (req, res) => void res.send(addSinceToDatabaseRow(handlers.delete(toId(req.params.id ?? throwError())))),
+);

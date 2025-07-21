@@ -23,6 +23,7 @@ import {
   type PaginationMeta,
   type WithMeta,
   type WithIsEnd,
+  type WithDatabaseMeta,
 } from '@etonee123x/shared/types/database';
 import { createError } from '@etonee123x/shared/helpers/error';
 import { jsonParse } from '@etonee123x/shared/utils/jsonParse';
@@ -30,38 +31,62 @@ import { format } from 'date-fns';
 import slugify from 'slugify';
 import busboy from 'busboy';
 import { formFullApiUrl } from '@/helpers/fullApiUrl';
+import { isRealObject } from '@etonee123x/shared';
+import { ro } from 'date-fns/locale';
+import { isNumber } from '@etonee123x/shared';
 
 interface TableNameToType {
   posts: Post;
 }
 
 export class DatabaseController {
-  static pathDataBase = join(process.cwd(), 'database');
+  static readonly pathDataBase = join(process.cwd(), 'database');
 }
 
-export class TableController<
+class TableReaderWriter<
   TTableTiltle extends keyof TableNameToType,
-  T extends TableNameToType[TTableTiltle],
-> extends DatabaseController {
-  private rows: Array<T> = [];
-  private absolutePath: string;
-
+  const TEntity extends TableNameToType[TTableTiltle] = TableNameToType[TTableTiltle],
+  TEntityRead = TEntity,
+  TEntityWrite = TEntity,
+> {
+  protected readonly absolutePath: string;
   constructor(tableTitle: TTableTiltle) {
-    super();
     this.absolutePath = join(DatabaseController.pathDataBase, `${tableTitle}.json`);
 
     if (!existsSync(this.absolutePath)) {
       mkdirSync(dirname(this.absolutePath), { recursive: true });
       writeFileSync(this.absolutePath, JSON.stringify([]));
     }
-
-    this.rows = jsonParse.unsafe<Array<T>>(readFileSync(this.absolutePath, { encoding: 'utf-8' }));
   }
 
-  get(
-    { perPage = 10, page = 0 }: Partial<PaginationMeta> = { perPage: 10, page: 0 },
-  ): WithMeta<WithIsEnd> & { data: Array<T> } {
-    const lastRowIndex = this.rows.length - 1;
+  read(): Array<TEntityRead> {
+    return jsonParse.unsafe<Array<TEntityRead>>(readFileSync(this.absolutePath, { encoding: 'utf-8' }));
+  }
+
+  write(rows: Array<TEntityWrite>): void {
+    writeFileSync(this.absolutePath, JSON.stringify(rows));
+  }
+}
+
+export class TableRestController<
+  const TTableTiltle extends keyof TableNameToType,
+  const TEntity extends TableNameToType[TTableTiltle],
+  const TRow extends TEntity & WithDatabaseMeta = TEntity & WithDatabaseMeta,
+> extends DatabaseController {
+  private readonly tableReaderWriter: TableReaderWriter<TTableTiltle, TEntity, TRow>;
+
+  constructor(tableTitle: TTableTiltle) {
+    super();
+
+    this.tableReaderWriter = new TableReaderWriter<TTableTiltle, TEntity, TRow>(tableTitle);
+  }
+
+  get(paginationMeta: Partial<PaginationMeta> = {}): WithMeta<WithIsEnd> & { rows: Array<TRow> } {
+    const { perPage = 10, page = 0 } = paginationMeta;
+
+    const rows = this.tableReaderWriter.read();
+
+    const lastRowIndex = rows.length - 1;
 
     const indexInitial = page * perPage;
     const indexLast = indexInitial + perPage;
@@ -69,72 +94,86 @@ export class TableController<
     const isEnd = indexLast >= lastRowIndex;
 
     return {
-      meta: {
+      _meta: {
         isEnd,
       },
-      data: this.rows.slice(indexInitial, indexLast),
+      rows: rows.slice(indexInitial, indexLast),
     };
   }
 
-  getById(id: Id): T {
-    return this.rows[this.getIndexById(id)] ?? throwError('Не найдено.');
+  getById(id: Id): TRow {
+    return this.tableReaderWriter.read()[this.getIndexById(id)] ?? throwError('Не найдено.');
   }
 
-  post(row: ForPost<T>): T {
-    const createdAt = TableController.getCreatedAt();
+  post(entity: ForPost<TEntity>): TRow {
+    const createdAt = TableRestController.getCreatedAt();
 
+    const row = {
+      ...entity,
+      _meta: {
+        id: TableRestController.generateId(),
+        createdAt,
+        updatedAt: createdAt,
+      },
+    } as TRow;
+
+    this.tableReaderWriter.write([row, ...this.tableReaderWriter.read()]);
+
+    return row;
+  }
+
+  put(id: Id, row: ForPut<TEntity>): TRow {
+    const index = this.getIndexById(id);
     const _row = {
       ...row,
-      id: TableController.getId(),
-      createdAt,
-      updatedAt: createdAt,
-    } as T;
+      _meta: {
+        ...row._meta,
+        updatedAt: TableRestController.getUpdatedAt(),
+      },
+    } as TRow;
 
-    this.rows = [_row, ...this.rows];
-
-    this.save();
-
-    return _row;
-  }
-
-  put(id: Id, row: ForPut<T>): T {
-    const index = this.getIndexById(id);
-    const _row = { ...row, updatedAt: TableController.getUpdatedAt() } as T;
-
-    this.rows = this.rows.toSpliced(index, 1, _row);
-    this.save();
+    this.tableReaderWriter.write(this.tableReaderWriter.read().toSpliced(index, 1, _row));
 
     return _row;
   }
 
-  patch(id: Id, row: ForPatch<T>): T {
+  patch(id: Id, row: ForPatch<TEntity>): TRow {
     const index = this.getIndexById(id);
 
-    const _row = { ...this.rows[index], ...row, updatedAt: TableController.getUpdatedAt() } as T;
+    const rows = this.tableReaderWriter.read();
 
-    this.rows = this.rows.toSpliced(index, 1, _row);
-    this.save();
+    const rowOld = rows[index] ?? throwError('Не найдено.');
+
+    const _row = {
+      ...rowOld,
+      ...row,
+      _meta: {
+        ...rowOld._meta,
+        updatedAt: TableRestController.getUpdatedAt(),
+      },
+    } as TRow;
+
+    this.tableReaderWriter.write(rows.toSpliced(index, 1, _row));
 
     return _row;
   }
 
-  delete(id: Id): T {
+  delete(id: Id): TRow {
     const index = this.getIndexById(id);
 
-    const row = this.rows[index];
+    const rows = this.tableReaderWriter.read();
 
-    this.rows = this.rows.toSpliced(index, 1);
-    this.save();
+    const row = rows[index];
+
+    this.tableReaderWriter.write(rows.toSpliced(index, 1));
 
     return row ?? throwError('Не найдено.');
   }
 
-  private save(): void {
-    writeFileSync(this.absolutePath, JSON.stringify(this.rows));
-  }
-
   private getIndexById(id: Id): number {
-    const index = this.rows.findIndex(({ id: _id }) => areIdsEqual(id, _id));
+    const rows = this.tableReaderWriter.read();
+
+    const index = rows.findIndex(({ _meta }) => areIdsEqual(id, _meta.id));
 
     if (index === -1) {
       throw createError({
@@ -154,7 +193,7 @@ export class TableController<
     return Date.now();
   }
 
-  private static getId(): Id {
+  private static generateId(): Id {
     return toId(Date.now());
   }
 }
@@ -219,5 +258,44 @@ export class UploadController extends DatabaseController {
     } else {
       console.info('Nothing to clear!');
     }
+  }
+}
+
+export class TableTransformController extends DatabaseController {
+  transformPostsToNewMetaFormat(): void {
+    const tableReaderWriter = new TableReaderWriter<'posts', Post, Post, Post & WithDatabaseMeta>('posts');
+
+    tableReaderWriter.write(
+      tableReaderWriter.read().map((row) => {
+        if (
+          !(
+            isRealObject(row) &&
+            'id' in row &&
+            'updatedAt' in row &&
+            isNumber(row.updatedAt) &&
+            'createdAt' in row &&
+            isNumber(row.createdAt)
+          )
+        ) {
+          this.throwError();
+        }
+
+        return {
+          ...row,
+          _meta: {
+            id: toId(String(row.id)),
+            createdAt: row.createdAt,
+            updatedAt: row.updatedAt,
+          },
+        };
+      }),
+    );
+  }
+
+  private throwError(): never {
+    throw createError({
+      data: 'An error occurred while transforming the database table.',
+      statusCode: 500,
+    });
   }
 }
