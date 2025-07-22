@@ -31,9 +31,10 @@ import { format } from 'date-fns';
 import slugify from 'slugify';
 import busboy from 'busboy';
 import { formFullApiUrl } from '@/helpers/fullApiUrl';
-import { isRealObject } from '@etonee123x/shared';
-import { ro } from 'date-fns/locale';
-import { isNumber } from '@etonee123x/shared';
+import { isNumber } from '@etonee123x/shared/utils/isNumber';
+import { objectGet } from '@etonee123x/shared/utils/objectGet';
+import { isNotNil } from '@etonee123x/shared/utils/isNotNil';
+import { omit } from '@etonee123x/shared/utils/omit';
 
 interface TableNameToType {
   posts: Post;
@@ -262,37 +263,32 @@ export class UploadController extends DatabaseController {
 }
 
 export class TableTransformController extends DatabaseController {
-  transformPostsToNewMetaFormat(): void {
+  static transformPostsToNewMetaFormat(): void {
     const tableReaderWriter = new TableReaderWriter<'posts', Post, Post, Post & WithDatabaseMeta>('posts');
 
-    tableReaderWriter.write(
-      tableReaderWriter.read().map((row) => {
-        if (
-          !(
-            isRealObject(row) &&
-            'id' in row &&
-            'updatedAt' in row &&
-            isNumber(row.updatedAt) &&
-            'createdAt' in row &&
-            isNumber(row.createdAt)
-          )
-        ) {
-          this.throwError();
-        }
+    const rowsTransformed = tableReaderWriter.read().map((row) => {
+      const maybeId = objectGet(row, 'id');
+      const maybeCreatedAt = objectGet(row, 'createdAt');
+      const maybeUpdatedAt = objectGet(row, 'updatedAt');
 
-        return {
-          ...row,
-          _meta: {
-            id: toId(String(row.id)),
-            createdAt: row.createdAt,
-            updatedAt: row.updatedAt,
-          },
-        };
-      }),
-    );
+      if (!(isNotNil(maybeId) && isNumber(maybeCreatedAt) && isNumber(maybeUpdatedAt))) {
+        this.throwError();
+      }
+
+      return {
+        ...omit(row as Post & Record<'id' | 'createdAt' | 'updatedAt', unknown>, ['id', 'createdAt', 'updatedAt']),
+        _meta: {
+          id: toId(String(maybeId)),
+          createdAt: maybeCreatedAt,
+          updatedAt: maybeUpdatedAt,
+        },
+      };
+    });
+
+    tableReaderWriter.write(rowsTransformed);
   }
 
-  private throwError(): never {
+  private static throwError(): never {
     throw createError({
       data: 'An error occurred while transforming the database table.',
       statusCode: 500,

@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "script:clearUnusedUploads": "ts-node src/scripts/clearUnusedUploads",
-    "script:transformDatabaseTableToNewMetaFormat": "ts-node src/scripts/transformDatabaseTableToNewMetaFormat"
+    "script:transformPostsToNewMetaFormat": "ts-node src/scripts/transformPostsToNewMetaFormat"
   },
   "dependencies": {
     "@etonee123x/shared": "github:etonee123x/shared",
