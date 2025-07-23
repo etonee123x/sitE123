@@ -58,7 +58,7 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
       name: fullName,
       url: pathToFileURL(outerFilePath),
       src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
-      birthtime: statSync(makeInnerPath(outerFilePath)).birthtime.toISOString(),
+      birthtimeMs: statSync(makeInnerPath(outerFilePath)).birthtimeMs,
     });
 
     if (isExtAudio(ext)) {
@@ -94,7 +94,7 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
         url: pathToFileURL(join(currentDirectory, element.name)),
         src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
         numberOfThisExt,
-        birthtime: statSync(innerFilePath).birthtime.toISOString(),
+        birthtimeMs: statSync(innerFilePath).birthtimeMs,
       });
 
       if (element.isDirectory()) {

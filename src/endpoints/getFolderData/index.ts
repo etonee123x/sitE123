@@ -11,7 +11,19 @@ router.get(
   ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.GET_FOLDER_DATA]],
   async (req, res, next) => {
     await handler(req.params[0] || '/')
-      .then((r) => res.send(r))
+      .then((folderData) => {
+        const now = Date.now();
+
+        const folderDataWithSinceTimestamps = {
+          ...folderData,
+          items: folderData.items.map((item) => ({
+            ...item,
+            sinceBirthtime: now - item.birthtimeMs,
+          })),
+        };
+
+        res.send(folderDataWithSinceTimestamps);
+      })
       .catch(next);
   },
 );
