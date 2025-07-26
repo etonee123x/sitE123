@@ -28,14 +28,31 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
   const makeInnerPath = (path: string) => join(STATIC_CONTENT_FOLDER, path);
   const pathToFileURL = (path: string) => path.replace(new RegExp(`\\${sep}`, 'g'), '/');
   const getMetaDataFields = async (path: string) =>
-    await parseFile(path).then(({ common: { album, artists = [], bpm, year }, format: { bitrate, duration } }) => ({
-      bitrate: bitrate && bitrate / 1000,
-      duration: Number((duration ?? 0).toFixed(2)),
-      album,
-      artists,
-      bpm,
-      year,
-    }));
+    parseFile(path) //
+      .then(
+        ({
+          //
+          common: {
+            //
+            album,
+            artists = [],
+            bpm,
+            year,
+          },
+          format: {
+            //
+            bitrate,
+            duration,
+          },
+        }) => ({
+          bitrate: bitrate && bitrate / 1000,
+          duration: (duration ?? 0) * 1000,
+          album,
+          artists,
+          bpm,
+          year,
+        }),
+      );
 
   let linkedFile: ItemFile | null = null;
   let currentDirectory: string;
@@ -58,7 +75,9 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
       name: fullName,
       url: pathToFileURL(outerFilePath),
       src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
-      birthtimeMs: statSync(makeInnerPath(outerFilePath)).birthtimeMs,
+      _meta: {
+        createdAt: statSync(makeInnerPath(outerFilePath)).birthtimeMs,
+      },
     });
 
     if (isExtAudio(ext)) {
@@ -94,7 +113,9 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
         url: pathToFileURL(join(currentDirectory, element.name)),
         src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
         numberOfThisExt,
-        birthtimeMs: statSync(innerFilePath).birthtimeMs,
+        _meta: {
+          createdAt: statSync(innerFilePath).birthtimeMs,
+        },
       });
 
       if (element.isDirectory()) {

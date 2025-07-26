@@ -3,6 +3,7 @@ import { ROUTE_TO_VALIDATORS } from '@/middleware';
 import { HANDLER_NAME } from '@/types';
 import { Router } from 'express';
 import { handler } from './handlers';
+import { addSinceTimestamps } from '@/helpers/addSinceTimestamps';
 
 const router = Router();
 
@@ -18,8 +19,14 @@ router.get(
           ...folderData,
           items: folderData.items.map((item) => ({
             ...item,
-            sinceBirthtime: now - item.birthtimeMs,
+            _meta: addSinceTimestamps(item._meta, now),
           })),
+          linkedFile: folderData.linkedFile
+            ? {
+                ...folderData.linkedFile,
+                _meta: addSinceTimestamps(folderData.linkedFile._meta, now),
+              }
+            : null,
         };
 
         res.send(folderDataWithSinceTimestamps);

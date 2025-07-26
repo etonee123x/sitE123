@@ -7,7 +7,7 @@ import { ROUTE_TO_VALIDATORS, checkAuth } from '@/middleware';
 import { HANDLER_NAME_TO_ROUTE } from '@/constants';
 import { HANDLER_NAME } from '@/types';
 import { throwError } from '@etonee123x/shared/utils/throwError';
-import { addSinceToDatabaseRow } from '@/helpers/addSinceToDatabaseRow';
+import { addSinceTimestamps } from '@/helpers/addSinceTimestamps';
 
 export const router = Router();
 
@@ -16,28 +16,54 @@ router.get('/', ...ROUTE_TO_VALIDATORS[HANDLER_NAME_TO_ROUTE[HANDLER_NAME.POSTS]
 
   res.send({
     _meta,
-    rows: rows.map(addSinceToDatabaseRow),
+    rows: rows.map((row) => ({
+      ...row,
+      _meta: addSinceTimestamps(row._meta),
+    })),
   });
 });
 
-router.get('/:id', (req, res) => void res.send(addSinceToDatabaseRow(handlers.getById(toId(req.params.id)))));
+router.get('/:id', (req, res) => {
+  const post = handlers.getById(toId(req.params.id));
 
-router.post('/', checkAuth, (req, res) => void res.send(addSinceToDatabaseRow(handlers.post(req.body))));
+  res.send({
+    ...post,
+    _meta: addSinceTimestamps(post._meta),
+  });
+});
 
-router.put(
-  '/:id',
-  checkAuth,
-  (req, res) => void res.send(addSinceToDatabaseRow(handlers.put(toId(req.params.id ?? throwError()), req.body))),
-);
+router.post('/', checkAuth, (req, res) => {
+  const post = handlers.post(req.body);
 
-router.patch(
-  '/:id',
-  checkAuth,
-  (req, res) => void res.send(addSinceToDatabaseRow(handlers.patch(toId(req.params.id ?? throwError()), req.body))),
-);
+  res.send({
+    ...post,
+    _meta: addSinceTimestamps(post._meta),
+  });
+});
 
-router.delete(
-  '/:id',
-  checkAuth,
-  (req, res) => void res.send(addSinceToDatabaseRow(handlers.delete(toId(req.params.id ?? throwError())))),
-);
+router.put('/:id', checkAuth, (req, res) => {
+  const post = handlers.put(toId(req.params.id ?? throwError()), req.body);
+
+  res.send({
+    ...post,
+    _meta: addSinceTimestamps(post._meta),
+  });
+});
+
+router.patch('/:id', checkAuth, (req, res) => {
+  const post = handlers.patch(toId(req.params.id ?? throwError()), req.body);
+
+  res.send({
+    ...post,
+    _meta: addSinceTimestamps(post._meta),
+  });
+});
+
+router.delete('/:id', checkAuth, (req, res) => {
+  const post = handlers.delete(toId(req.params.id ?? throwError()));
+
+  res.send({
+    ...post,
+    _meta: addSinceTimestamps(post._meta),
+  });
+});

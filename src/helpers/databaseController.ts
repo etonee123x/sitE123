@@ -114,7 +114,6 @@ export class TableRestController<
       _meta: {
         id: TableRestController.generateId(),
         createdAt,
-        updatedAt: createdAt,
       },
     } as TRow;
 
@@ -280,7 +279,11 @@ export class TableTransformController extends DatabaseController {
         _meta: {
           id: toId(String(maybeId)),
           createdAt: maybeCreatedAt,
-          updatedAt: maybeUpdatedAt,
+          ...(maybeUpdatedAt && maybeUpdatedAt !== maybeCreatedAt
+            ? {
+                updatedAt: maybeUpdatedAt,
+              }
+            : {}),
         },
       };
     });
