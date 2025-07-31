@@ -18,7 +18,6 @@ import {
   ItemVideo,
 } from '@etonee123x/shared/helpers/folderData';
 import { isExtAudio, isExtImage, isExtVideo } from '@etonee123x/shared/helpers/folderData';
-import { isNil } from '@etonee123x/shared/utils/isNil';
 import { createError } from '@etonee123x/shared/helpers/error';
 
 const STATIC_CONTENT_FOLDER = 'content';
@@ -82,13 +81,16 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
 
     if (isExtAudio(ext)) {
       linkedFile = new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerPath));
+    } else if (isExtImage(ext)) {
+      linkedFile = new ItemImage(new ItemFile(baseItem, ext));
+    } else if (isExtVideo(ext)) {
+      linkedFile = new ItemVideo(new ItemFile(baseItem, ext));
     }
   } else {
     currentDirectory = outerPath;
   }
   currentDirectory = currentDirectory || '/';
 
-  const elementsNumbers: Record<string, number> = {};
   const items = await readdirSync(makeInnerPath(currentDirectory), { withFileTypes: true })
     .reduce<Promise<Array<Item>>>(async (promiseAcc, element) => {
       if (PROHIBITED_ELEMENTS_NAMES.includes(element.name)) {
@@ -101,18 +103,10 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
       const innerFilePath = makeInnerPath(outerFilePath);
       const { ext } = parsePath(innerFilePath);
 
-      let numberOfThisExt = elementsNumbers[ext ?? ITEM_TYPE.FOLDER];
-
-      if (isNil(numberOfThisExt)) {
-        elementsNumbers[ext ?? ITEM_TYPE.FOLDER] = 1;
-        numberOfThisExt = 1;
-      }
-
       const baseItem = new ItemBase({
         name: element.name,
         url: pathToFileURL(join(currentDirectory, element.name)),
         src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
-        numberOfThisExt,
         _meta: {
           createdAt: statSync(innerFilePath).birthtimeMs,
         },
