@@ -9,15 +9,11 @@ import {
   Item,
   NavigationItem,
   FolderData,
-  ITEM_TYPE,
   ItemFile,
-  ItemBase,
-  ItemFolder,
-  ItemAudio,
-  ItemImage,
-  ItemVideo,
+  extensionToFileType,
+  FILE_TYPES,
+  ITEM_TYPES,
 } from '@etonee123x/shared/helpers/folderData';
-import { isExtAudio, isExtImage, isExtVideo } from '@etonee123x/shared/helpers/folderData';
 import { createError } from '@etonee123x/shared/helpers/error';
 
 const STATIC_CONTENT_FOLDER = 'content';
@@ -70,21 +66,41 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
     const { name, ext } = parsePath(urlPath);
     const fullName = [name, ext].join('');
     const outerFilePath = join(currentDirectory, fullName);
-    const baseItem = new ItemBase({
+    const baseItem = {
       name: fullName,
       url: pathToFileURL(outerFilePath),
       src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
+      itemType: ITEM_TYPES.FILE,
       _meta: {
         createdAt: statSync(makeInnerPath(outerFilePath)).birthtimeMs,
       },
-    });
+    };
 
-    if (isExtAudio(ext)) {
-      linkedFile = new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerPath));
-    } else if (isExtImage(ext)) {
-      linkedFile = new ItemImage(new ItemFile(baseItem, ext));
-    } else if (isExtVideo(ext)) {
-      linkedFile = new ItemVideo(new ItemFile(baseItem, ext));
+    const fileType = extensionToFileType(ext);
+
+    switch (fileType) {
+      case FILE_TYPES.AUDIO:
+        linkedFile = {
+          ...baseItem,
+          ext,
+          fileType: FILE_TYPES.AUDIO,
+          musicMetadata: await getMetaDataFields(innerPath),
+        };
+        break;
+      case FILE_TYPES.IMAGE:
+        linkedFile = {
+          ...baseItem,
+          ext,
+          fileType: FILE_TYPES.IMAGE,
+        };
+        break;
+      case FILE_TYPES.VIDEO:
+        linkedFile = {
+          ...baseItem,
+          ext,
+          fileType: FILE_TYPES.VIDEO,
+        };
+        break;
     }
   } else {
     currentDirectory = outerPath;
@@ -103,34 +119,46 @@ export const handler = async (urlPath: string): Promise<FolderData> => {
       const innerFilePath = makeInnerPath(outerFilePath);
       const { ext } = parsePath(innerFilePath);
 
-      const baseItem = new ItemBase({
+      const baseItem = {
         name: element.name,
         url: pathToFileURL(join(currentDirectory, element.name)),
         src: formFullApiUrl(join(STATIC_CONTENT_FOLDER, outerFilePath)),
         _meta: {
           createdAt: statSync(innerFilePath).birthtimeMs,
         },
-      });
+      };
 
       if (element.isDirectory()) {
-        return [...acc, new ItemFolder(baseItem)];
+        return [...acc, { ...baseItem, itemType: ITEM_TYPES.FOLDER }];
       }
 
-      if (isExtAudio(ext)) {
-        return [...acc, new ItemAudio(new ItemFile(baseItem, ext), await getMetaDataFields(innerFilePath))];
-      }
+      const fileType = extensionToFileType(ext);
 
-      if (isExtImage(ext)) {
-        return [...acc, new ItemImage(new ItemFile(baseItem, ext))];
+      switch (fileType) {
+        case FILE_TYPES.AUDIO:
+          return [
+            ...acc,
+            {
+              ...baseItem,
+              itemType: ITEM_TYPES.FILE,
+              fileType: FILE_TYPES.AUDIO,
+              ext,
+              musicMetadata: await getMetaDataFields(innerFilePath),
+            },
+          ];
+        case FILE_TYPES.IMAGE:
+          return [...acc, { ...baseItem, itemType: ITEM_TYPES.FILE, fileType: FILE_TYPES.IMAGE, ext }];
+        case FILE_TYPES.VIDEO:
+          return [...acc, { ...baseItem, itemType: ITEM_TYPES.FILE, fileType: FILE_TYPES.VIDEO, ext }];
+        default:
+          return [...acc, { ...baseItem, itemType: ITEM_TYPES.FILE, fileType: FILE_TYPES.UNKNOWN, ext }];
       }
-
-      if (isExtVideo(ext)) {
-        return [...acc, new ItemVideo(new ItemFile(baseItem, ext))];
-      }
-
-      return [...acc, new ItemFile(baseItem, ext)];
     }, Promise.resolve([]))
-    .then((_items) => _items.sort((a, b) => -Number(a.type === ITEM_TYPE.FOLDER && b.type === ITEM_TYPE.FILE)));
+    .then((items) =>
+      items.toSorted(
+        (item1, item2) => -Number(item1.itemType === ITEM_TYPES.FOLDER && item2.itemType === ITEM_TYPES.FILE),
+      ),
+    );
 
   currentDirectory = pathToFileURL(currentDirectory);
   const lvlUp = currentDirectory === '/' ? null : dirname(currentDirectory);
