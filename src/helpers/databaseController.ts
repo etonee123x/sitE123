@@ -27,7 +27,6 @@ import {
 } from '@etonee123x/shared/types/database';
 import { createError } from '@etonee123x/shared/helpers/error';
 import { jsonParse } from '@etonee123x/shared/utils/jsonParse';
-import { format } from 'date-fns';
 import slugify from 'slugify';
 import busboy from 'busboy';
 import { formFullApiUrl } from '@/helpers/fullApiUrl';
@@ -209,18 +208,34 @@ export class UploadController extends DatabaseController {
       mkdirSync(UploadController.pathUploadsFull, { recursive: true });
     }
 
-    const addDateTime = (fileName: string) => [fileName, format(new Date(), 'yyyy-MM-dd_HH-mm-ss')].join('_');
-    const addHash = (fileName: string) => [fileName, randomUUID().split('-', 1)[0]].join('_');
-
     const { name, ext } = parse(Buffer.from(filename, 'latin1').toString('utf8'));
 
     let fileName = slugify(name, { lower: true, strict: true, locale: 'ru' });
 
     if (UploadController.IS_ADDING_DATE_TIME_ENABLED) {
-      fileName = addDateTime(fileName);
+      const withPadStart = (value: number) => String(value).padStart(2, '0');
+      const date = new Date();
+
+      fileName = [
+        fileName,
+        [
+          [
+            //
+            date.getFullYear(),
+            withPadStart(date.getMonth() + 1),
+            withPadStart(date.getDate()),
+          ].join('-'),
+          [
+            //
+            withPadStart(date.getHours()),
+            withPadStart(date.getMinutes()),
+            withPadStart(date.getSeconds()),
+          ].join('-'),
+        ].join('_'),
+      ].join('_');
     }
 
-    fileName = addHash(fileName);
+    fileName = [fileName, randomUUID().split('-', 1)[0]].join('_');
 
     fileName = [fileName, ext].join('');
 
